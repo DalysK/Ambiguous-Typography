@@ -54,7 +54,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-   overflow:hidden;
+    overflow: hidden;
 }
 
 /* 📌 POPUP WINDOW */
@@ -68,6 +68,8 @@ body {
     flex-direction: column;
     z-index: 1; /*make sure it stays ontop */
 }
+
+/* 📌 Top Bar of Pop-up */
 
 /* 📌 Top Bar of Pop-up */
 
