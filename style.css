@@ -38,7 +38,7 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    z-index: 0; /*keep it behind everything*/
+    z-index: -999; /*keep it behind everything*/
 }
 .main-section {
     position: relative;
