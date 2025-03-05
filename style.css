@@ -48,7 +48,7 @@ body {
      width: 100%;
     height: 100%;
     object-fit: cover; /* Ensures it fills the screen without distortion */
-}
+
 
 .main-section {
     position: relative;
