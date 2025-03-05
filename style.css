@@ -66,8 +66,8 @@ body {
 }
 .popup-container {
     display: grid;
-    grid-template-columns: 1fr 2fr; /* First pop-up is bigger */
-    gap: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Allows one or two pop-ups */
+    gap: 20px; /* Space between pop-ups */
     width: 80%;
     max-width: 1200px;
     position: absolute;
