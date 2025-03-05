@@ -40,12 +40,6 @@ body {
     z-index: -999; /*keep it behind everything*/
 }
 
-/*
-.background-grid img{
-     width: 100%;
-    height: 100%;
-    object-fit: cover; /* Ensures it fills the screen without distortion */
-}
 
 .main-section {
     position: relative;
@@ -57,19 +51,7 @@ body {
     overflow: hidden;
 }
 
-.popup-window {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centers it properly */
-    width: 70%;
-    max-width: 800px;
-    background: lightgray;
-    border: 3px solid black;
-    display: flex;
-    flex-direction: column;
-    z-index: 1; /* Make sure it stays on top */
-}
+
 
 /* 📌 POPUP WINDOW */
 /*.popup-window {
@@ -82,12 +64,28 @@ body {
     flex-direction: column;
     z-index: 1; /*make sure it stays ontop */
 }
+.popup-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Allows one or two pop-ups */
+    gap: 20px; /* Space between pop-ups */
+    width: 80%;
+    max-width: 1200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
 
-/* 📌 Top Bar of Pop-up */
+/* 📌 Pop-up Window */
+.popup-window {
+    background: lightgray;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+}
 
-/* 📌 Top Bar of Pop-up */
-
-/* 📌 Top Bar of Pop-up */
+/* 📌 Header */
 .popup-header {
     display: flex;
     justify-content: space-between;
@@ -95,18 +93,6 @@ body {
     background: grey;
     border-bottom: 3px solid black;
     padding: 10px;
-}
-
-.window-title {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-.close-btn {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
 }
 
 /* 📌 Play Area */
@@ -118,7 +104,7 @@ body {
     min-height: 300px;
 }
 
-/* 📌 Bottom Section of Pop-up */
+/* 📌 Footer */
 .popup-footer {
     background: grey;
     border-top: 3px solid black;
@@ -127,6 +113,7 @@ body {
     justify-content: space-between;
 }
 
+/* 📌 Buttons */
 button {
     padding: 8px 15px;
     font-size: 16px;
@@ -134,7 +121,6 @@ button {
     background: white;
     cursor: pointer;
 }
-
 /* 🔹 BOTTOM SECTION */
 .bottom-section {
     position: relative;
