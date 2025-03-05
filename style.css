@@ -31,6 +31,11 @@ body {
    position: absolute;
     width: 100%;
     height:100%;
+    background-size: cover;  /* Makes image fully fit within the container */
+    background-position: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     z-index: 0; /*keep it behind everything*/
 }
 .main-section {
@@ -40,6 +45,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    overflow: hidden;
 }
 
 /* 📌 POPUP WINDOW */
@@ -51,6 +57,7 @@ body {
     border: 3px solid black;
     display: flex;
     flex-direction: column;
+    z-index: 1; /*make sure it stays ontop */
 }
 
 /* 📌 Top Bar of Pop-up */
