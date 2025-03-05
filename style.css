@@ -28,7 +28,7 @@ body {
 
 /* 🔹 MAIN SECTION */
 .background-grid{
-    background-size: contain;
+    background-size: 50%;
 }
 .main-section {
     position: relative;
