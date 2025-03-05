@@ -32,7 +32,7 @@ body {
    position: fixed;
     width: 100vw;
     height:100vh;
-    background-size: 50%;  /* Makes image fully fit within the container */
+    background-size: 100%;  /* Makes image fully fit within the container */
     background-position: center;
     display: flex;
     justify-content: center;
@@ -40,6 +40,13 @@ body {
     overflow: hidden;
     z-index: -999; /*keep it behind everything*/
 }
+
+.background-grid img{
+     width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures it fills the screen without distortion */
+}
+
 .main-section {
     position: relative;
     width: 100%;
