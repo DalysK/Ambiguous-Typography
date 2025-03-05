@@ -78,6 +78,10 @@ body {
 
 /* 📌 Pop-up Window */
 .popup-window {
+    min-width: 500px; /* Ensures it never gets too narrow */
+    width: 60%; /* Adjust this if needed */
+    max-width: 800px; /* Prevents it from being too large */
+    min-height: 300px; /* Ensures enough height */
     background: lightgray;
     border: 3px solid black;
     display: flex;
