@@ -29,7 +29,7 @@ body {
 
 /* 🔹 MAIN SECTION */
 .background-grid{
-   position: absolute;
+   position: fixed;
     width: 100vw;
     height:100vh;
     background-size: 100%;  /* Makes image fully fit within the container */
