@@ -33,6 +33,7 @@ body {
     width: 100vw;
     height:100vh;
     background-size: auto;  /* Makes image fully fit within the container */
+    background-image: URL('assets/images/AdobeStock_545452822.png');
     background-position: center;
     display: flex;
     justify-content: center;
@@ -41,6 +42,7 @@ body {
     z-index: -999; /*keep it behind everything*/
 }
 
+/*
 .background-grid img{
      width: 100%;
     height: 100%;
