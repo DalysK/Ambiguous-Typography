@@ -18,7 +18,10 @@ body {
     padding: 10px;
     text-align: left;
 }
-
+#nav a{
+    text-decoration: none;
+    color: grey;
+}
 .text-container a {
     text-decoration: none;
     color: black;
