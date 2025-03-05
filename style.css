@@ -31,7 +31,7 @@ body {
 .background-grid{
    position: fixed;
     width: 100vw;
-    height:100vh;
+    min-height:100%;
     background-size: 50px 50px;  /* Makes image fully fit within the container */
     background-image: URL('assets/images/AdobeStock_545452822.png');
     background-position: top left;
