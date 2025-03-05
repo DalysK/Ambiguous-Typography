@@ -57,8 +57,22 @@ body {
     overflow: hidden;
 }
 
-/* 📌 POPUP WINDOW */
 .popup-window {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers it properly */
+    width: 70%;
+    max-width: 800px;
+    background: lightgray;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    z-index: 1; /* Make sure it stays on top */
+}
+
+/* 📌 POPUP WINDOW */
+/*.popup-window {
     position: relative;
     width: 70%;
     max-width: 800px;
