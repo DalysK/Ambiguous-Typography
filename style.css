@@ -27,16 +27,13 @@ body {
     font-weight: bold;
 }
 
-/* 🔹 MAIN SECTION */
 .background-grid{
    position: fixed;
-    top: 0;
-    left: 0;
     width: 100vw;
-    height:100%;
-    background-size: 20%;  /* Makes image fully fit within the container */
+    height:100vh;
+    background-size: auto;  /* Makes image fully fit within the container */
     background-image: URL('assets/images/AdobeStock_545452822.png');
- 
+    background-position: center;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -48,7 +45,7 @@ body {
      width: 100%;
     height: 100%;
     object-fit: cover; /* Ensures it fills the screen without distortion */
-
+}
 
 .main-section {
     position: relative;
@@ -62,18 +59,17 @@ body {
 
 /* 📌 POPUP WINDOW */
 .popup-window {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%); /* Centers it properly */
+    position: relative;
     width: 70%;
     max-width: 800px;
     background: lightgray;
     border: 3px solid black;
     display: flex;
     flex-direction: column;
-    z-index: 1; /* Make sure it stays on top */
+    z-index: 1; /*make sure it stays ontop */
 }
+
+/* 📌 Top Bar of Pop-up */
 
 /* 📌 Top Bar of Pop-up */
 .popup-header {
