@@ -68,7 +68,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); /* Allows one or two pop-ups */
     gap: 20px; /* Space between pop-ups */
-    width: 80%;
+    width: 100%;
     max-width: 1200px;
     position: absolute;
     top: 50%;
