@@ -32,7 +32,7 @@ body {
    position: fixed;
     width: 100vw;
     height:100vh;
-    background-size: 100%;  /* Makes image fully fit within the container */
+    background-size: auto;  /* Makes image fully fit within the container */
     background-position: center;
     display: flex;
     justify-content: center;
