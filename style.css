@@ -36,7 +36,7 @@ body {
     height:100%;
     background-size: auto;  /* Makes image fully fit within the container */
     background-image: URL('assets/images/AdobeStock_545452822.png');
-    background-position: top left;
+ 
     display: flex;
     justify-content: center;
     align-items: center;
