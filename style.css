@@ -40,8 +40,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: -999; /*keep it behind everything*/
-    background-repeat: repeat;
+    z-index: 0; /*keep it behind everything*/
+   
 }
 
 /*
