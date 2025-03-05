@@ -8,43 +8,51 @@
 </head>
 <body>
 
-    <!-- HEADER / TITLE -->
-    <header>
-        <h1>AMBIGUOUS TYPOGRAPHY</h1>
+    <!-- 🔹 TOP SECTION -->
+    <header class="top-section">
+        <div class="text-container">
+            <a href="index.html">AMBIGUOUS TYPOGRAPHY</a>
+        </div>
     </header>
 
-    <main>
-        <!-- TOOLBAR (Left Panel) -->
-        <div class="toolbar">
-            <h3>Shapes</h3>
-            <div class="shapes-container">
-                <!-- Shapes will be dynamically added here -->
-            </div>
-            <div class="controls">
-                <button id="rotate">Rotate</button>
-                <button id="resize">Resize</button>
-                <button id="color">Change Color</button>
-            </div>
-        </div>
+    <!-- 🔹 MAIN SECTION -->
+    <main class="main-section">
+        <!-- Background Grid Image -->
+        <div class="background-grid"></div>
 
-        <!-- PLAY AREA (Right Panel) -->
-        <div class="play-area">
-            <h3>Build Your Typography</h3>
-            <div id="grid">
-                <!-- Dragged shapes will be placed here -->
+        <!-- POP-UP WINDOW (Typography Play Area) -->
+        <section class="popup-window">
+            <!-- Top Bar (Title + Exit Button) -->
+            <div class="popup-header">
+                <span class="window-title">Geometric</span>
+                <button class="close-btn">✖</button>
             </div>
-            <button id="reset">Reset</button>
-            <button id="save">Save</button>
-        </div>
+
+            <!-- Play Area (Grid Background) -->
+            <div class="play-area">
+                <div class="grid-container">
+                    <!-- Typography Shapes will be placed here -->
+                </div>
+            </div>
+
+            <!-- Bottom Button Section -->
+            <div class="popup-footer">
+                <button id="reset">Reset</button>
+                <button id="save">Save</button>
+            </div>
+        </section>
     </main>
 
-    <!-- BOTTOM MENU -->
-    <footer>
-        <button class="mode-btn">Geometric</button>
-        <button class="mode-btn">Tetris</button>
-        <button class="mode-btn">Swipe</button>
-        <button class="mode-btn">Line</button>
-        <button class="mode-btn">Random</button>
+    <!-- 🔹 BOTTOM SECTION -->
+    <footer class="bottom-section">
+        <img src="background-image.png" alt="Bottom Background" class="bottom-img">
+        <div class="button-container">
+            <button class="mode-btn"><img src="icons/geometric.svg" alt="Geometric"></button>
+            <button class="mode-btn"><img src="icons/flow.svg" alt="Flow"></button>
+            <button class="mode-btn"><img src="icons/dots.svg" alt="Dots"></button>
+            <button class="mode-btn"><img src="icons/stack.svg" alt="Stack"></button>
+            <button class="mode-btn"><img src="icons/random.svg" alt="Random"></button>
+        </div>
     </footer>
 
     <script src="script.js"></script>
