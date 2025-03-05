@@ -44,6 +44,7 @@ body {
 
 /* 📌 POPUP WINDOW */
 .popup-window {
+    position: relative;
     width: 70%;
     max-width: 800px;
     background: lightgray;
