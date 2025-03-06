@@ -155,7 +155,7 @@ button {
     cursor: pointer;
 }
 
-#reset #save{
+#reset, #save{
     font-family: ChicagoFLF, sans-serif;
 }
 /* 🔹 BOTTOM SECTION */
