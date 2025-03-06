@@ -26,13 +26,6 @@ body {
     color: #4D2154; 
 }
 
-.top-section {
-    background-color: white;
-    border-bottom: 3px solid black;
-    padding: 10px;
-    text-align: left;
-}
-
 
 .background-grid{
    position: fixed;
