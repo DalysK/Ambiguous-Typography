@@ -15,6 +15,14 @@ body {
 }
 
 /* 🔹 TOP SECTION */
+.nav-container{
+    background-color: white;
+    border-bottom: 3px solid black;
+    padding: 10px;
+    text-align: left;
+}
+
+
 .top-section {
     background-color: white;
     border-bottom: 3px solid black;
@@ -28,6 +36,8 @@ body {
     font-size: 24px;
     font-weight: bold;
 }
+
+
 
 .background-grid{
    position: fixed;
