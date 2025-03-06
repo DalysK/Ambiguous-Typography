@@ -81,7 +81,7 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 2000px;
+    max-width: 1800px;
     height: auto;
     position: absolute;
     top: 50%;
@@ -92,8 +92,8 @@ body {
 /* 📌 Pop-up Window */
 .popup-window {
     width: 100%;
-    max-width: 1000px;
-    min-height: 600px;
+    max-width: 900px;
+    min-height: 500px;
     background: lightgray;
     border: 3px solid black;
     display: flex;
