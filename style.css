@@ -159,10 +159,6 @@ button {
 
 #reset, #save{
     font-family: ChicagoFLF, sans-serif;
-     padding: 4px 28px;
-    border: 2px solid black;
-    background-color: white;
-    cursor: pointer;
 }
 /* 🔹 BOTTOM SECTION */
 .bottom-section {
