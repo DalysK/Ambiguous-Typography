@@ -147,7 +147,18 @@ body {
 }
 
 /* 📌 Buttons */
-button {
+/*button {
+    padding: 4px 28px;
+    border: 2px solid black;
+    background-color: white;
+    cursor: pointer;
+    margin-left: auto;
+    border-radius: 4px;
+    box-shadow: 2px 1px;
+} */
+
+#reset, #save{
+    font-family: ChicagoFLF, sans-serif;
     padding: 4px 28px;
     border: 2px solid black;
     background-color: white;
@@ -156,9 +167,6 @@ button {
     border-radius: 4px;
     box-shadow: 2px 1px;
 }
-
-#reset, #save{
-    font-family: ChicagoFLF, sans-serif;
 }
 /* 🔹 BOTTOM SECTION */
 .bottom-section {
