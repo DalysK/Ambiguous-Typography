@@ -1,4 +1,4 @@
-
+t
 * {
     margin: 0;
     padding: 0;
@@ -217,13 +217,10 @@ body {
    background: none;
     border: none;
     cursor: pointer;
+     height: 68px;
 }
 .mode-btn img {
     width: 64px;
     height: 64px;
 }
 
-.mode-btn-big img{
-    width: 68px;
-    height: 68px;
-}
