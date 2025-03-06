@@ -66,9 +66,7 @@ body {
 }
 
 .main-section {
-    display: grid;
-    grid-template-columns: 1fr 2fr; /* First pop-up = small, second pop-up = big */
-    gap: 20px; /* Space between items */
+    display: flex;
     width: 100%;
     max-width: 2000px;
     height: 100vh;
@@ -81,10 +79,11 @@ body {
 }
 
 .popup-container {
-     display: flex;
+    display: flex;
     gap: 20px; /* Space between pop-ups */
     width: 100%;
     max-width:1500px;
+    height: 800px;
     position: absolute;
     top: 50%;
     left: 50%;
