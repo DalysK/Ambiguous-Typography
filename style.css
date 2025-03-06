@@ -67,9 +67,9 @@ body {
 
 .main-section {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* Creates a responsive grid */
+    grid-template-columns: 1fr 2fr; /* First pop-up = small, second pop-up = big */
     gap: 20px; /* Space between items */
-    width: 90%;
+    width: 100%;
     max-width: 2000px;
     height: 100vh;
     position: absolute;
