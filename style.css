@@ -181,7 +181,7 @@ body {
 
 .bottom-img {
     position: absolute;
-    width: 100%;
+    width: auto;
     height: 100%;
     object-fit: cover;
     z-index: -1;
@@ -190,7 +190,7 @@ body {
 
 .button-container {
     display: flex;
-    gap: 15px;
+    gap: 20px;
 }
 
 .mode-btn {
