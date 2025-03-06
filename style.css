@@ -76,8 +76,8 @@ body {
 
 .popup-container {
     display: flex;
-    gap: 20px; /* Space between pop-ups */
-    width: 100%;
+    width: 80%;
+    min-width:1200px;
     height: 800px;
     position: absolute;
     top: 50%;
@@ -90,7 +90,7 @@ body {
     min-width: 800px; /* Ensures it never gets too narrow */
     width: 100%; /* Adjust this if needed */
     max-width: 800px; /* Prevents it from being too large */
-    min-height: 300px; /* Ensures enough height */
+    min-height: 500px; /* Ensures enough height */
     background: lightgray;
     border: 3px solid black;
     display: flex;
