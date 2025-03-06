@@ -177,10 +177,11 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    bottom:0;
 }
 
 .bottom-img {
-    position: absolute;
+    position: fixed;
     width: auto;
     height: 100%;
     object-fit: cover;
