@@ -7,7 +7,7 @@
 }
 
 body {
-    background-color: #222;
+    background-color: #5D5D5D;
     font-family: ChicagoFLF, sans-serif;
     color: white;
     width: 100%;
@@ -16,7 +16,7 @@ body {
 
 /* 🔹 TOP SECTION */
 #nav{
-    background-color: white;
+    background-color: F8F8F8;
     border-bottom: 3px solid black;
     padding: 20px;
 }
@@ -109,7 +109,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: grey;
+    background: #D5D5D5;
     border-bottom: 3px solid black;
     padding-right: 0px;
     border-radius: 4px 4px 0px 0px;
@@ -126,7 +126,7 @@ body {
 
 /* 📌 Footer */
 .popup-footer {
-    background: grey;
+    background: D5D5D5;
     border-top: 3px solid black;
     padding: 10px;
     display: flex;
@@ -142,7 +142,7 @@ body {
     border-radius: 0px 4px 0px 0px;
     padding: 3px 6px;
     border: 2px solid black;
-    background: white;
+    background: #909090;
     cursor: pointer;
 }
 
