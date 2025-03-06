@@ -141,13 +141,11 @@ body {
     border-bottom: 0px solid black; 
     border-left: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
-
-
 }
+
 /* 📌 Buttons */
 button {
     padding: 8px 15px;
-    font-size: 16px;
     border: 2px solid black;
     background: white;
     cursor: pointer;
