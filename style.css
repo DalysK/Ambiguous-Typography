@@ -131,7 +131,8 @@ body {
     border-top: 3px solid black;
     padding: 8px;
     gap: 10px; /* Adjust gap between buttons */
-    justify-content: end;
+    justify-content: flex-start;
+    display: flex;
 }
 
 .close-btn{
