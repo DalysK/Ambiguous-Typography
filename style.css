@@ -149,11 +149,11 @@ body {
 
 /* 📌 Buttons */
 button {
-    padding: 8px 15px;
+    padding: 8px 10px;
     border: 2px solid black;
     background-color: white;
     cursor: pointer;
-     margin-left: auto;
+    margin-left: auto;
 }
 
 #reset, #save{
