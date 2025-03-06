@@ -132,7 +132,7 @@ body {
     padding: 8px;
     gap: 10px; /* Adjust gap between buttons */
    display: grid;
-    grid-template-columns: auto auto;
+    grid-template-columns: 1fr auto auto;
 }
 
 .close-btn{
