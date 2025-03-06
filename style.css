@@ -7,7 +7,7 @@
 }
 
 body {
-    
+    color: grey;
     font-family: ChicagoFLF, sans-serif;
     color: white;
     width: 100%;
@@ -23,7 +23,7 @@ body {
 
 #nav a{
     text-decoration: none;
-    color: #4D2154; 
+    color: 4D2154; 
 }
 
 
