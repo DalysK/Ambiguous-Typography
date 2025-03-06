@@ -121,7 +121,7 @@ body {
 .play-area {
     background: white;
     padding: 20px;
-    background-image: url('grid-light.png');
+    
     background-size: contain;
     min-height: 550px;
 }
