@@ -67,16 +67,13 @@ body {
 
 .main-section {
     display: flex;
-    width: 100%;
-    max-width: 2000px;
-    height: 100vh;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     justify-content: center;
     align-items: center;
+    height: 100vh; /* Ensures it fills the screen height */
+    position: relative;
+    width: 100%; /* Ensures it fills the screen width */
 }
+
 
 .popup-container {
     display: flex;
