@@ -205,8 +205,11 @@ body {
     gap: 30px;
 }
 mode-btn-big{
-    width: 72px;
-    height: 72px;
+   background: none;
+    border: none;
+    cursor: pointer;
+    width: 68px;
+    height: 68px;
 }
 .mode-btn img {
     width: 64px;
