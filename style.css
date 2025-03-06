@@ -16,7 +16,7 @@ body {
 
 /* 🔹 TOP SECTION */
 #nav{
-    background-color: F8F8F8;
+    color: F8F8F8;
     border-bottom: 3px solid black;
     padding: 20px;
 }
@@ -95,7 +95,7 @@ body {
     width: 100%;
     max-width: 900px;
     min-height: 600px;
-    background: #D5D5D5;
+    color: D5D5D5;
     border: 3px solid black;
     display: flex;
     flex-direction: column;
@@ -126,7 +126,7 @@ body {
 
 /* 📌 Footer */
 .popup-footer {
-    background: D5D5D5;
+    color: D5D5D5;
     border-top: 3px solid black;
     padding: 10px;
     display: flex;
@@ -141,7 +141,7 @@ body {
     border-left: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
     padding: 3px 6px;
-    background-color: 909090;
+    color: 909090;
     cursor: pointer;
 }
 
