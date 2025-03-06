@@ -92,8 +92,8 @@ body {
 /* 📌 Pop-up Window */
 .popup-window {
     width: 100%;
-    max-width: 700px;
-    min-height: 400px;
+    max-width: 1000px;
+    min-height: 600px;
     background: lightgray;
     border: 3px solid black;
     display: flex;
