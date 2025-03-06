@@ -155,7 +155,7 @@ button {
     cursor: pointer;
     margin-left: auto;
     border-radius: 4px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0, 1)
+    box-shadow: 2px 1px;
 }
 
 #reset, #save{
