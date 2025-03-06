@@ -48,7 +48,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+   
 }
 
 
@@ -77,8 +77,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 80%;
-    height: 800px;
+    width: 100%;
+    max-width: 1500px;
+    height: auto;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -87,10 +88,9 @@ body {
 
 /* 📌 Pop-up Window */
 .popup-window {
-    flex-grow: 1; /* Allows it to adjust inside the container */
-    min-width: 600px; /* Keeps it responsive */
-    max-width: 800px; /* Prevents it from being too wide */
-    min-height: 500px; /* Adjust this if needed */
+    width: 100%;
+    max-width: 700px;
+    min-height: 400px;
     background: lightgray;
     border: 3px solid black;
     display: flex;
