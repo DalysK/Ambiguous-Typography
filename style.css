@@ -94,7 +94,7 @@ body {
     width: 100%;
     max-width: 900px;
     min-height: 600px;
-    color: D5D5D5;
+    background: #D5D5D5;
     border: 3px solid black;
     display: flex;
     flex-direction: column;
