@@ -52,7 +52,6 @@ body {
 }
 
 
-
 /* 📌 POPUP WINDOW */
 /*.popup-window {
     position: relative;
@@ -76,8 +75,9 @@ body {
 
 .popup-container {
     display: flex;
+    justify-content: center;
+    align-items: center;
     width: 80%;
-    min-width:1200px;
     height: 800px;
     position: absolute;
     top: 50%;
@@ -87,10 +87,10 @@ body {
 
 /* 📌 Pop-up Window */
 .popup-window {
-    min-width: 800px; /* Ensures it never gets too narrow */
-    width: 100%; /* Adjust this if needed */
-    max-width: 800px; /* Prevents it from being too large */
-    min-height: 500px; /* Ensures enough height */
+    flex-grow: 1; /* Allows it to adjust inside the container */
+    min-width: 600px; /* Keeps it responsive */
+    max-width: 800px; /* Prevents it from being too wide */
+    min-height: 500px; /* Adjust this if needed */
     background: lightgray;
     border: 3px solid black;
     display: flex;
@@ -114,7 +114,7 @@ body {
     padding: 20px;
     background-image: url('grid-light.png');
     background-size: contain;
-    min-height: 300px;
+    min-height: 500px;
 }
 
 /* 📌 Footer */
