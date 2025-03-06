@@ -100,7 +100,7 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 1;
-    border-radius: 8px 8px 0px 0px;
+    border-radius: 4px 4px 0px 0px;
 
 }
 
@@ -140,6 +140,8 @@ body {
     border-right: 0px solid black;  
     border-bottom: 0px solid black; 
     border-left: 3px solid black; 
+    border-radius: 0px 4px 0px 0px;
+
 
 }
 /* 📌 Buttons */
