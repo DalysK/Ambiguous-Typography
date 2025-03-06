@@ -195,7 +195,7 @@ body {
 }
 .button-container {
     display: flex;
-    gap: 20px;
+    gap: 40px;
 }
 
 .mode-btn {
@@ -206,7 +206,7 @@ body {
 }
 
 .mode-btn img {
-    width: 75px;
-    height: 75px;
+    width: 64px;
+    height: 64px;
 }
 
