@@ -126,9 +126,8 @@ body {
 /* 📌 Play Area */
 .play-area {
     background: white;
-    padding: 20px; 
     background-size: contain;
-    min-height: 550px;
+    min-height: 500px;
 }
 
 .play-area img{
