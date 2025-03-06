@@ -132,7 +132,6 @@ body {
     padding: 8px;
     gap: 10px; /* Adjust gap between buttons */
     justify-content: end;
-    margin-left: auto;
 }
 
 .close-btn{
@@ -153,6 +152,7 @@ button {
     border: 2px solid black;
     background-color: white;
     cursor: pointer;
+     margin-left: auto;
 }
 
 #reset, #save{
