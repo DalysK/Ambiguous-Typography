@@ -130,8 +130,6 @@ body {
     color: D5D5D5;
     border-top: 3px solid black;
     padding: 8px;
-    display: grid;
-    grid-template-columns: 1fr auto auto; /* Three columns: empty, button, button */
     gap: 10px; /* Adjust gap between buttons */
     
 }
