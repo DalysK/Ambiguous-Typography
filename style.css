@@ -95,7 +95,6 @@ body {
 .popup-window {
     width: 100%;
     max-width: 900px;
-    min-height: 600px;
     background: #D5D5D5;
     border: 3px solid black;
     display: flex;
@@ -122,14 +121,14 @@ body {
     padding: 20px;
     background-image: url('grid-light.png');
     background-size: contain;
-    min-height: 500px;
+    min-height: 600px;
 }
 
 /* 📌 Footer */
 .popup-footer {
     color: D5D5D5;
     border-top: 3px solid black;
-    padding: 8px;
+    padding: 12px;
     gap: 10px; /* Adjust gap between buttons */
    display: grid;
     grid-template-columns: 1fr auto auto;
