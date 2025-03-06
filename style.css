@@ -37,7 +37,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: -999; /*keep it behind everything*/
-    background-color: black;
+    background-color: RGB(93,93,93);
 }
 
 .background-grid img{
