@@ -187,7 +187,9 @@ body {
     z-index: -1;
     bottom: 0;
 }
-
+.bottom-img img{
+    width: 50%;
+}
 .button-container {
     display: flex;
     gap: 20px;
