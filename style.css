@@ -70,7 +70,7 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(500px, 1fr)); /* Creates a responsive grid */
     gap: 20px; /* Space between items */
     width: 90%;
-    max-width: 1200px;
+    max-width: 2000px;
     height: 100vh;
     position: absolute;
     top: 50%;
@@ -81,7 +81,7 @@ body {
 }
 
 .popup-container {
- 
+     display: flex;
     gap: 20px; /* Space between pop-ups */
     width: 100%;
     max-width:1500px;
@@ -93,8 +93,8 @@ body {
 
 /* 📌 Pop-up Window */
 .popup-window {
-    min-width: 500px; /* Ensures it never gets too narrow */
-    width: 60%; /* Adjust this if needed */
+    min-width: 800px; /* Ensures it never gets too narrow */
+    width: 100%; /* Adjust this if needed */
     max-width: 800px; /* Prevents it from being too large */
     min-height: 300px; /* Ensures enough height */
     background: lightgray;
