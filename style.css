@@ -109,6 +109,7 @@ body {
     background: grey;
     border-bottom: 3px solid black;
     padding: 10px;
+    padding-right: 0px;
 }
 
 /* 📌 Play Area */
