@@ -137,7 +137,7 @@ body {
 button {
     padding: 8px 15px;
     font-size: 16px;
-    border: 2px solid black;
+    border-left: 2px solid black;
     background: white;
     cursor: pointer;
 }
