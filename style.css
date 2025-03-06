@@ -7,10 +7,10 @@
 }
 
 body {
-    
     font-family: ChicagoFLF, sans-serif;
     width: 100%;
     height: 100%;
+    overflow: hidden;
 }
 
 /* 🔹 TOP SECTION */
