@@ -215,6 +215,10 @@ body {
     border: none;
     cursor: pointer;
     gap: 30px;
+     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    
+    /* Add Pulse Animation */
+    animation: pulse 1.5s infinite ease-in-out;
 }
 .mode-btn-big{
    background: none;
@@ -227,3 +231,18 @@ body {
     height: 64px;
 }
 
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+    50% {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+    }
+}
