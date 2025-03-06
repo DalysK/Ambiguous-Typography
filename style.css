@@ -15,7 +15,7 @@ body {
 
 /* 🔹 TOP SECTION */
 #nav{
-    background: #D5D5D5;
+    background: white;
     border-bottom: 3px solid black;
     padding: 20px;
 }
@@ -140,7 +140,7 @@ body {
     border-left: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
     padding: 3px 6px;
-    background-color: blue;
+    background-color: #909090;
     cursor: pointer;
 }
 
