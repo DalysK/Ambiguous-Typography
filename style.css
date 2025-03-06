@@ -153,6 +153,10 @@ button {
     background-color: white;
     cursor: pointer;
 }
+
+#reset{
+    font-family: ChicagoFLF, sans-serif;
+}
 /* 🔹 BOTTOM SECTION */
 .bottom-section {
     position: relative;
