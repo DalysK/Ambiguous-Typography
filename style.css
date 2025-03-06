@@ -23,7 +23,7 @@ body {
 
 #nav a{
     text-decoration: none;
-    color: 4D2154; 
+    color: #4D2154; 
 }
 
 
@@ -95,7 +95,7 @@ body {
     width: 100%;
     max-width: 900px;
     min-height: 600px;
-    background-color: D5D5D5;
+    background: #D5D5D5;
     border: 3px solid black;
     display: flex;
     flex-direction: column;
