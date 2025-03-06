@@ -100,7 +100,7 @@ body {
     display: flex;
     flex-direction: column;
     z-index: 1;
-    border-radius: 10px;
+    border-radius: 8px;
 
 }
 
@@ -112,7 +112,7 @@ body {
     background: grey;
     border-bottom: 3px solid black;
     padding-right: 0px;
-    border-radius: 10px;
+    border-radius: 8px;
 
 }
 
