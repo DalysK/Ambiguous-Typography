@@ -140,6 +140,10 @@ body {
     border-bottom: 0px solid black; 
     border-left: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
+    padding: 3px 6px;
+    border: 2px solid black;
+    background: white;
+    cursor: pointer;
 }
 
 /* 📌 Buttons */
