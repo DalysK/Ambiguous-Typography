@@ -131,7 +131,7 @@ body {
     border-top: 3px solid black;
     padding: 8px;
     gap: 10px; /* Adjust gap between buttons */
-    
+    justify-content: end;
 }
 
 .close-btn{
