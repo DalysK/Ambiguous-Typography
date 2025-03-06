@@ -193,7 +193,7 @@ body {
 .bottom-img {
     position: fixed;
     width: auto;
-    height: 8vh;
+    height: 10vh;
     object-fit: cover;
     z-index: -1;
     bottom: 0;
@@ -217,11 +217,13 @@ body {
    background: none;
     border: none;
     cursor: pointer;
-    width: 68px;
-    height: 68px;
 }
 .mode-btn img {
     width: 64px;
     height: 64px;
 }
 
+.mode-btn-big img{
+    width: 68px;
+    height: 68px;
+}
