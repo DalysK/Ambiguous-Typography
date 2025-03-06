@@ -78,7 +78,6 @@ body {
     display: flex;
     gap: 20px; /* Space between pop-ups */
     width: 100%;
-    max-width:1500px;
     height: 800px;
     position: absolute;
     top: 50%;
