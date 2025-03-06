@@ -5,7 +5,10 @@
     box-sizing: border-box;
 
 }
-
+html {
+    transform: scale(1);
+    transform-origin: top left;
+}
 body {
     font-family: ChicagoFLF, sans-serif;
     width: 100%;
