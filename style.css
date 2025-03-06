@@ -132,6 +132,7 @@ body {
     padding: 8px;
     gap: 10px; /* Adjust gap between buttons */
     justify-content: end;
+    margin-left: auto;
 }
 
 .close-btn{
@@ -154,7 +155,7 @@ button {
     cursor: pointer;
 }
 
-#reset{
+#reset #save{
     font-family: ChicagoFLF, sans-serif;
 }
 /* 🔹 BOTTOM SECTION */
