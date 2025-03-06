@@ -31,7 +31,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-size: contain;  /* Makes image fully fit within the container */
-    background-image: url('assets/images/AdobeStock_545452822.png');
+    background-image: url('assets/images/grid.png');
     background-position: center;
     display: flex;
     justify-content: center;
