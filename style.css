@@ -141,7 +141,7 @@ body {
     border-left: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
     padding: 3px 6px;
-    background-color: #909090;
+    background-color: RGB(144,144,144);
     cursor: pointer;
 }
 
