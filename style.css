@@ -40,7 +40,9 @@ body {
     z-index: -999; /*keep it behind everything*/
 }
 
-
+.background-grid img{
+    transform: rotate (90deg);
+}
 .main-section {
     position: relative;
     width: 100%;
