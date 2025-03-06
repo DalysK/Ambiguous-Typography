@@ -38,6 +38,7 @@ body {
     align-items: center;
     z-index: -999; /*keep it behind everything*/
     background-color: RGB(93,93,93);
+    opacity: 30%;
 }
 
 .background-grid img{
