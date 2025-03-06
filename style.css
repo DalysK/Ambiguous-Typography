@@ -15,13 +15,16 @@ body {
 }
 
 /* 🔹 TOP SECTION */
-.nav-container{
+#nav{
     background-color: white;
     border-bottom: 3px solid black;
     padding: 10px;
-    text-align: left;
 }
 
+#nav a{
+    text-decoration: none;
+    color: black; 
+}
 
 .top-section {
     background-color: white;
