@@ -216,8 +216,6 @@ body {
     cursor: pointer;
     gap: 30px;
     
-    /* Add Pulse Animation */
-    animation: pulse 2s infinite ease-in-out;
 }
 .mode-btn-big{
    background: none;
@@ -228,6 +226,8 @@ body {
 .mode-btn img {
     width: 64px;
     height: 64px;
+      /* Add Pulse Animation */
+    animation: pulse 2s infinite ease-in-out;
 }
 
 
