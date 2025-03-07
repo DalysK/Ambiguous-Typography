@@ -54,6 +54,8 @@ body {
     
 }
 
+/*main page!!!!!! */
+
 .main-section-main{
     position: relative;
     width: 100%;
@@ -103,19 +105,6 @@ body {
     border-radius: 8px;
 }
 
-.popup-container{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-    max-width: 800px;
-    height: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 8px;
-}
 
 /* 📌 Pop-up Window */
 .popup-window-main{
@@ -200,6 +189,96 @@ body {
     border-radius: 4px;
     box-shadow: 2px 1px;
 }
+
+
+
+.main-section{
+    position: relative;
+    width: 100%;
+    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   overflow: hidden;
+    margin: 50px;
+    margin-left: auto;
+    margin-top: 30px;
+}
+
+
+.popup-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 8px;
+}
+
+
+
+/* 📌 Pop-up Window */
+.popup-window{
+    width: 80vw;
+    max-width: 500px;
+    height: auto;
+    max-height: 80vh;
+    background: #D5D5D5;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    border-radius: 8px;
+
+}
+
+/* 📌 Header */
+.popup-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: D5D5D5;
+    border-bottom: 3px solid black;
+    padding-right: 0px;
+    border-radius: 4px 4px 0px 0px;
+}
+
+/* 📌 Play Area */
+.playarea-big{
+    background: white;
+    background-size: contain;
+    min-height: 300px;
+}
+
+.playarea-big img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* 📌 Footer */
+.popup-footer{
+    color: D5D5D5;
+    border-top: 3px solid black;
+    padding: 16px;
+    gap: 10px; /* Adjust gap between buttons */
+   display: grid;
+    grid-template-columns: 1fr auto auto;
+    box-shadow: 0px 10px 4px rgb(0, 0, 0, 0.3);
+}
+
+
+
+
+
+
+
+
 
 /* 🔹 BOTTOM SECTION */
 .bottom-section {
