@@ -89,7 +89,7 @@ body {
 } */
 
 
-.popup-container {
+.popup-container-main{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -102,23 +102,7 @@ body {
     transform: translate(-50%, -50%);
     border-radius: 8px;
 }
-.geometric-layout{
-    display: grid;
-    grid-template-columns: 1fr 2fr; /* Small popup takes 1 part, large popup takes 2 */
-    gap: 20px;
-    justify-content: center;
-    align-items: center;
-    width: 90%;
-    max-width: 1500px;
-    margin: auto;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
-.small-playarea{
-    background-color:white;
-}
+
 
 /* 📌 Pop-up Window */
 .popup-window {
