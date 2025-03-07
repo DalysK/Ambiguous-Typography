@@ -224,11 +224,24 @@ body {
      height: 68px;
 }
 .mode-btn img {
-    width: 64px;
+   
     height: 64px;
       /* Add Pulse Animation */
     animation: pulse 2s infinite ease-in-out;
 }
 
-
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+       
+    }
+    50% {
+        transform: scale(1.1);
+       
+    }
+    100% {
+        transform: scale(1);
+       
+    }
+}
 
