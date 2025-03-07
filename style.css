@@ -255,11 +255,6 @@ body {
     min-height: 300px;
 }
 
-.playarea-large img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
 
 /* 📌 Footer */
 .popup-footer{
