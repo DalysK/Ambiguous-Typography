@@ -7,7 +7,8 @@ t
 }
 @font-face {
     font-family: 'ChicagoFLF';
-    src: url('assets/images/ChicagoFLF.ttf') format('truetype');
+    src: url('assets/images/ChicagoFLF.woff2') format('woff2');
+        url('assets/images/ChicagoFLF.woff') format('woff');
     font-weight: normal;
     font-style: normal;
 }
