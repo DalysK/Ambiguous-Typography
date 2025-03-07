@@ -249,13 +249,13 @@ body {
 }
 
 /* 📌 Play Area */
-.playarea-big{
+.playarea-large{
     background: white;
     background-size: contain;
     min-height: 300px;
 }
 
-.playarea-big img{
+.playarea-large img{
     width: 100%;
     height: 100%;
     object-fit: cover;
