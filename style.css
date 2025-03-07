@@ -228,9 +228,9 @@ body {
     border: none;
     cursor: pointer;
      height: 68px;
+     animation: pulse 2s infinite ease-in-out;
 }
 .mode-btn img {
-   
     height: 64px;
       /* Add Pulse Animation */
     animation: pulse 2s infinite ease-in-out;
