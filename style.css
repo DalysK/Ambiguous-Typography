@@ -5,6 +5,12 @@ t
     box-sizing: border-box;
 
 }
+@font-face {
+    font-family: 'ChicagoFLF';
+    src: url('assets/images/ChicagoFLF.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
 html, body {
     width: 100vw;  /* Force full width */
     height: 100vh; /* Force full height */
