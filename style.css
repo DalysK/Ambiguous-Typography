@@ -223,7 +223,7 @@ body {
 
 
 /* 📌 Pop-up Window Large*/
-.popup-window, .popup-window-small{
+.popup-window{
     width: 80vw;
     max-width: 500px;
     height: auto;
@@ -237,6 +237,19 @@ body {
 
 }
 
+ .popup-window-small{
+    width: 20vw;
+    max-width: 100px;
+    height: auto;
+    max-height: 50vh;
+    background: #D5D5D5;
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    border-radius: 8px;
+     
+ }
 /* 📌 Header */
 .popup-header{
     display: flex;
