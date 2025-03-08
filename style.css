@@ -270,6 +270,7 @@ body {
     display: flex;
     align-items: center;
     justify-content: center; /* Center grid */
+    overflow: hidden;
 }
 
 .grid-container {
