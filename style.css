@@ -281,9 +281,9 @@ body {
     background: black; /* Color for grid lines */
 }
 
-.grid-wrapper {
-    background: white; /* Grid cell color */
-    border: 1px solid black; /* Grid lines */
+/*.grid-wrapper {
+    background: white; /* Grid cell color 
+    border: 1px solid black; /* Grid lines 
 }
 
 /* 📌 Footer */
