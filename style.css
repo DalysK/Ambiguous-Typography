@@ -294,7 +294,7 @@ body {
 
 /* 📌 Footer */
 .popup-footer{
-    color: D5D5D5;
+    background-color: D5D5D5;
     border-top: 3px solid black;
     padding: 16px;
     gap: 10px; /* Adjust gap between buttons */
