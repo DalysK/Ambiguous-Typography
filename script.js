@@ -19,25 +19,32 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 });
 
+//grid
 document.addEventListener("DOMContentLoaded", function() {
     const gridContainer = document.querySelector(".grid-container");
-    
-    // Get the smallest dimension (width or height) to keep grid square
-    const gridSize = Math.min(gridContainer.clientWidth, gridContainer.clientHeight);
-    
-    const rows = 20;
-    const cols = 20;
-    
-    gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize / cols}px)`;
-    gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize / rows}px)`;
 
-    // Remove existing cells to avoid duplicates
-    gridContainer.innerHTML = "";
+    function updateGrid() {
+        // Get container size
+        const containerWidth = gridContainer.clientWidth;
+        const containerHeight = gridContainer.clientHeight;
 
-    for (let i = 0; i < rows * cols; i++) {
-        const gridItem = document.createElement("div");
-        gridItem.classList.add("grid-item");
-        gridContainer.appendChild(gridItem);
-    }
-});
+        // Define the **size of each grid cell** (adjust this value if needed)
+        const cellSize = 30; // Each grid square is 30px x 30px
 
+        // Calculate the number of rows and columns that fit within the container
+        const cols = Math.floor(containerWidth / cellSize);
+        const rows = Math.floor(containerHeight / cellSize);
+
+        // Apply grid size
+        gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+
+        // Clear old grid items before adding new ones
+        gridContainer.innerHTML = "";
+
+        for (let i = 0; i < rows * cols; i++) {
+            const gridItem = document.createElement("div");
+            gridItem.classList.add("grid-item");
+            gridContainer.appendChild(gridItem);
+        }
+    
