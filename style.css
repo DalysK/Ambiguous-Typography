@@ -295,7 +295,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 300px;
+    width: 500px;
 }
 
 input[type="range"] {
@@ -303,29 +303,27 @@ input[type="range"] {
     appearance: none;
     width: 100%;
     height: 6px;
-    background: #ccc;
-    border-radius: 3px;
+    background: black;
     outline: none;
     cursor: pointer;
     margin: 10px 0;
+    transform: rotate(-90deg);
 }
 
 /* Customizing the Thumb (Button on the Line) */
 input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     appearance: none;
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background: black;
-    border-radius: 50%;
     cursor: pointer;
 }
 
 input[type="range"]::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
+    width: 40px;
+    height: 40px;
     background: black;
-    border-radius: 50%;
     cursor: pointer;
 }
 
