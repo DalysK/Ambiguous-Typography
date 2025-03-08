@@ -211,7 +211,7 @@ body {
     grid-template-columns: 1fr 3fr auto;
     gap: 10px;
     justify-content: center;
-    align-items: center;
+ 
     width: 100%;
     max-width: 800px;
     height: auto;
@@ -227,7 +227,7 @@ body {
 /* 📌 Pop-up Window Large*/
 .popup-window{
   
-    max-width: 400px;
+    max-width: 600px;
     height: auto;
   
     background: #D5D5D5;
