@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const containerHeight = gridContainer.clientHeight;
 
         // Define the **size of each grid cell** (adjust this value if needed)
-        const cellSize = 20; // Each grid square is 30px x 30px
+        const cellSize = 30; // Each grid square is 30px x 30px
 
         // Calculate the number of rows and columns that fit within the container
         const cols = Math.floor(containerWidth / cellSize);
@@ -47,4 +47,11 @@ document.addEventListener("DOMContentLoaded", function() {
             gridItem.classList.add("grid-item");
             gridContainer.appendChild(gridItem);
         }
-    
+    }
+
+    // Run on page load
+    updateGrid();
+
+    // Run again when window resizes (to keep grid responsive)
+    window.addEventListener("resize", updateGrid);
+});
