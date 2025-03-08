@@ -208,12 +208,12 @@ body {
 
 .popup-container{
     display: grid;
-    grid-template-columns: 1fr 3fr auto;
+    grid-template-columns: 1fr 3fr 10%;
     gap: 10px;
     justify-content: center;
  
-    width: 100%;
-    max-width: 800px;
+ 
+    max-width: 1000px;
     height: auto;
     position: absolute;
     top: 50%;
