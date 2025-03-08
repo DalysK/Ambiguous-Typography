@@ -280,6 +280,8 @@ body {
     grid-template-rows: repeat(20, 1fr);
     gap: 1px; /* Space between grid lines */
     background-color: transparent; /* Remove solid black */
+    aspect-ratio: 1/1;
+    max-width:90%;
 }
 
 .grid-item {
