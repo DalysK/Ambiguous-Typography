@@ -281,7 +281,7 @@ body {
     background: black; /* Color for grid lines */
 }
 
-.grid-container div {
+.grid-wrapper {
     background: white; /* Grid cell color */
     border: 1px solid black; /* Grid lines */
 }
