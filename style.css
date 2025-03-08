@@ -225,8 +225,8 @@ body {
 
 /* 📌 Pop-up Window Large*/
 .popup-window{
-    width: 60vw;
-    max-width: 900px;
+  
+    max-width: 600px;
     height: auto;
   
     background: #D5D5D5;
