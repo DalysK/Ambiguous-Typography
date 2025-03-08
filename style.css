@@ -322,6 +322,12 @@ body {
     min-width: 100px;
 }
 
+#scale-slider {
+    width: 200px; /* Make slider long */
+    flex-grow: 1; /* Allow it to stretch */
+    max-width: 100%; /* Prevent overflow */
+}
+
 input[type="range"] {
     -webkit-appearance: none;
     appearance: none;
