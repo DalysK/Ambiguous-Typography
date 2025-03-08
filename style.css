@@ -226,7 +226,7 @@ body {
 /* 📌 Pop-up Window Large*/
 .popup-window{
     width: 80vw;
-    max-width: 500px;
+    max-width: 1200px;
     height: auto;
     max-height: 80vh;
     background: #D5D5D5;
@@ -266,7 +266,7 @@ body {
 .playarea-large {
     background: white;
     background-size: contain;
-    min-height: 300px;
+    min-height: 500px;
     display: flex;
     align-items: center;
     justify-content: center; /* Center grid */
