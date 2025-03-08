@@ -207,7 +207,8 @@ body {
 
 
 .popup-container{
-    display: flex;
+    display: grid;
+    grid-te,plate-column: 1fr 2fr;
     justify-content: center;
     align-items: center;
     width: 100%;
