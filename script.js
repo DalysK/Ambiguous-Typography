@@ -21,8 +21,20 @@ document.addEventListener("DOMContentLoaded", function() {
 
 document.addEventListener("DOMContentLoaded", function() {
     const gridContainer = document.querySelector(".grid-container");
+    
+    // Get the smallest dimension (width or height) to keep grid square
+    const gridSize = Math.min(gridContainer.clientWidth, gridContainer.clientHeight);
+    
+    const rows = 20;
+    const cols = 20;
+    
+    gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize / cols}px)`;
+    gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize / rows}px)`;
 
-    for (let i = 0; i < 400; i++) { // 20 x 20 grid
+    // Remove existing cells to avoid duplicates
+    gridContainer.innerHTML = "";
+
+    for (let i = 0; i < rows * cols; i++) {
         const gridItem = document.createElement("div");
         gridItem.classList.add("grid-item");
         gridContainer.appendChild(gridItem);
