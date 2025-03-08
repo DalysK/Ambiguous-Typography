@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const containerHeight = gridContainer.clientHeight;
 
         // Define the **size of each grid cell** (adjust this value if needed)
-        const cellSize = 30; // Each grid square is 30px x 30px
+        const cellSize = 20; // Each grid square is 30px x 30px
 
         // Calculate the number of rows and columns that fit within the container
         const cols = Math.floor(containerWidth / cellSize);
