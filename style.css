@@ -212,8 +212,7 @@ body {
     gap: 10px;
     justify-content: center;
  
- 
-    max-width: 1000px;
+   width: 70vw;
     height: auto;
     position: absolute;
     top: 50%;
@@ -283,7 +282,7 @@ body {
     gap: 1px; /* Space between grid lines */
     background-color: transparent; /* Remove solid black */
     aspect-ratio: 1/1;
-    max-width:90%;
+    max-width:100%;
 }
 
 .grid-item {
