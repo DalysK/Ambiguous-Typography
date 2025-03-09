@@ -316,16 +316,15 @@ body {
 
 .scale-container {
     display: flex;
-    
+    margin-left: -50px;
     align-items: center;
     width: auto;
     min-width: 100px;
 }
 
 #scale-slider {
-    width: 200px; /* Make slider long */
-    flex-grow: 1; /* Allow it to stretch */
-    max-width: 100%; /* Prevent overflow */
+    width: 300px; /* Make slider long */
+    flex-grow: 1; /* Allow it to stretch */    
 }
 
 input[type="range"] {
