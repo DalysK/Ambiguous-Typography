@@ -221,13 +221,16 @@ body {
 }
 
 /*SMALL CONTAINER */
+.playare-small{
+    display: grid;
+    grid-tmeplate-rows: 2fr 1fr;
+}
 .playarea-top{
-    width: 80px;
+    height: 100px;
     
 }
 .small-playarea-setting{
-    border-top: 3px solid black;
-    
+    border-top: 3px solid black;  
 }
 
 
