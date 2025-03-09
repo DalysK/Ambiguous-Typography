@@ -221,7 +221,10 @@ body {
 }
 
 /*SMALL CONTAINER */
-
+.playarea-top{
+    width: 80px;
+    
+}
 .small-playarea-setting{
     border-top: 3px solid black;
     
