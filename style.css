@@ -223,7 +223,7 @@ body {
 /*SMALL CONTAINER */
 .playare-small{
     display: grid;
-    grid-tmeplate-rows: 2fr 1fr;
+    grid-template-rows: 2fr 1fr;
 }
 .playarea-top{
     height: 100px;
