@@ -51,10 +51,14 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             activeShape = event.target.cloneNode(true);
             activeShape.classList.add("placed-shape");
-            activeShape.style.width = "80px";  // Adjust this size as needed
+            activeShape.style.width = "50px";  // Adjust this size as needed
             activeShape.style.height = "auto"; // Keep proportions
 
-            document.querySelector(".playarea-large").appendChild(activeShape);
+            const playArea = document.querySelector(".playarea-large");
+        if (playArea) {
+    playArea.appendChild(activeShape);
+}
+
         }
         
         const rect = activeShape.getBoundingClientRect();
@@ -82,16 +86,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
+const playArea = document.querySelector(".playarea-large");
+if (!playArea) return;
+const playAreaRect = playArea.getBoundingClientRect();
         const shapeRect = activeShape.getBoundingClientRect();
 
         let newX = touch.clientX - offsetX;
         let newY = touch.clientY - offsetY;
 
-        if (newX < playArea.left) newX = playArea.left;
-        if (newX + shapeRect.width > playArea.right) newX = playArea.right - shapeRect.width;
-        if (newY < playArea.top) newY = playArea.top;
-        if (newY + shapeRect.height > playArea.bottom) newY = playArea.bottom - shapeRect.height;
+        if (newX < playAreaRect.left) newX = playAreaRect.left;
+        if (newX + shapeRect.width > playAreaRect.right) newX = playAreaRect.right - shapeRect.width;
+        if (newY < playAreaRect.top) newY = playAreaRect.top;
+        if (newY + shapeRect.height > playAreaRect.bottom) newY = playAreaRect.bottom - shapeRect.height;
+
 
         activeShape.style.left = `${newX}px`;
         activeShape.style.top = `${newY}px`;
