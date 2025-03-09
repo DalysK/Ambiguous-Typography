@@ -61,6 +61,14 @@ document.addEventListener("DOMContentLoaded", function () {
         offsetX = touch.clientX - rect.left;
         offsetY = touch.clientY - rect.top;
 
+        if (event.target.classList.contains("placed-shape")) {
+    activeShape = event.target; // Move an existing shape
+    } else {
+    activeShape = event.target.cloneNode(true);
+    activeShape.classList.add("placed-shape");
+    document.querySelector(".playarea-large").appendChild(activeShape);
+}
+
         moveShape(event); // Position shape immediately
 
         document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
