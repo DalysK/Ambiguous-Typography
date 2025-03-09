@@ -212,7 +212,7 @@ body {
     gap: 10px;
     justify-content: center;
  
-   width: 70vw;
+   width: 90vw;
     height: auto;
     position: absolute;
     top: 50%;
@@ -228,13 +228,14 @@ body {
   
     max-width: 600px;
     height: auto;
-  
     background: #D5D5D5;
     border: 3px solid black;
     display: flex;
     flex-direction: column;
     z-index: 1;
     border-radius: 8px;
+    max-height: 500px;
+    width: 60vw;
 
 }
 
