@@ -231,6 +231,10 @@ body {
 }
 .small-playarea-setting{
     border-top: 3px solid black;  
+    display: grid;
+    grid-template-columns: auto aito; 
+    grid-template-rows: auto;
+    gap: 10px;
 }
 
 
