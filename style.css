@@ -234,7 +234,9 @@ body {
     grid-template-columns: 1fr 2fr;
     height: fit-content;
     gap: 20px;
+    align-item: center;
 }
+
 .small-playarea-setting{
     width: fit-content;
     margin-left: 20px;
