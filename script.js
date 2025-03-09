@@ -82,57 +82,80 @@ document.addEventListener("DOMContentLoaded", function() {
     updateGrid();
 
     // Drag-and-Drop for Touch Screens (iPad)
+    // DRAG-AND-DROP SYSTEM FOR TOUCH & DESKTOP
+document.addEventListener("DOMContentLoaded", function () {
     let activeShape = null;
     let offsetX, offsetY;
 
+    // Allow dragging from small window to play area
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
-        shape.addEventListener("touchstart", function (event) {
-            event.preventDefault();
+        shape.addEventListener("touchstart", startDrag);
+        shape.addEventListener("mousedown", startDrag);
+    });
 
+    function startDrag(event) {
+        event.preventDefault();
+
+        const isTouch = event.type.startsWith("touch");
+        const touch = isTouch ? event.touches[0] : event;
+
+        if (event.target.classList.contains("placed-shape")) {
+            // Move an existing shape
+            activeShape = event.target;
+        } else {
+            // Create a new shape
             activeShape = event.target.cloneNode(true);
             activeShape.classList.add("placed-shape");
+            document.querySelector(".playarea-large").appendChild(activeShape);
+        }
 
-            document.body.appendChild(activeShape);
+        const rect = activeShape.getBoundingClientRect();
+        offsetX = touch.clientX - rect.left;
+        offsetY = touch.clientY - rect.top;
 
-            const touch = event.touches[0];
-            offsetX = touch.clientX - shape.getBoundingClientRect().left;
-            offsetY = touch.clientY - shape.getBoundingClientRect().top;
+        activeShape.style.position = "absolute";
+        moveShape(event); // Position the shape immediately
 
-            activeShape.style.position = "absolute";
-            activeShape.style.width = "80px"; // Default size
-            activeShape.style.left = `${touch.clientX - offsetX}px`;
-            activeShape.style.top = `${touch.clientY - offsetY}px`;
+        // Attach movement listeners
+        document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
+        document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
+    }
 
-            function moveShape(event) {
-                const touch = event.touches[0];
-                activeShape.style.left = `${touch.clientX - offsetX}px`;
-                activeShape.style.top = `${touch.clientY - offsetY}px`;
-            }
+    function moveShape(event) {
+        event.preventDefault();
+        if (!activeShape) return;
 
-            function dropShape(event) {
-                const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
-                const shapeRect = activeShape.getBoundingClientRect();
+        const isTouch = event.type.startsWith("touch");
+        const touch = isTouch ? event.touches[0] : event;
 
-                if (
-                    shapeRect.left >= playArea.left &&
-                    shapeRect.right <= playArea.right &&
-                    shapeRect.top >= playArea.top &&
-                    shapeRect.bottom <= playArea.bottom
-                ) {
-                    document.querySelector(".playarea-large").appendChild(activeShape);
-                } else {
-                    activeShape.remove(); // Remove if placed outside playarea
-                }
+        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
+        const shapeRect = activeShape.getBoundingClientRect();
 
-                document.removeEventListener("touchmove", moveShape);
-                document.removeEventListener("touchend", dropShape);
-                activeShape = null;
-            }
+        let newX = touch.clientX - offsetX;
+        let newY = touch.clientY - offsetY;
 
-            document.addEventListener("touchmove", moveShape);
-            document.addEventListener("touchend", dropShape);
-        });
-    });
+        // Keep shape inside playarea
+        if (newX < playArea.left) newX = playArea.left;
+        if (newX + shapeRect.width > playArea.right) newX = playArea.right - shapeRect.width;
+        if (newY < playArea.top) newY = playArea.top;
+        if (newY + shapeRect.height > playArea.bottom) newY = playArea.bottom - shapeRect.height;
+
+        activeShape.style.left = `${newX}px`;
+        activeShape.style.top = `${newY}px`;
+    }
+
+    function dropShape(event) {
+        if (!activeShape) return;
+
+        document.removeEventListener("mousemove", moveShape);
+        document.removeEventListener("mouseup", dropShape);
+        document.removeEventListener("touchmove", moveShape);
+        document.removeEventListener("touchend", dropShape);
+
+        activeShape = null; // Reset active shape
+    }
+});
+
 
     // Select Shape for Transformations
     let selectedShape = null;
