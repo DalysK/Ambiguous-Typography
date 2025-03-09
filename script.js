@@ -49,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
     updateGrid();
     window.addEventListener("resize", updateGrid); // Keep grid responsive
 
-    // 🔹 DRAG-AND-DROP SYSTEM (iPad & Desktop)
+    // DRAG-AND-DROP SYSTEM
   document.addEventListener("DOMContentLoaded", function () {
     const gridContainer = document.querySelector(".grid-container");
     const scaleSlider = document.getElementById("scale-slider");
