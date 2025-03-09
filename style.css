@@ -249,7 +249,29 @@ body {
     border: 3px solid;
 }
 
+.color-palette {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* 5 columns */
+    gap: 5px;
+    padding: 10px;
+    max-width: 150px; /* Adjust width */
+}
 
+.color-option {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 2px solid transparent;
+}
+
+.color-option:hover {
+    border: 2px solid white;
+}
+
+.selected {
+    border: 2px solid black; /* Highlight selected color */
+}
 /* Pop-up Window Large*/
 .popup-window{
   
