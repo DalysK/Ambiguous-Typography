@@ -231,7 +231,9 @@ body {
 
 .small-playarea-bottom{
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 2fr;
+    height: fit-content;
+    gap: 20px;
 }
 .small-playarea-setting{
     width: fit-content;
@@ -246,10 +248,12 @@ body {
 
 .setting-button{
     border-radius: 4px 4px 4px 4px;
-    padding: 3px 6px;
+    padding: 6px 6px;
     background-color: #D5D5D5;
     cursor: pointer;
     border: 3px solid;
+    width: 25px;
+    height: 25px;
 }
 
 .color-palette {
@@ -258,14 +262,16 @@ body {
     gap: 5px;
     padding: 5px;
     max-width: 100px; /* Adjust width */
+    align-items: center;
+    margin-top: 20px;
 }
 
 .color-option {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
     cursor: pointer;
     border-radius: 3px;
-    border: 2px solid transparent;
+    border: 2px solid black;
 }
 
 .color-option:hover {
@@ -292,8 +298,8 @@ body {
 }
 
  .popup-window-small{
-    max-width: 300px;
-    width: 40vw;
+    max-width: 400px;
+    width: 25vw;
     height: auto;
     max-height: 50vh;
     background: white;
