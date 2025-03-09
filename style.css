@@ -220,13 +220,32 @@ body {
 }
 
 /*SMALL CONTAINER */
-.playarea-small{
-    display: grid;
-    grid-template-rows: 2fr 1fr;
-}
+
+/* small-top container */
 .playarea-top{
     height: 350px;
     border-bottom: 3px solid black;  
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr; 
+    felex-wrtap: wrap;
+}
+
+.puzzle-shape{
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.puzzle-shape img{
+    width: 100%;
+    height: auto;
+}
+
+.playarea-small{
+    display: grid;
+    grid-template-rows: 2fr 1fr;
 }
 
 .small-playarea-bottom{
@@ -234,7 +253,7 @@ body {
     grid-template-columns: 1fr 2fr;
     height: fit-content;
     gap: 20px;
-    align-item: center;
+    align-items: center;
 }
 
 .small-playarea-setting{
