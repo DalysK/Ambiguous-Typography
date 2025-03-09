@@ -46,32 +46,22 @@ document.addEventListener("DOMContentLoaded", function () {
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        if (event.target.classList.contains("placed-shape")) {
-            activeShape = event.target;
-        } else {
-            activeShape = event.target.cloneNode(true);
-            activeShape.classList.add("placed-shape");
-            activeShape.style.width = "50px";  // Adjust this size as needed
-            activeShape.style.height = "auto"; // Keep proportions
+        if (!event.target.classList.contains("placed-shape")) {
+        activeShape = event.target.cloneNode(true);
+        activeShape.classList.add("placed-shape");
+        document.querySelector(".playarea-large").appendChild(activeShape);
 
-            const playArea = document.querySelector(".playarea-large");
-        if (playArea) {
-    playArea.appendChild(activeShape);
-}
-
-        }
-        
-        const rect = activeShape.getBoundingClientRect();
-        offsetX = touch.clientX - rect.left;
-        offsetY = touch.clientY - rect.top;
-
-        if (event.target.classList.contains("placed-shape")) {
-    activeShape = event.target; // Move an existing shape
+        // Keep original size
+        activeShape.style.width = event.target.clientWidth + "px";
+        activeShape.style.height = event.target.clientHeight + "px";
     } else {
-    activeShape = event.target.cloneNode(true);
-    activeShape.classList.add("placed-shape");
-    document.querySelector(".playarea-large").appendChild(activeShape);
-}
+        activeShape = event.target; // Move existing shape
+    }
+
+    const rect = activeShape.getBoundingClientRect();
+    offsetX = touch.clientX - rect.left;
+    offsetY = touch.clientY - rect.top;
+
 
         moveShape(event); // Position shape immediately
 
@@ -94,10 +84,11 @@ const playAreaRect = playArea.getBoundingClientRect();
         let newX = touch.clientX - offsetX;
         let newY = touch.clientY - offsetY;
 
-        if (newX < playAreaRect.left) newX = playAreaRect.left;
-        if (newX + shapeRect.width > playAreaRect.right) newX = playAreaRect.right - shapeRect.width;
-        if (newY < playAreaRect.top) newY = playAreaRect.top;
-        if (newY + shapeRect.height > playAreaRect.bottom) newY = playAreaRect.bottom - shapeRect.height;
+        const maxX = playAreaRect.width - shapeRect.width;
+        const maxY = playAreaRect.height - shapeRect.height;
+
+        newX = Math.max(0, Math.min(newX - playAreaRect.left, maxX));
+        newY = Math.max(0, Math.min(newY - playAreaRect.top, maxY));
 
 
         activeShape.style.left = `${newX}px`;
@@ -111,6 +102,9 @@ const playAreaRect = playArea.getBoundingClientRect();
         document.removeEventListener("mouseup", dropShape);
         document.removeEventListener("touchmove", moveShape);
         document.removeEventListener("touchend", dropShape);
+        activeShape.addEventListener("mousedown", startDrag);
+        activeShape.addEventListener("touchstart", startDrag);
+
 
         activeShape = null;
     }
