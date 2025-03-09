@@ -51,14 +51,16 @@ document.addEventListener("DOMContentLoaded", function () {
         } else {
             activeShape = event.target.cloneNode(true);
             activeShape.classList.add("placed-shape");
+            activeShape.style.width = "80px";  // Adjust this size as needed
+            activeShape.style.height = "auto"; // Keep proportions
+
             document.querySelector(".playarea-large").appendChild(activeShape);
         }
-
+        
         const rect = activeShape.getBoundingClientRect();
         offsetX = touch.clientX - rect.left;
         offsetY = touch.clientY - rect.top;
 
-        activeShape.style.position = "absolute";
         moveShape(event); // Position shape immediately
 
         document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
