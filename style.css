@@ -231,11 +231,16 @@ body {
 }
 
 .puzzle-shape{
-    width: 60px;
-    height: 60px;
+    width: 100px;
+    height: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+#shape4 #shape5 #shape6{
+    width: 130px;
+    height: 130px;
 }
 
 .puzzle-shape img{
@@ -319,7 +324,7 @@ body {
 }
 
  .popup-window-small{
-    max-width: 300px;
+    max-width: 350px;
     width: 25vw;
     height: auto;
     max-height: 50vh;
