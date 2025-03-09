@@ -298,7 +298,7 @@ body {
 }
 
  .popup-window-small{
-    max-width: 400px;
+    max-width: 300px;
     width: 25vw;
     height: auto;
     max-height: 50vh;
