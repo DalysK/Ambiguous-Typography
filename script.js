@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*** DRAG-AND-DROP SYSTEM ***/
     // DRAG-AND-DROP SYSTEM FOR TOUCH & DESKTOP
-document.addEventListener("DOMContentLoaded", function () {
+
     let activeShape = null;
     let offsetX, offsetY;
 
