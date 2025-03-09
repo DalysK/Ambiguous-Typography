@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 //new test
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const gridContainer = document.querySelector(".grid-container");
     const scaleSlider = document.getElementById("scale-slider");
     let gridSize = 30; // Default grid cell size
@@ -72,68 +72,79 @@ document.addEventListener("DOMContentLoaded", function() {
 
         gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize}px)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize}px)`;
-
-        gridContainer.innerHTML = ""; // Clear old grid
-
-        for (let i = 0; i < rows * cols; i++) {
-            const gridItem = document.createElement("div");
-            gridItem.classList.add("grid-item");
-            gridContainer.appendChild(gridItem);
-        }
     }
 
-    scaleSlider.addEventListener("input", function() {
+    scaleSlider.addEventListener("input", function () {
         gridSize = parseInt(this.value);
         updateGrid();
     });
 
     updateGrid();
 
-    // Drag and Drop Functionality
-    let draggedShape = null;
+    // Drag-and-Drop for Touch Screens (iPad)
+    let activeShape = null;
+    let offsetX, offsetY;
 
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
-        shape.draggable = true;
-        shape.addEventListener("dragstart", function(event) {
-            draggedShape = event.target.cloneNode(true);
-            draggedShape.classList.add("placed-shape");
-            event.dataTransfer.setData("text/plain", "dragging");
+        shape.addEventListener("touchstart", function (event) {
+            event.preventDefault();
+
+            activeShape = event.target.cloneNode(true);
+            activeShape.classList.add("placed-shape");
+
+            document.body.appendChild(activeShape);
+
+            const touch = event.touches[0];
+            offsetX = touch.clientX - shape.getBoundingClientRect().left;
+            offsetY = touch.clientY - shape.getBoundingClientRect().top;
+
+            activeShape.style.position = "absolute";
+            activeShape.style.width = "80px"; // Default size
+            activeShape.style.left = `${touch.clientX - offsetX}px`;
+            activeShape.style.top = `${touch.clientY - offsetY}px`;
+
+            function moveShape(event) {
+                const touch = event.touches[0];
+                activeShape.style.left = `${touch.clientX - offsetX}px`;
+                activeShape.style.top = `${touch.clientY - offsetY}px`;
+            }
+
+            function dropShape(event) {
+                const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
+                const shapeRect = activeShape.getBoundingClientRect();
+
+                if (
+                    shapeRect.left >= playArea.left &&
+                    shapeRect.right <= playArea.right &&
+                    shapeRect.top >= playArea.top &&
+                    shapeRect.bottom <= playArea.bottom
+                ) {
+                    document.querySelector(".playarea-large").appendChild(activeShape);
+                } else {
+                    activeShape.remove(); // Remove if placed outside playarea
+                }
+
+                document.removeEventListener("touchmove", moveShape);
+                document.removeEventListener("touchend", dropShape);
+                activeShape = null;
+            }
+
+            document.addEventListener("touchmove", moveShape);
+            document.addEventListener("touchend", dropShape);
         });
     });
 
-    gridContainer.addEventListener("dragover", function(event) {
-        event.preventDefault();
-    });
-
-    gridContainer.addEventListener("drop", function(event) {
-        event.preventDefault();
-        if (draggedShape) {
-            const rect = gridContainer.getBoundingClientRect();
-            const offsetX = event.clientX - rect.left;
-            const offsetY = event.clientY - rect.top;
-
-            const snapX = Math.round(offsetX / gridSize) * gridSize;
-            const snapY = Math.round(offsetY / gridSize) * gridSize;
-
-            draggedShape.style.position = "absolute";
-            draggedShape.style.left = `${snapX}px`;
-            draggedShape.style.top = `${snapY}px`;
-
-            gridContainer.appendChild(draggedShape);
-            draggedShape = null;
-        }
-    });
-
-    // Shape Selection & Modification
+    // Select Shape for Transformations
     let selectedShape = null;
 
-    gridContainer.addEventListener("click", function(event) {
+    document.querySelector(".playarea-large").addEventListener("click", function (event) {
         if (event.target.tagName === "IMG") {
             selectedShape = event.target;
         }
     });
 
-    document.querySelector(".setting-button img[src*='rotate_right']").addEventListener("click", function() {
+    // Rotate Shape (90-degree rotation)
+    document.querySelector(".setting-button img[src*='rotate_right']").addEventListener("click", function () {
         if (selectedShape) {
             let currentRotation = selectedShape.style.transform.match(/rotate\((\d+)deg\)/);
             let newRotation = currentRotation ? parseInt(currentRotation[1]) + 90 : 90;
@@ -141,7 +152,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    document.querySelector(".setting-button img[src*='flip']").addEventListener("click", function() {
+    // Flip Shape (Horizontal & Vertical)
+    document.querySelector(".setting-button img[src*='flip']").addEventListener("click", function () {
         if (selectedShape) {
             let currentScale = selectedShape.style.transform.match(/scaleX\((-?1)\)/);
             let newScale = currentScale ? -parseInt(currentScale[1]) : -1;
@@ -149,27 +161,28 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    document.querySelector(".setting-button img[src*='plus']").addEventListener("click", function() {
+    // Resize Shape (+ / - Buttons)
+    document.querySelector(".setting-button img[src*='plus']").addEventListener("click", function () {
         if (selectedShape) {
-            let currentSize = parseInt(selectedShape.style.width || 50);
+            let currentSize = parseInt(selectedShape.style.width || 80);
             selectedShape.style.width = `${currentSize + 10}px`;
         }
     });
 
-    document.querySelector(".setting-button img[src*='minus']").addEventListener("click", function() {
+    document.querySelector(".setting-button img[src*='minus']").addEventListener("click", function () {
         if (selectedShape) {
-            let currentSize = parseInt(selectedShape.style.width || 50);
+            let currentSize = parseInt(selectedShape.style.width || 80);
             selectedShape.style.width = `${Math.max(10, currentSize - 10)}px`;
         }
     });
 
+    // Change Shape Color
     document.querySelectorAll(".color-option").forEach(colorOption => {
-        colorOption.addEventListener("click", function() {
+        colorOption.addEventListener("click", function () {
             if (selectedShape) {
-                selectedShape.style.filter = `hue-rotate(${Math.random() * 360}deg)`;
+                let color = this.dataset.color;
+                selectedShape.style.filter = `invert(1) sepia(1) saturate(10000%) hue-rotate(${Math.random() * 360}deg) brightness(1.2)`;
             }
         });
     });
 });
-
-
