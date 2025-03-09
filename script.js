@@ -55,3 +55,32 @@ document.addEventListener("DOMContentLoaded", function() {
     // Run again when window resizes (to keep grid responsive)
     window.addEventListener("resize", updateGrid);
 });
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const shapes = document.querySelectorAll(".puzzle-shape img");
+    let selectedShape = null;
+
+    // Enable dragging for shapes
+    shapes.forEach(shape => {
+        shape.addEventListener("mousedown", function (event) {
+            selectedShape = this;
+            selectedShape.classList.add("dragging");
+
+            function moveShape(e) {
+                selectedShape.style.position = "absolute";
+                selectedShape.style.left = e.pageX - selectedShape.width / 2 + "px";
+                selectedShape.style.top = e.pageY - selectedShape.height / 2 + "px";
+            }
+
+            document.addEventListener("mousemove", moveShape);
+
+            document.addEventListener("mouseup", () => {
+                document.removeEventListener("mousemove", moveShape);
+                selectedShape.classList.remove("dragging");
+                selectedShape = null;
+            });
+        });
+    });
+});
+
