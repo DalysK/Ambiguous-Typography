@@ -1,64 +1,5 @@
-document.addEventListener("DOMContentLoaded", function() {
-    const shapesContainer = document.querySelector(".shapes");
-    const colors = ["#808080", "#E63946", "#F77F00", "#F4D35E", "#2A9D8F", "#3A86FF", "#264653", "#9B5DE5", "#FF4D6D", "#222222"];
-
-    // Generate Shapes
-    const shapeList = ["square", "circle", "triangle"];
-    shapeList.forEach(shape => {
-        let div = document.createElement("div");
-        div.classList.add("shape", shape);
-        div.style.backgroundColor = colors[0]; // Default Grey
-        div.addEventListener("click", () => changeColor(div));
-        shapesContainer.appendChild(div);
-    });
-
-    function changeColor(element) {
-        let currentColor = element.style.backgroundColor;
-        let newColor = colors[(colors.indexOf(currentColor) + 1) % colors.length];
-        element.style.backgroundColor = newColor;
-    }
-});
-
-//grid
-//grid
- document.addEventListener("DOMContentLoaded", function() {
-     const gridContainer = document.querySelector(".grid-container");
- 
-     function updateGrid() {
-         // Get container size
-         const containerWidth = gridContainer.clientWidth;
-         const containerHeight = gridContainer.clientHeight;
- 
-         // Define the **size of each grid cell** (adjust this value if needed)
-         const cellSize = 30; // Each grid square is 30px x 30px
- 
-         // Calculate the number of rows and columns that fit within the container
-         const cols = Math.floor(containerWidth / cellSize);
-         const rows = Math.floor(containerHeight / cellSize);
- 
-         // Apply grid size
-         gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
-         gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
- 
-         // Clear old grid items before adding new ones
-         gridContainer.innerHTML = "";
- 
-         for (let i = 0; i < rows * cols; i++) {
-             const gridItem = document.createElement("div");
-             gridItem.classList.add("grid-item");
-             gridContainer.appendChild(gridItem);
-         }
-     }
- 
-     // Run on page load
-     updateGrid();
- 
-     // Run again when window resizes (to keep grid responsive)
-     window.addEventListener("resize", updateGrid);
- });
-
-    // DRAG-AND-DROP SYSTEM
-  document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+    /*** GRID SYSTEM ***/
     const gridContainer = document.querySelector(".grid-container");
     const scaleSlider = document.getElementById("scale-slider");
     let gridSize = 30; // Default grid cell size
@@ -66,12 +7,18 @@ document.addEventListener("DOMContentLoaded", function() {
     function updateGrid() {
         const containerWidth = gridContainer.clientWidth;
         const containerHeight = gridContainer.clientHeight;
-
         const cols = Math.floor(containerWidth / gridSize);
         const rows = Math.floor(containerHeight / gridSize);
-
+        
         gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize}px)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize}px)`;
+        gridContainer.innerHTML = ""; // Clear grid
+
+        for (let i = 0; i < rows * cols; i++) {
+            const gridItem = document.createElement("div");
+            gridItem.classList.add("grid-item");
+            gridContainer.appendChild(gridItem);
+        }
     }
 
     scaleSlider.addEventListener("input", function () {
@@ -79,17 +26,14 @@ document.addEventListener("DOMContentLoaded", function() {
         updateGrid();
     });
 
-    updateGrid();
+    updateGrid(); // Initialize grid
 
-    // Drag-and-Drop for Touch Screens (iPad)
-    // DRAG-AND-DROP SYSTEM FOR TOUCH & DESKTOP
-document.addEventListener("DOMContentLoaded", function () {
+    /*** DRAG-AND-DROP SYSTEM ***/
     let activeShape = null;
     let offsetX, offsetY;
 
-    // Allow dragging from small window to play area
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
-        shape.addEventListener("touchstart", startDrag);
+        shape.addEventListener("touchstart", startDrag, { passive: false });
         shape.addEventListener("mousedown", startDrag);
     });
 
@@ -103,10 +47,14 @@ document.addEventListener("DOMContentLoaded", function () {
             // Move an existing shape
             activeShape = event.target;
         } else {
-            // Create a new shape
+            // Clone new shape
             activeShape = event.target.cloneNode(true);
             activeShape.classList.add("placed-shape");
             document.querySelector(".playarea-large").appendChild(activeShape);
+
+            // Allow future dragging of placed shapes
+            activeShape.addEventListener("touchstart", startDrag, { passive: false });
+            activeShape.addEventListener("mousedown", startDrag);
         }
 
         const rect = activeShape.getBoundingClientRect();
@@ -114,9 +62,9 @@ document.addEventListener("DOMContentLoaded", function () {
         offsetY = touch.clientY - rect.top;
 
         activeShape.style.position = "absolute";
-        moveShape(event); // Position the shape immediately
+        moveShape(event); // Position immediately
 
-        // Attach movement listeners
+        // Attach move listeners
         document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
         document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
     }
@@ -144,20 +92,15 @@ document.addEventListener("DOMContentLoaded", function () {
         activeShape.style.top = `${newY}px`;
     }
 
-    function dropShape(event) {
-        if (!activeShape) return;
-
+    function dropShape() {
         document.removeEventListener("mousemove", moveShape);
         document.removeEventListener("mouseup", dropShape);
         document.removeEventListener("touchmove", moveShape);
         document.removeEventListener("touchend", dropShape);
-
         activeShape = null; // Reset active shape
     }
-});
 
-
-    // Select Shape for Transformations
+    /*** SHAPE TRANSFORMATIONS ***/
     let selectedShape = null;
 
     document.querySelector(".playarea-large").addEventListener("click", function (event) {
@@ -166,7 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Rotate Shape (90-degree rotation)
+    // Rotate Shape
     document.querySelector(".setting-button img[src*='rotate_right']").addEventListener("click", function () {
         if (selectedShape) {
             let currentRotation = selectedShape.style.transform.match(/rotate\((\d+)deg\)/);
@@ -175,12 +118,11 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Flip Shape (Horizontal & Vertical)
+    // Flip Shape
     document.querySelector(".setting-button img[src*='flip']").addEventListener("click", function () {
         if (selectedShape) {
-            let currentScale = selectedShape.style.transform.match(/scaleX\((-?1)\)/);
-            let newScale = currentScale ? -parseInt(currentScale[1]) : -1;
-            selectedShape.style.transform += ` scaleX(${newScale})`;
+            let flip = selectedShape.style.transform.includes("scaleX(-1)") ? "scaleX(1)" : "scaleX(-1)";
+            selectedShape.style.transform += ` ${flip}`;
         }
     });
 
@@ -199,7 +141,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // Change Shape Color
+    /*** COLOR CHANGE FOR SVG SHAPES ***/
     document.querySelectorAll(".color-option").forEach(colorOption => {
         colorOption.addEventListener("click", function () {
             if (selectedShape) {
@@ -208,4 +150,11 @@ document.addEventListener("DOMContentLoaded", function () {
             }
         });
     });
+
+    /*** RESET BUTTON (Clears All Placed Shapes) ***/
+    document.getElementById("reset").addEventListener("click", function () {
+        document.querySelectorAll(".playarea-large .placed-shape").forEach(shape => shape.remove());
+        selectedShape = null;
+    });
+
 });
