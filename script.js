@@ -50,90 +50,83 @@ document.addEventListener("DOMContentLoaded", function () {
     window.addEventListener("resize", updateGrid); // Keep grid responsive
 
     // 🔹 DRAG-AND-DROP SYSTEM (iPad & Desktop)
+  document.addEventListener("DOMContentLoaded", function () {
+    const gridContainer = document.querySelector(".grid-container");
+    const scaleSlider = document.getElementById("scale-slider");
+    let gridSize = 30; // Default grid cell size
+
+    function updateGrid() {
+        const containerWidth = gridContainer.clientWidth;
+        const containerHeight = gridContainer.clientHeight;
+
+        const cols = Math.floor(containerWidth / gridSize);
+        const rows = Math.floor(containerHeight / gridSize);
+
+        gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize}px)`;
+        gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize}px)`;
+    }
+
+    scaleSlider.addEventListener("input", function () {
+        gridSize = parseInt(this.value);
+        updateGrid();
+    });
+
+    updateGrid();
+
+    // Drag-and-Drop for Touch Screens (iPad)
     let activeShape = null;
     let offsetX, offsetY;
 
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
-        shape.addEventListener("touchstart", startDrag);
-        shape.addEventListener("mousedown", startDrag);
+        shape.addEventListener("touchstart", function (event) {
+            event.preventDefault();
+
+            activeShape = event.target.cloneNode(true);
+            activeShape.classList.add("placed-shape");
+
+            document.body.appendChild(activeShape);
+
+            const touch = event.touches[0];
+            offsetX = touch.clientX - shape.getBoundingClientRect().left;
+            offsetY = touch.clientY - shape.getBoundingClientRect().top;
+
+            activeShape.style.position = "absolute";
+            activeShape.style.width = "80px"; // Default size
+            activeShape.style.left = `${touch.clientX - offsetX}px`;
+            activeShape.style.top = `${touch.clientY - offsetY}px`;
+
+            function moveShape(event) {
+                const touch = event.touches[0];
+                activeShape.style.left = `${touch.clientX - offsetX}px`;
+                activeShape.style.top = `${touch.clientY - offsetY}px`;
+            }
+
+            function dropShape(event) {
+                const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
+                const shapeRect = activeShape.getBoundingClientRect();
+
+                if (
+                    shapeRect.left >= playArea.left &&
+                    shapeRect.right <= playArea.right &&
+                    shapeRect.top >= playArea.top &&
+                    shapeRect.bottom <= playArea.bottom
+                ) {
+                    document.querySelector(".playarea-large").appendChild(activeShape);
+                } else {
+                    activeShape.remove(); // Remove if placed outside playarea
+                }
+
+                document.removeEventListener("touchmove", moveShape);
+                document.removeEventListener("touchend", dropShape);
+                activeShape = null;
+            }
+
+            document.addEventListener("touchmove", moveShape);
+            document.addEventListener("touchend", dropShape);
+        });
     });
 
-    function startDrag(event) {
-        event.preventDefault();
-
-        // Create a new shape from the source shape
-        activeShape = event.target.cloneNode(true);
-        activeShape.classList.add("placed-shape");
-        activeShape.style.position = "absolute";
-        activeShape.style.width = "80px"; // Default size
-
-        document.querySelector(".playarea-large").appendChild(activeShape);
-
-        let x = event.touches ? event.touches[0].clientX : event.clientX;
-        let y = event.touches ? event.touches[0].clientY : event.clientY;
-
-        offsetX = x - activeShape.getBoundingClientRect().left;
-        offsetY = y - activeShape.getBoundingClientRect().top;
-
-        activeShape.style.left = `${x - offsetX}px`;
-        activeShape.style.top = `${y - offsetY}px`;
-
-        document.addEventListener("mousemove", moveShape);
-        document.addEventListener("mouseup", dropShape);
-        document.addEventListener("touchmove", moveShape);
-        document.addEventListener("touchend", dropShape);
-
-        // Allow moving already placed shapes
-        activeShape.addEventListener("mousedown", startDrag);
-        activeShape.addEventListener("touchstart", startDrag);
-    }
-
-    function moveShape(event) {
-        if (!activeShape) return;
-        event.preventDefault();
-
-        let x = event.touches ? event.touches[0].clientX : event.clientX;
-        let y = event.touches ? event.touches[0].clientY : event.clientY;
-
-        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
-        const shapeRect = activeShape.getBoundingClientRect();
-
-        if (
-            x - offsetX >= playArea.left &&
-            x - offsetX + shapeRect.width <= playArea.right &&
-            y - offsetY >= playArea.top &&
-            y - offsetY + shapeRect.height <= playArea.bottom
-        ) {
-            activeShape.style.left = `${x - offsetX}px`;
-            activeShape.style.top = `${y - offsetY}px`;
-        }
-    }
-
-    function dropShape() {
-        if (!activeShape) return;
-
-        document.removeEventListener("mousemove", moveShape);
-        document.removeEventListener("mouseup", dropShape);
-        document.removeEventListener("touchmove", moveShape);
-        document.removeEventListener("touchend", dropShape);
-
-        activeShape = null;
-    }
-
-    // 🔹 ALLOW MOVING SHAPES AFTER PLACING
-    document.querySelector(".playarea-large").addEventListener("mousedown", function (event) {
-        if (event.target.classList.contains("placed-shape")) {
-            startDrag(event);
-        }
-    });
-
-    document.querySelector(".playarea-large").addEventListener("touchstart", function (event) {
-        if (event.target.classList.contains("placed-shape")) {
-            startDrag(event);
-        }
-    });
-
-    // 🔹 SHAPE TRANSFORMATIONS (Rotate, Flip, Size)
+    // Select Shape for Transformations
     let selectedShape = null;
 
     document.querySelector(".playarea-large").addEventListener("click", function (event) {
@@ -142,6 +135,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Rotate Shape (90-degree rotation)
     document.querySelector(".setting-button img[src*='rotate_right']").addEventListener("click", function () {
         if (selectedShape) {
             let currentRotation = selectedShape.style.transform.match(/rotate\((\d+)deg\)/);
@@ -150,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Flip Shape (Horizontal & Vertical)
     document.querySelector(".setting-button img[src*='flip']").addEventListener("click", function () {
         if (selectedShape) {
             let currentScale = selectedShape.style.transform.match(/scaleX\((-?1)\)/);
@@ -158,6 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
+    // Resize Shape (+ / - Buttons)
     document.querySelector(".setting-button img[src*='plus']").addEventListener("click", function () {
         if (selectedShape) {
             let currentSize = parseInt(selectedShape.style.width || 80);
@@ -172,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    // 🔹 CHANGE SHAPE COLOR
+    // Change Shape Color
     document.querySelectorAll(".color-option").forEach(colorOption => {
         colorOption.addEventListener("click", function () {
             if (selectedShape) {
@@ -180,17 +176,5 @@ document.addEventListener("DOMContentLoaded", function () {
                 selectedShape.style.filter = `invert(1) sepia(1) saturate(10000%) hue-rotate(${Math.random() * 360}deg) brightness(1.2)`;
             }
         });
-    });
-
-    // 🔹 DELETE SHAPE FUNCTION
-    document.querySelector(".playarea-large").addEventListener("dblclick", function (event) {
-        if (event.target.classList.contains("placed-shape")) {
-            event.target.remove(); // Remove shape on double-click
-        }
-    });
-
-    // 🔹 RESET BUTTON FUNCTION
-    document.querySelector("#reset").addEventListener("click", function () {
-        document.querySelectorAll(".placed-shape").forEach(shape => shape.remove());
     });
 });
