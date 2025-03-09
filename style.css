@@ -211,8 +211,7 @@ body {
     grid-template-columns: 1fr 3fr 10%;
     gap: 10px;
     justify-content: center;
- 
-   width: 90vw;
+   width: 100vw;
     height: auto;
     position: absolute;
     top: 50%;
@@ -226,7 +225,7 @@ body {
 /* 📌 Pop-up Window Large*/
 .popup-window{
   
-    max-width: 600px;
+    max-width: 800px;
     height: auto;
     background: #D5D5D5;
     border: 3px solid black;
@@ -234,8 +233,8 @@ body {
     flex-direction: column;
     z-index: 1;
     border-radius: 8px;
-    max-height: 500px;
-    width: 60vw;
+    max-height: 600px;
+    width: 90vw;
 
 }
 
@@ -316,7 +315,7 @@ body {
 
 .scale-container {
     display: flex;
-    margin-left: -50px;
+    margin-left: -80px;
     align-items: center;
     width: auto;
     min-width: 100px;
