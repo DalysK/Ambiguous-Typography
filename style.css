@@ -228,7 +228,11 @@ body {
 .playarea-top{
     height: 350px;
     border-bottom: 3px solid black;  
+}
 
+.small-playarea-bottom{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 .small-playarea-setting{
     width: fit-content;
