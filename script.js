@@ -20,34 +20,42 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 //grid
-document.addEventListener("DOMContentLoaded", function () {
-    // 🔹 GRID SYSTEM
-    const gridContainer = document.querySelector(".grid-container");
-
-    function updateGrid() {
-        if (!gridContainer) return;
-
-        const containerWidth = gridContainer.clientWidth;
-        const containerHeight = gridContainer.clientHeight;
-        const cellSize = 30; // Adjust grid square size
-
-        const cols = Math.floor(containerWidth / cellSize);
-        const rows = Math.floor(containerHeight / cellSize);
-
-        // Instead of clearing entire container, only remove old grid items
-        gridContainer.innerHTML = "";
-        gridContainer.style.display = "grid";
-        gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${cellSize}px)`;
-        gridContainer.style.gridTemplateRows = `repeat(${rows}, ${cellSize}px)`;
-
-        for (let i = 0; i < rows * cols; i++) {
-            const gridItem = document.createElement("div");
-            gridItem.classList.add("grid-item");
-            gridContainer.appendChild(gridItem);
-        }
-    }
-    updateGrid();
-    window.addEventListener("resize", updateGrid); // Keep grid responsive
+//grid
+ document.addEventListener("DOMContentLoaded", function() {
+     const gridContainer = document.querySelector(".grid-container");
+ 
+     function updateGrid() {
+         // Get container size
+         const containerWidth = gridContainer.clientWidth;
+         const containerHeight = gridContainer.clientHeight;
+ 
+         // Define the **size of each grid cell** (adjust this value if needed)
+         const cellSize = 30; // Each grid square is 30px x 30px
+ 
+         // Calculate the number of rows and columns that fit within the container
+         const cols = Math.floor(containerWidth / cellSize);
+         const rows = Math.floor(containerHeight / cellSize);
+ 
+         // Apply grid size
+         gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+         gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
+ 
+         // Clear old grid items before adding new ones
+         gridContainer.innerHTML = "";
+ 
+         for (let i = 0; i < rows * cols; i++) {
+             const gridItem = document.createElement("div");
+             gridItem.classList.add("grid-item");
+             gridContainer.appendChild(gridItem);
+         }
+     }
+ 
+     // Run on page load
+     updateGrid();
+ 
+     // Run again when window resizes (to keep grid responsive)
+     window.addEventListener("resize", updateGrid);
+ });
 
     // DRAG-AND-DROP SYSTEM
   document.addEventListener("DOMContentLoaded", function () {
