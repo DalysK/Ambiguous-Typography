@@ -58,30 +58,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 //new test
-document.addEventListener("DOMContentLoaded", function () {
-    const gridContainer = document.querySelector(".grid-container");
-    const scaleSlider = document.getElementById("scale-slider");
-    let gridSize = 30; // Default grid cell size
-
-    function updateGrid() {
-        const containerWidth = gridContainer.clientWidth;
-        const containerHeight = gridContainer.clientHeight;
-
-        const cols = Math.floor(containerWidth / gridSize);
-        const rows = Math.floor(containerHeight / gridSize);
-
-        gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize}px)`;
-        gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize}px)`;
-    }
-
-    scaleSlider.addEventListener("input", function () {
-        gridSize = parseInt(this.value);
-        updateGrid();
-    });
-
-    updateGrid();
-
- // Drag-and-Drop for iPad & Desktop
+// Drag-and-Drop for iPad & Desktop
 let activeShape = null;
 let offsetX, offsetY;
 
@@ -93,22 +70,24 @@ document.querySelectorAll(".puzzle-shape img").forEach(shape => {
 function startDrag(event) {
     event.preventDefault();
 
-    // Clone the shape being dragged
-    activeShape = event.target.cloneNode(true);
-    activeShape.classList.add("placed-shape");
-    document.body.appendChild(activeShape);
+    // Check if dragging an existing placed shape or a new one
+    if (event.target.classList.contains("placed-shape")) {
+        activeShape = event.target; // Select the existing shape
+    } else {
+        activeShape = event.target.cloneNode(true);
+        activeShape.classList.add("placed-shape");
+        document.querySelector(".playarea-large").appendChild(activeShape);
+    }
 
-    // Get initial touch/mouse position
     let x = event.touches ? event.touches[0].clientX : event.clientX;
     let y = event.touches ? event.touches[0].clientY : event.clientY;
 
-    // Calculate offsets
-    offsetX = x - event.target.getBoundingClientRect().left;
-    offsetY = y - event.target.getBoundingClientRect().top;
+    // Get offsets to ensure smooth movement
+    offsetX = x - activeShape.getBoundingClientRect().left;
+    offsetY = y - activeShape.getBoundingClientRect().top;
 
-    // Set initial position
+    // Set absolute positioning
     activeShape.style.position = "absolute";
-    activeShape.style.width = "80px"; // Default size
     activeShape.style.left = `${x - offsetX}px`;
     activeShape.style.top = `${y - offsetY}px`;
 
@@ -127,37 +106,33 @@ function moveShape(event) {
     let x = event.touches ? event.touches[0].clientX : event.clientX;
     let y = event.touches ? event.touches[0].clientY : event.clientY;
 
-    activeShape.style.left = `${x - offsetX}px`;
-    activeShape.style.top = `${y - offsetY}px`;
+    // Prevent dragging outside play area
+    const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
+    const shapeRect = activeShape.getBoundingClientRect();
+
+    if (
+        x - offsetX >= playArea.left &&
+        x - offsetX + shapeRect.width <= playArea.right &&
+        y - offsetY >= playArea.top &&
+        y - offsetY + shapeRect.height <= playArea.bottom
+    ) {
+        activeShape.style.left = `${x - offsetX}px`;
+        activeShape.style.top = `${y - offsetY}px`;
+    }
 }
 
 function dropShape(event) {
     if (!activeShape) return;
 
-    const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
-    const shapeRect = activeShape.getBoundingClientRect();
-
-    if (
-        shapeRect.left >= playArea.left &&
-        shapeRect.right <= playArea.right &&
-        shapeRect.top >= playArea.top &&
-        shapeRect.bottom <= playArea.bottom
-    ) {
-        // Place shape inside play area
-        document.querySelector(".playarea-large").appendChild(activeShape);
-    } else {
-        // Remove if placed outside
-        activeShape.remove();
-    }
-
-    // Cleanup event listeners
+    // Remove event listeners when shape is dropped
     document.removeEventListener("mousemove", moveShape);
     document.removeEventListener("mouseup", dropShape);
     document.removeEventListener("touchmove", moveShape);
     document.removeEventListener("touchend", dropShape);
 
-    activeShape = null;
+    activeShape = null; // Reset active shape
 }
+
 
 
     // Select Shape for Transformations
