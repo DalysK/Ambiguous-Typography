@@ -69,19 +69,17 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
         // FIX: Position it inside the play area at the exact click location
-        const clickX = touch.clientX - playArea.getBoundingClientRect().left;
-        const clickY = touch.clientY - playArea.getBoundingClientRect().top;
-        activeShape.style.left = `${clickX}px`;
-        activeShape.style.top = `${clickY}px`;
+         activeShape.style.left = `${touch.clientX - playAreaRect.left}px`;
+        activeShape.style.top = `${touch.clientY - playAreaRect.top}px`;
 
         offsetX = 0; // Reset offset
         offsetY = 0;
     } else {
         // Move existing shape
         activeShape = event.target;
-        const shapeRect = activeShape.getBoundingClientRect();
-        offsetX = touch.clientX - rect.left;
-        offsetY = touch.clientY - rect.top;
+         const shapeRect = activeShape.getBoundingClientRect();
+        offsetX = touch.clientX - shapeRect.left;
+        offsetY = touch.clientY - shapeRect.top;
     }
 
     moveShape(event); // Position shape immediately
