@@ -224,11 +224,11 @@ body {
 
 /* small-top container */
 .playarea-top{
-    height: 350px;
+    height: 300px;
     border-bottom: 3px solid black;  
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; 
-    felex-wrtap: wrap;
+
 }
 
 .puzzle-shape{
@@ -259,6 +259,8 @@ body {
     grid-template-columns: 1fr 2fr;
     gap: 40px;
     align-items: center;
+    height: fit-content;
+    margin-top: 20px;
 }
 
 .small-playarea-setting{
@@ -289,7 +291,7 @@ body {
     padding: 5px;
     max-width: 100px; /* Adjust width */
     align-items: center;
-    margin-top: 20px;
+    margin-right: 20px;
 }
 
 .color-option {
@@ -324,10 +326,8 @@ body {
 }
 
  .popup-window-small{
-    max-width: 350px;
-    width: 25vw;
-    height: auto;
-    max-height: 50vh;
+
+    max-height: 60vh;
     background: white;
     border: 3px solid black;
     display: flex;
@@ -455,7 +455,7 @@ input[type="range"]::-moz-range-thumb {
 
 .bottom-img {
     position: fixed;
-    height: 10vh;
+
     object-fit: cover;
     z-index: -1;
 
