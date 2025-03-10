@@ -58,7 +58,7 @@ function startDrag(event) {
         activeShape.classList.add("placed-shape");
 
         // Ensure it's placed in the correct container
-        playArea.appendChild(activeShape);
+        document.querySelector(".playarea-large").appendChild(activeShape);
 
         // Keep original size
         activeShape.style.width = event.target.clientWidth + "px";
@@ -81,9 +81,9 @@ function startDrag(event) {
     } else {
         // Move existing shape
         activeShape = event.target;
-        const shapeRect = activeShape.getBoundingClientRect();
-        offsetX = touch.clientX - shapeRect.left;
-        offsetY = touch.clientY - shapeRect.top;
+        const rect = activeShape.getBoundingClientRect();
+        offsetX = touch.clientX - rect.left;
+        offsetY = touch.clientY - rect.top;
     }
 
     moveShape(event); // Position shape immediately
