@@ -41,14 +41,14 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     function startDrag(event) {
-        event.preventDefault();
+    event.preventDefault();
 
-        const isTouch = event.type.startsWith("touch");
-        const touch = isTouch ? event.touches[0] : event;
+    const isTouch = event.type.startsWith("touch");
+    const touch = isTouch ? event.touches[0] : event;
+    const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
 
-        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
-
-        if (!event.target.classList.contains("placed-shape")) {
+    if (!event.target.classList.contains("placed-shape")) {
+        // Clone new shape
         activeShape = event.target.cloneNode(true);
         activeShape.classList.add("placed-shape");
         document.querySelector(".playarea-large").appendChild(activeShape);
@@ -56,25 +56,34 @@ document.addEventListener("DOMContentLoaded", function () {
         // Keep original size
         activeShape.style.width = event.target.clientWidth + "px";
         activeShape.style.height = event.target.clientHeight + "px";
-    // Set absolute position inside the play area
+
+        // Set absolute position inside the play area
         activeShape.style.position = "absolute";
-        activeShape.style.left = `${touch.clientX - playArea.left}px`;
-        activeShape.style.top = `${touch.clientY - playArea.top}px`;
+
+        // FIX: Set exact position where the cursor clicked
+        const clickX = touch.clientX - playArea.left;
+        const clickY = touch.clientY - playArea.top;
+        activeShape.style.left = `${clickX}px`;
+        activeShape.style.top = `${clickY}px`;
+
+        // Calculate correct offset from where the cursor clicked
+        offsetX = 0; // Reset offset since it's placed at exact click location
+        offsetY = 0;
     } else {
-        activeShape = event.target; // Move existing shape
+        // Move existing shape
+        activeShape = event.target;
+        
+        // FIX: Correctly calculate offset for existing shapes
+        const rect = activeShape.getBoundingClientRect();
+        offsetX = touch.clientX - rect.left;
+        offsetY = touch.clientY - rect.top;
     }
 
-    if (activeShape.classList.contains("placed-shape")){
-    const rect = activeShape.getBoundingClientRect();
-    offsetX = touch.clientX - rect.left;
-    offsetY = touch.clientY - rect.top;
-    }
+    moveShape(event); // Position shape immediately
 
-        moveShape(event); // Position shape immediately
-
-        document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
-        document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
-    }
+    document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
+    document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
+}
 
     
     function moveShape(event) {
