@@ -327,7 +327,7 @@ body {
 
  .popup-window-small{
 
-    max-height: 60vh;
+    max-height: 50vh;
     background: white;
     border: 3px solid black;
     display: flex;
