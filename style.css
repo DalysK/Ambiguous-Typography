@@ -109,7 +109,7 @@ body {
 /* 📌 Pop-up Window */
 .popup-window-main{
     width: 80vw;
-    max-width: 900px;
+    max-width: 800px;
     height: auto;
     mac-height: 80vh;
     background: #D5D5D5;
