@@ -53,13 +53,13 @@ function startDrag(event) {
     const playAreaRect = playArea.getBoundingClientRect();    
 
     if (!event.target.classList.contains("placed-shape")) {
-        // Clone new shape
-        activeShape = event.target.cloneNode(true);
-        activeShape.classList.add("placed-shape");
+            activeShape = event.target.cloneNode(true);
+            activeShape.classList.add("placed-shape");
 
-        // Ensure it's placed in the correct container
-        document.querySelector(".playarea-large").appendChild(activeShape);
+            const playArea = document.querySelector(".playarea-large");
+            playArea.appendChild(activeShape);
 
+        
         // Keep original size
         activeShape.style.width = event.target.clientWidth + "px";
         activeShape.style.height = event.target.clientHeight + "px";
@@ -68,16 +68,14 @@ function startDrag(event) {
         activeShape.style.position = "absolute";
         activeShape.style.zIndex = "1000"; // Make sure it's on top
 
-        //  FIX: Correct offset to ensure the cursor is on the shape when dragging
-        let clickX = touch.clientX - playAreaRect.left;
-        let clickY = touch.clientY - playAreaRect.top;
+        // Ensure the shape appears **inside the play area**, not the shape container
+            const playAreaRect = playArea.getBoundingClientRect();
+            activeShape.style.left = `${playAreaRect.width / 2 - activeShape.clientWidth / 2}px`;
+            activeShape.style.top = `${playAreaRect.height / 2 - activeShape.clientHeight / 2}px`;
 
-        activeShape.style.left = `${clickX}px`;
-        activeShape.style.top = `${clickY}px`;
-
-        //  FIX: Set offset to maintain cursor position when dragging
-        offsetX = 0;
-        offsetY = 0;
+            offsetX = 0;
+            offsetY = 0;
+        }
     } else {
         // Move existing shape
         activeShape = event.target;
