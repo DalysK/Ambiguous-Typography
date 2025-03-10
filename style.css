@@ -455,9 +455,10 @@ input[type="range"]::-moz-range-thumb {
 
 .bottom-img {
     position: fixed;
-
     object-fit: cover;
     z-index: -1;
+    bottom: 0;
+    width: 60vw;
 
 }
 .bottom-img img{
