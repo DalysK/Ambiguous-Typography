@@ -64,10 +64,11 @@ document.addEventListener("DOMContentLoaded", function () {
         activeShape = event.target; // Move existing shape
     }
 
+    if (activeShape.classList.contains("placed-shape")){
     const rect = activeShape.getBoundingClientRect();
     offsetX = touch.clientX - rect.left;
     offsetY = touch.clientY - rect.top;
-
+    }
 
         moveShape(event); // Position shape immediately
 
@@ -91,10 +92,8 @@ document.addEventListener("DOMContentLoaded", function () {
     let newY = touch.clientY - offsetY - playArea.top;
 
     // Keep shape inside playarea boundaries
-    if (newX < 0) newX = 0;
-    if (newX + shapeRect.width > playArea.width) newX = playArea.width - shapeRect.width;
-    if (newY < 0) newY = 0;
-    if (newY + shapeRect.height > playArea.height) newY = playArea.height - shapeRect.height;
+    let newX = touch.clientX - offsetX - playArea.left;
+    let newY = touch.clientY - offsetY - playArea.top;
 
     activeShape.style.left = `${newX}px`;
     activeShape.style.top = `${newY}px`;
