@@ -42,7 +42,8 @@ document.addEventListener("DOMContentLoaded", function () {
         shape.addEventListener("mousedown", startDrag);
     });
 
-    function startDrag(event) {
+    
+function startDrag(event) {
     event.preventDefault();
 
     const isTouch = event.type.startsWith("touch");
@@ -67,17 +68,20 @@ document.addEventListener("DOMContentLoaded", function () {
         activeShape.style.position = "absolute";
         activeShape.style.zIndex = "1000"; // Make sure it's on top
 
+        // 🔥 FIX: Correct offset to ensure the cursor is on the shape when dragging
+        const clickX = touch.clientX - playAreaRect.left;
+        const clickY = touch.clientY - playAreaRect.top;
 
-        // FIX: Position it inside the play area at the exact click location
-         activeShape.style.left = `${touch.clientX - playAreaRect.left}px`;
-        activeShape.style.top = `${touch.clientY - playAreaRect.top}px`;
+        activeShape.style.left = `${clickX}px`;
+        activeShape.style.top = `${clickY}px`;
 
-        offsetX = 0; // Reset offset
-        offsetY = 0;
+        // 🔥 FIX: Set offset to maintain cursor position when dragging
+        offsetX = touch.clientX - playAreaRect.left - activeShape.clientWidth / 2;
+        offsetY = touch.clientY - playAreaRect.top - activeShape.clientHeight / 2;
     } else {
         // Move existing shape
         activeShape = event.target;
-         const shapeRect = activeShape.getBoundingClientRect();
+        const shapeRect = activeShape.getBoundingClientRect();
         offsetX = touch.clientX - shapeRect.left;
         offsetY = touch.clientY - shapeRect.top;
     }
@@ -87,6 +91,7 @@ document.addEventListener("DOMContentLoaded", function () {
     document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
     document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
 }
+
 
 
     
