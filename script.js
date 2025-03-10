@@ -14,8 +14,9 @@ document.addEventListener("DOMContentLoaded", function () {
         gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize}px)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize}px)`;
         
-        gridContainer.innerHTML = ""; // Clear grid items
-
+       // Preserve existing elements and only update the grid
+    if (gridContainer.childNodes.length !== rows * cols) {
+        gridContainer.innerHTML = ""; // Clear only if the grid size changes
         for (let i = 0; i < rows * cols; i++) {
             const gridItem = document.createElement("div");
             gridItem.classList.add("grid-item");
@@ -23,6 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
             gridContainer.appendChild(gridItem);
         }
     }
+}
 
     scaleSlider.addEventListener("input", function () {
         gridSize = parseInt(this.value);
@@ -86,23 +88,24 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
     
-    function moveShape(event) {
-        event.preventDefault();
-        if (!activeShape) return;
+   function moveShape(event) {
+    event.preventDefault();
+    if (!activeShape) return;
 
-        const isTouch = event.type.startsWith("touch");
-        const touch = isTouch ? event.touches[0] : event;
+    const isTouch = event.type.startsWith("touch");
+    const touch = isTouch ? event.touches[0] : event;
 
     const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
-        const shapeRect = activeShape.getBoundingClientRect();
-
-   // Calculate new position within play area
-    let newX = touch.clientX - offsetX - playArea.left;
-    let newY = touch.clientY - offsetY - playArea.top;
+    const shapeRect = activeShape.getBoundingClientRect();
 
     // Keep shape inside playarea boundaries
     let newX = touch.clientX - offsetX - playArea.left;
     let newY = touch.clientY - offsetY - playArea.top;
+
+    if (newX < 0) newX = 0;
+    if (newX + shapeRect.width > playArea.width) newX = playArea.width - shapeRect.width;
+    if (newY < 0) newY = 0;
+    if (newY + shapeRect.height > playArea.height) newY = playArea.height - shapeRect.height;
 
     activeShape.style.left = `${newX}px`;
     activeShape.style.top = `${newY}px`;
