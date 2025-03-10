@@ -53,29 +53,31 @@ function startDrag(event) {
     const playAreaRect = playArea.getBoundingClientRect();    
 
     if (!event.target.classList.contains("placed-shape")) {
-            activeShape = event.target.cloneNode(true);
-            activeShape.classList.add("placed-shape");
+        // Clone new shape
+        activeShape = event.target.cloneNode(true);
+        activeShape.classList.add("placed-shape");
 
-            const playArea = document.querySelector(".playarea-large");
-            playArea.appendChild(activeShape);
+        // Ensure it's placed in the correct container
+        playArea.appendChild(activeShape);
 
-        
         // Keep original size
         activeShape.style.width = event.target.clientWidth + "px";
         activeShape.style.height = event.target.clientHeight + "px";
 
         // Set absolute positioning relative to playarea
         activeShape.style.position = "absolute";
-        activeShape.style.zIndex = "1000"; // Make sure it's on top
+        activeShape.style.zIndex = "1000"; // Ensure it's on top
 
-        // Ensure the shape appears **inside the play area**, not the shape container
-            const playAreaRect = playArea.getBoundingClientRect();
-            activeShape.style.left = `${playAreaRect.width / 2 - activeShape.clientWidth / 2}px`;
-            activeShape.style.top = `${playAreaRect.height / 2 - activeShape.clientHeight / 2}px`;
+        // FIX: Make shape appear inside play area instead of the shape selection window
+        let centerX = playAreaRect.left + playAreaRect.width / 2 - activeShape.clientWidth / 2;
+        let centerY = playAreaRect.top + playAreaRect.height / 2 - activeShape.clientHeight / 2;
+        
+        activeShape.style.left = `${centerX}px`;
+        activeShape.style.top = `${centerY}px`;
 
-            offsetX = 0;
-            offsetY = 0;
-        }
+        // Set offset to maintain cursor position while dragging
+        offsetX = touch.clientX - centerX;
+        offsetY = touch.clientY - centerY;
     } else {
         // Move existing shape
         activeShape = event.target;
@@ -89,6 +91,7 @@ function startDrag(event) {
     document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
     document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
 }
+
 
 
 
