@@ -48,8 +48,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const isTouch = event.type.startsWith("touch");
     const touch = isTouch ? event.touches[0] : event;
 
-    const playArea = document.querySelector(".playarea-large"); // Ensure we select the correct container
-    if (!playArea) return; // Stop if play area is missing
+    const playArea = document.querySelector(".playarea-large");
+    const playAreaRect = playArea.getBoundingClientRect();    
 
     if (!event.target.classList.contains("placed-shape")) {
         // Clone new shape
@@ -65,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
         // Set absolute positioning relative to playarea
         activeShape.style.position = "absolute";
+        activeShape.style.zIndex = "1000"; // Make sure it's on top
+
 
         // FIX: Position it inside the play area at the exact click location
         const clickX = touch.clientX - playArea.getBoundingClientRect().left;
@@ -77,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
         // Move existing shape
         activeShape = event.target;
-        const rect = activeShape.getBoundingClientRect();
+        const shapeRect = activeShape.getBoundingClientRect();
         offsetX = touch.clientX - rect.left;
         offsetY = touch.clientY - rect.top;
     }
