@@ -100,18 +100,19 @@ document.addEventListener("DOMContentLoaded", function () {
     const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
     const shapeRect = activeShape.getBoundingClientRect();
 
-    // Keep shape inside playarea boundaries
+    // Calculate new position based on cursor movement
     let newX = touch.clientX - playArea.left - offsetX;
     let newY = touch.clientY - playArea.top - offsetY;
 
-    if (newX < 0) newX = 0;
-    if (newX + shapeRect.width > playArea.width) newX = playArea.width - shapeRect.width;
-    if (newY < 0) newY = 0;
-    if (newY + shapeRect.height > playArea.height) newY = playArea.height - shapeRect.height;
+    // Keep shape inside playarea boundaries
+    newX = Math.max(0, Math.min(playArea.width - shapeRect.width, newX));
+    newY = Math.max(0, Math.min(playArea.height - shapeRect.height, newY));
 
+    // Apply new position
     activeShape.style.left = `${newX}px`;
     activeShape.style.top = `${newY}px`;
 }
+
 
     function dropShape(event) {
         if (!activeShape) return;
