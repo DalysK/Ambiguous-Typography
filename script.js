@@ -74,16 +74,18 @@ function startDrag(event) {
         
         activeShape.style.left = `${centerX}px`;
          activeShape.style.top = `${centerY}px`;
- 
-         // Set offset to maintain cursor position while dragging
-         offsetX = touch.clientX - playAreaRect.left - activeShape.getBoundingClientRect().left;
-         offsetY = touch.clientY - playAreaRect.top - activeShape.getBoundingClientRect().top;
+        
+      // Fix offset for newly placed shapes
+        offsetX = activeShape.clientWidth / 2;
+        offsetY = activeShape.clientHeight / 2;
     } else {
-        // Move existing shape
+        // Move existing shape: FIX THE OFFSET!
         activeShape = event.target;
-        const rect = activeShape.getBoundingClientRect();
-        offsetX = touch.clientX - rect.left;
-        offsetY = touch.clientY - rect.top;
+        const shapeRect = activeShape.getBoundingClientRect();
+        
+        // FIX: Calculate correct offset so shape doesn’t jump away from cursor
+        offsetX = touch.clientX - shapeRect.left;
+        offsetY = touch.clientY - shapeRect.top;
     }
 
     moveShape(event); // Position shape immediately
