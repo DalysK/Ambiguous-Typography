@@ -107,8 +107,10 @@ function startDrag(event) {
     const shapeRect = activeShape.getBoundingClientRect();
 
     // Calculate new position based on cursor movement
-    let newX = touch.clientX - playArea.left - offsetX;
-    let newY = touch.clientY - playArea.top - offsetY;
+ // Correct position calculation to keep cursor on shape
+let newX = touch.clientX - offsetX - playArea.left;
+let newY = touch.clientY - offsetY - playArea.top;
+
 
     // Keep shape inside playarea boundaries
     newX = Math.max(0, Math.min(playArea.width - shapeRect.width, newX));
