@@ -247,8 +247,8 @@ body {
 .placed-shape{
     position: absolute;
     cursor: grab;
-    touch-action: none; /* Prevents iPad from interfering with dragging */
 }
+
 .playarea-small{
     display: grid;
     grid-template-rows: 2fr 1fr;
