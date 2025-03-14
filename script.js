@@ -76,8 +76,8 @@ function startDrag(event) {
         activeShape.style.top = `${centerY}px`;
 
         // Set offset to maintain cursor position while dragging
-        offsetX = touch.clientX - centerX;
-        offsetY = touch.clientY - centerY;
+        offsetX = touch.clientX - playAreaRect.left - activeShape.getBoundingClientRect().left;
+        offsetY = touch.clientY - playAreaRect.top - activeShape.getBoundingClientRect().top;
     } else {
         // Move existing shape
         activeShape = event.target;
