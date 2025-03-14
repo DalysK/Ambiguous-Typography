@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*** DRAG-AND-DROP SYSTEM ***/
 let activeShape = null;
-    let offsetX, offsetY;
+    let offsetX = 0, offsetY = 0;
 
     // Select all shapes in the small popup window
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
@@ -63,54 +63,53 @@ let activeShape = null;
         playArea.appendChild(newShape);
 
         // Make the shape draggable
-        newShape.addEventListener("mousedown", startDrag);
-        newShape.addEventListener("touchstart", startDrag);
+            activeShape.addEventListener("mousedown", function (e) {
+                startMoving(activeShape, "playarea-large", e);
+            });
+
+            activeShape.addEventListener("mouseup", function () {
+                stopMoving("playarea-large");
+            });
+        });
+    });
+
+    function move(divid, xpos, ypos) {
+        divid.style.left = xpos + "px";
+        divid.style.top = ypos + "px";
     }
 
-    function startDrag(event) {
-        event.preventDefault();
-        activeShape = event.target;
+    function startMoving(divid, container, evt) {
+        evt = evt || window.event;
+        const posX = evt.clientX, posY = evt.clientY;
+        const divTop = parseInt(divid.style.top) || 0;
+        const divLeft = parseInt(divid.style.left) || 0;
+        const eWi = divid.offsetWidth, eHe = divid.offsetHeight;
+        const playArea = document.getElementById(container);
+        const cWi = playArea.clientWidth, cHe = playArea.clientHeight;
 
-        const isTouch = event.type.startsWith("touch");
-        const touch = isTouch ? event.touches[0] : event;
+        playArea.style.cursor = "move";
 
-        const shapeRect = activeShape.getBoundingClientRect();
-        offsetX = touch.clientX - shapeRect.left;
-        offsetY = touch.clientY - shapeRect.top;
+        const diffX = posX - divLeft, diffY = posY - divTop;
 
-        document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
-        document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
+        document.onmousemove = function (evt) {
+            evt = evt || window.event;
+            const posX = evt.clientX, posY = evt.clientY;
+            let newX = posX - diffX;
+            let newY = posY - diffY;
+
+            // Constrain movement within playarea
+            if (newX < 0) newX = 0;
+            if (newY < 0) newY = 0;
+            if (newX + eWi > cWi) newX = cWi - eWi;
+            if (newY + eHe > cHe) newY = cHe - eHe;
+
+            move(divid, newX, newY);
+        };
     }
 
-    function moveShape(event) {
-        event.preventDefault();
-        if (!activeShape) return;
-
-        const isTouch = event.type.startsWith("touch");
-        const touch = isTouch ? event.touches[0] : event;
-
-        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
-        const shapeRect = activeShape.getBoundingClientRect();
-
-        // Calculate new position
-        let newX = touch.clientX - offsetX - playArea.left;
-        let newY = touch.clientY - offsetY - playArea.top;
-
-        // Keep shape inside the play area
-        newX = Math.max(0, Math.min(playArea.width - shapeRect.width, newX));
-        newY = Math.max(0, Math.min(playArea.height - shapeRect.height, newY));
-
-        // Apply new position
-        activeShape.style.left = `${newX}px`;
-        activeShape.style.top = `${newY}px`;
-    }
-
-    function dropShape(event) {
-        document.removeEventListener("mousemove", moveShape);
-        document.removeEventListener("mouseup", dropShape);
-        document.removeEventListener("touchmove", moveShape);
-        document.removeEventListener("touchend", dropShape);
-        activeShape = null;
+    function stopMoving(container) {
+        document.getElementById(container).style.cursor = "default";
+        document.onmousemove = null;
     }
 
 
