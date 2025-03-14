@@ -111,7 +111,7 @@ let activeShape = null;
         document.getElementById(container).style.cursor = "default";
         document.onmousemove = null;
     }
-
+});
 
     /*** SHAPE TRANSFORMATIONS ***/
     let selectedShape = null;
