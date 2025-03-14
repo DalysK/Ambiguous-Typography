@@ -35,49 +35,46 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /*** DRAG-AND-DROP SYSTEM ***/
 let activeShape = null;
-    let offsetX = 0, offsetY = 0;
+    let offsetX, offsetY;
 
-    // Select all shape options from the popup
+    // Select all shapes in the small popup window
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
-        shape.addEventListener("click", placeShapeInPlayArea);
+        shape.addEventListener("click", function () {
+            addShapeToPlayArea(this);
+        });
     });
 
-    function placeShapeInPlayArea(event) {
+    function addShapeToPlayArea(originalShape) {
         const playArea = document.querySelector(".playarea-large");
+
+        // Clone the clicked shape
+        const newShape = originalShape.cloneNode(true);
+        newShape.classList.add("placed-shape");
+        newShape.style.position = "absolute";
+        newShape.style.width = originalShape.clientWidth + "px"; 
+        newShape.style.height = "auto"; 
+
+        // Position the shape in the center of the play area
         const playAreaRect = playArea.getBoundingClientRect();
+        newShape.style.left = `${playAreaRect.width / 2 - originalShape.clientWidth / 2}px`;
+        newShape.style.top = `${playAreaRect.height / 2 - originalShape.clientHeight / 2}px`;
 
-        // Clone the selected shape
-        activeShape = event.target.cloneNode(true);
-        activeShape.classList.add("placed-shape");
-        activeShape.style.position = "absolute";
-        activeShape.style.zIndex = "1000";
-
-        // Set default size (same as the original clicked shape)
-        activeShape.style.width = event.target.clientWidth + "px";
-        activeShape.style.height = event.target.clientHeight + "px";
-
-        // Place shape in the center of the play area
-        activeShape.style.left = `${playAreaRect.width / 2 - activeShape.clientWidth / 2}px`;
-        activeShape.style.top = `${playAreaRect.height / 2 - activeShape.clientHeight / 2}px`;
-
-        // Append shape to the play area
-        playArea.appendChild(activeShape);
+        // Add the shape to the play area
+        playArea.appendChild(newShape);
 
         // Make the shape draggable
-        activeShape.addEventListener("mousedown", startDrag);
-        activeShape.addEventListener("touchstart", startDrag);
+        newShape.addEventListener("mousedown", startDrag);
+        newShape.addEventListener("touchstart", startDrag);
     }
 
     function startDrag(event) {
         event.preventDefault();
+        activeShape = event.target;
 
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
         const shapeRect = activeShape.getBoundingClientRect();
-        const playAreaRect = document.querySelector(".playarea-large").getBoundingClientRect();
-
-        // Correctly calculate offset inside the shape
         offsetX = touch.clientX - shapeRect.left;
         offsetY = touch.clientY - shapeRect.top;
 
@@ -92,16 +89,16 @@ let activeShape = null;
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playAreaRect = document.querySelector(".playarea-large").getBoundingClientRect();
+        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
         const shapeRect = activeShape.getBoundingClientRect();
 
         // Calculate new position
-        let newX = touch.clientX - playAreaRect.left - offsetX;
-        let newY = touch.clientY - playAreaRect.top - offsetY;
+        let newX = touch.clientX - offsetX - playArea.left;
+        let newY = touch.clientY - offsetY - playArea.top;
 
-        // Keep shape inside play area boundaries
-        newX = Math.max(0, Math.min(playAreaRect.width - shapeRect.width, newX));
-        newY = Math.max(0, Math.min(playAreaRect.height - shapeRect.height, newY));
+        // Keep shape inside the play area
+        newX = Math.max(0, Math.min(playArea.width - shapeRect.width, newX));
+        newY = Math.max(0, Math.min(playArea.height - shapeRect.height, newY));
 
         // Apply new position
         activeShape.style.left = `${newX}px`;
@@ -109,14 +106,11 @@ let activeShape = null;
     }
 
     function dropShape(event) {
-        if (!activeShape) return;
-
         document.removeEventListener("mousemove", moveShape);
         document.removeEventListener("mouseup", dropShape);
         document.removeEventListener("touchmove", moveShape);
         document.removeEventListener("touchend", dropShape);
-
-        activeShape = null; // Reset after dropping
+        activeShape = null;
     }
 
 
