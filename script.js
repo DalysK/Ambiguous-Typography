@@ -33,8 +33,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateGrid(); // Initialize grid
 
+document.addEventListener("DOMContentLoaded", function () {
     /*** DRAG-AND-DROP SYSTEM ***/
-let activeShape = null;
+    let activeShape = null;
     let offsetX = 0, offsetY = 0;
 
     // Select all shapes in the small popup window
@@ -53,25 +54,31 @@ let activeShape = null;
         newShape.style.position = "absolute";
         newShape.style.width = originalShape.clientWidth + "px"; 
         newShape.style.height = "auto"; 
+        newShape.style.cursor = "grab"; // Indicate it's draggable
 
-        // Position the shape in the center of the play area
-        const playAreaRect = playArea.getBoundingClientRect();
-        newShape.style.left = `${playAreaRect.width / 2 - originalShape.clientWidth / 2}px`;
-        newShape.style.top = `${playAreaRect.height / 2 - originalShape.clientHeight / 2}px`;
+        // Position the shape at a default location inside playarea
+        newShape.style.left = "10px";
+        newShape.style.top = "10px";
 
         // Add the shape to the play area
         playArea.appendChild(newShape);
 
         // Make the shape draggable
-            activeShape.addEventListener("mousedown", function (e) {
-                startMoving(activeShape, "playarea-large", e);
-            });
-
-            activeShape.addEventListener("mouseup", function () {
-                stopMoving("playarea-large");
-            });
+        newShape.addEventListener("mousedown", function (e) {
+            startMoving(newShape, "playarea-large", e);
         });
-    });
+        newShape.addEventListener("mouseup", function () {
+            stopMoving("playarea-large");
+        });
+
+        // Enable touch support for mobile
+        newShape.addEventListener("touchstart", function (e) {
+            startMoving(newShape, "playarea-large", e.touches[0]);
+        });
+        newShape.addEventListener("touchend", function () {
+            stopMoving("playarea-large");
+        });
+    }
 
     function move(divid, xpos, ypos) {
         divid.style.left = xpos + "px";
@@ -79,23 +86,26 @@ let activeShape = null;
     }
 
     function startMoving(divid, container, evt) {
-        evt = evt || window.event;
-        const posX = evt.clientX, posY = evt.clientY;
-        const divTop = parseInt(divid.style.top) || 0;
-        const divLeft = parseInt(divid.style.left) || 0;
-        const eWi = divid.offsetWidth, eHe = divid.offsetHeight;
+        evt.preventDefault();
         const playArea = document.getElementById(container);
-        const cWi = playArea.clientWidth, cHe = playArea.clientHeight;
+
+        const posX = evt.clientX, posY = evt.clientY;
+        const divRect = divid.getBoundingClientRect();
+        const cRect = playArea.getBoundingClientRect();
+
+        const eWi = divRect.width, eHe = divRect.height;
+        const cWi = cRect.width, cHe = cRect.height;
 
         playArea.style.cursor = "move";
 
-        const diffX = posX - divLeft, diffY = posY - divTop;
+        const diffX = posX - divRect.left;
+        const diffY = posY - divRect.top;
 
         document.onmousemove = function (evt) {
             evt = evt || window.event;
             const posX = evt.clientX, posY = evt.clientY;
-            let newX = posX - diffX;
-            let newY = posY - diffY;
+            let newX = posX - cRect.left - diffX;
+            let newY = posY - cRect.top - diffY;
 
             // Constrain movement within playarea
             if (newX < 0) newX = 0;
@@ -105,11 +115,27 @@ let activeShape = null;
 
             move(divid, newX, newY);
         };
+
+        document.onmouseup = function () {
+            stopMoving(container);
+        };
+
+        // Touch support
+        document.ontouchmove = function (evt) {
+            evt.preventDefault();
+            startMoving(divid, container, evt.touches[0]);
+        };
+        document.ontouchend = function () {
+            stopMoving(container);
+        };
     }
 
     function stopMoving(container) {
         document.getElementById(container).style.cursor = "default";
         document.onmousemove = null;
+        document.onmouseup = null;
+        document.ontouchmove = null;
+        document.ontouchend = null;
     }
 });
 
