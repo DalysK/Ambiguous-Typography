@@ -41,11 +41,21 @@ document.addEventListener("DOMContentLoaded", function () {
     let offsetX = 0, offsetY = 0;
 
     // Select all shapes in the small popup window
-    document.querySelectorAll(".puzzle-shape img").forEach(shape => {
-        shape.addEventListener("click", function () {
+   document.addEventListener("DOMContentLoaded", function () {
+    const shapeElements = document.querySelectorAll(".puzzle-shape img");
+
+    if (shapeElements.length === 0) {
+        console.error("No shapes found! Check your selector.");
+    }
+
+    shapeElements.forEach(shape => {
+        shape.addEventListener("click", function (event) {
+            console.log("Shape clicked:", event.target); // Debugging check
             addShapeToPlayArea(this);
         });
     });
+});
+
 
     function addShapeToPlayArea(originalShape) {
         const playArea = document.querySelector(".playarea-large");
