@@ -34,56 +34,11 @@ document.addEventListener("DOMContentLoaded", function () {
     updateGrid(); // Initialize grid
 
 
-    var mydragg = function() {
-  return {
-    move: function(divid, xpos, ypos) {
-      divid.style.left = xpos + 'px';
-      divid.style.top = ypos + 'px';
-    },
-    startMoving: function(divid, container, evt) {
-      evt = evt || window.event;
-      var posX = evt.clientX,
-          posY = evt.clientY,
-          divTop = divid.offsetTop,
-          divLeft = divid.offsetLeft,
-          eWi = divid.offsetWidth,
-          eHe = divid.offsetHeight,
-          cWi = document.getElementById(container).clientWidth,
-          cHe = document.getElementById(container).clientHeight;
-      
-      document.getElementById(container).style.cursor = 'move';
+   document.addEventListener("DOMContentLoaded", function () {
 
-      var diffX = posX - divLeft,
-          diffY = posY - divTop;
-
-      document.onmousemove = function(evt) {
-        evt = evt || window.event;
-        var posX = evt.clientX,
-            posY = evt.clientY,
-            aX = posX - diffX,
-            aY = posY - diffY;
-
-        // Constrain within container
-        if (aX < 0) aX = 0;
-        if (aY < 0) aY = 0;
-        if (aX + eWi > cWi) aX = cWi - eWi;
-        if (aY + eHe > cHe) aY = cHe - eHe;
-
-        mydragg.move(divid, aX, aY);
-      }
-
-      document.onmouseup = function() {
-        document.getElementById(container).style.cursor = 'default';
-        document.onmousemove = null;
-        document.onmouseup = null;
-      }
-    }
-  }
-}();
-
-  
     /*** DRAG-AND-DROP SYSTEM ***/
-  
+    let activeShape = null;
+    let offsetX = 0, offsetY = 0;
 
     // Select all shapes in the small popup window
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
@@ -103,17 +58,69 @@ document.addEventListener("DOMContentLoaded", function () {
         newShape.style.height = "auto"; 
         newShape.style.cursor = "grab"; // Indicate it's draggable
 
+        // Get play area size
+        const playAreaRect = playArea.getBoundingClientRect();
+        
         // Position the shape at a default location inside playarea
-        newShape.style.left = "20px";
-        newShape.style.top = "20px";
+        newShape.style.left = `${playAreaRect.width / 2 - originalShape.clientWidth / 2}px`;
+        newShape.style.top = `${playAreaRect.height / 2 - originalShape.clientHeight / 2}px`;
 
         // Add the shape to the play area
         playArea.appendChild(newShape);
 
-       newShape.addEventListener("mousedown",function (e) {
-                mydragg.startMoving(newShape, "playarea-large", e);
-    });
-}
+        // Make the shape draggable
+        newShape.addEventListener("mousedown", startDrag);
+        newShape.addEventListener("touchstart", startDrag);
+    }
+
+    function startDrag(event) {
+        event.preventDefault();
+        activeShape = event.target;
+
+        const isTouch = event.type.startsWith("touch");
+        const touch = isTouch ? event.touches[0] : event;
+
+        const shapeRect = activeShape.getBoundingClientRect();
+        offsetX = touch.clientX - shapeRect.left;
+        offsetY = touch.clientY - shapeRect.top;
+
+        document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
+        document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
+    }
+
+    function moveShape(event) {
+        event.preventDefault();
+        if (!activeShape) return;
+
+        const isTouch = event.type.startsWith("touch");
+        const touch = isTouch ? event.touches[0] : event;
+
+        const playArea = document.querySelector(".playarea-large").getBoundingClientRect();
+        const shapeRect = activeShape.getBoundingClientRect();
+
+        // Calculate new position
+        let newX = touch.clientX - offsetX - playArea.left;
+        let newY = touch.clientY - offsetY - playArea.top;
+
+        // Keep shape inside the play area
+        newX = Math.max(0, Math.min(playArea.width - shapeRect.width, newX));
+        newY = Math.max(0, Math.min(playArea.height - shapeRect.height, newY));
+
+        // Apply new position
+        activeShape.style.left = `${newX}px`;
+        activeShape.style.top = `${newY}px`;
+    }
+
+    function dropShape(event) {
+        document.removeEventListener("mousemove", moveShape);
+        document.removeEventListener("mouseup", dropShape);
+        document.removeEventListener("touchmove", moveShape);
+        document.removeEventListener("touchend", dropShape);
+        activeShape = null;
+    }
+
+});
+
 
     /*** SHAPE TRANSFORMATIONS ***/
     let selectedShape = null;
