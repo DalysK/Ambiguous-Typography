@@ -33,7 +33,56 @@ document.addEventListener("DOMContentLoaded", function () {
 
     updateGrid(); // Initialize grid
 
+
+    var mydragg = function() {
+  return {
+    move: function(divid, xpos, ypos) {
+      divid.style.left = xpos + 'px';
+      divid.style.top = ypos + 'px';
+    },
+    startMoving: function(divid, container, evt) {
+      evt = evt || window.event;
+      var posX = evt.clientX,
+          posY = evt.clientY,
+          divTop = divid.offsetTop,
+          divLeft = divid.offsetLeft,
+          eWi = divid.offsetWidth,
+          eHe = divid.offsetHeight,
+          cWi = document.getElementById(container).clientWidth,
+          cHe = document.getElementById(container).clientHeight;
+      
+      document.getElementById(container).style.cursor = 'move';
+
+      var diffX = posX - divLeft,
+          diffY = posY - divTop;
+
+      document.onmousemove = function(evt) {
+        evt = evt || window.event;
+        var posX = evt.clientX,
+            posY = evt.clientY,
+            aX = posX - diffX,
+            aY = posY - diffY;
+
+        // Constrain within container
+        if (aX < 0) aX = 0;
+        if (aY < 0) aY = 0;
+        if (aX + eWi > cWi) aX = cWi - eWi;
+        if (aY + eHe > cHe) aY = cHe - eHe;
+
+        mydragg.move(divid, aX, aY);
+      }
+
+      document.onmouseup = function() {
+        document.getElementById(container).style.cursor = 'default';
+        document.onmousemove = null;
+        document.onmouseup = null;
+      }
+    }
+  }
+}();
+
 document.addEventListener("DOMContentLoaded", function () {
+  
     /*** DRAG-AND-DROP SYSTEM ***/
     let activeShape = null;
     let offsetX = 0, offsetY = 0;
@@ -63,81 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Add the shape to the play area
         playArea.appendChild(newShape);
 
-        // Make the shape draggable
-        newShape.addEventListener("mousedown", function (e) {
-            startMoving(newShape, "playarea-large", e);
-        });
-        newShape.addEventListener("mouseup", function () {
-            stopMoving("playarea-large");
-        });
-
-        // Enable touch support for mobile
-        newShape.addEventListener("touchstart", function (e) {
-            startMoving(newShape, "playarea-large", e.touches[0]);
-        });
-        newShape.addEventListener("touchend", function () {
-            stopMoving("playarea-large");
-        });
-    }
-
-    function move(divid, xpos, ypos) {
-        divid.style.left = xpos + "px";
-        divid.style.top = ypos + "px";
-    }
-
-    function startMoving(divid, container, evt) {
-        evt.preventDefault();
-        const playArea = document.getElementById(container);
-
-        const posX = evt.clientX, posY = evt.clientY;
-        const divRect = divid.getBoundingClientRect();
-        const cRect = playArea.getBoundingClientRect();
-
-        const eWi = divRect.width, eHe = divRect.height;
-        const cWi = cRect.width, cHe = cRect.height;
-
-        playArea.style.cursor = "move";
-
-        const diffX = posX - divRect.left;
-        const diffY = posY - divRect.top;
-
-        document.onmousemove = function (evt) {
-            evt = evt || window.event;
-            const posX = evt.clientX, posY = evt.clientY;
-            let newX = posX - cRect.left - diffX;
-            let newY = posY - cRect.top - diffY;
-
-            // Constrain movement within playarea
-            if (newX < 0) newX = 0;
-            if (newY < 0) newY = 0;
-            if (newX + eWi > cWi) newX = cWi - eWi;
-            if (newY + eHe > cHe) newY = cHe - eHe;
-
-            move(divid, newX, newY);
-        };
-
-        document.onmouseup = function () {
-            stopMoving(container);
-        };
-
-        // Touch support
-        document.ontouchmove = function (evt) {
-            evt.preventDefault();
-            startMoving(divid, container, evt.touches[0]);
-        };
-        document.ontouchend = function () {
-            stopMoving(container);
-        };
-    }
-
-    function stopMoving(container) {
-        document.getElementById(container).style.cursor = "default";
-        document.onmousemove = null;
-        document.onmouseup = null;
-        document.ontouchmove = null;
-        document.ontouchend = null;
-    }
-});
+       newShape.addEventListener("mousedown",function (e) {
+                mydragg.startMoving(newShape, "playarea-large", e);
+    });
+}
 
     /*** SHAPE TRANSFORMATIONS ***/
     let selectedShape = null;
