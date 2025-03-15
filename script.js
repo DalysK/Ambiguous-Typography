@@ -81,11 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 }();
 
-document.addEventListener("DOMContentLoaded", function () {
   
     /*** DRAG-AND-DROP SYSTEM ***/
-    let activeShape = null;
-    let offsetX = 0, offsetY = 0;
+  
 
     // Select all shapes in the small popup window
     document.querySelectorAll(".puzzle-shape img").forEach(shape => {
@@ -106,8 +104,8 @@ document.addEventListener("DOMContentLoaded", function () {
         newShape.style.cursor = "grab"; // Indicate it's draggable
 
         // Position the shape at a default location inside playarea
-        newShape.style.left = "10px";
-        newShape.style.top = "10px";
+        newShape.style.left = "20px";
+        newShape.style.top = "20px";
 
         // Add the shape to the play area
         playArea.appendChild(newShape);
