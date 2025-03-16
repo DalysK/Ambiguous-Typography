@@ -34,14 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
     updateGrid(); // Initialize grid
 
 
-   document.addEventListener("DOMContentLoaded", function () {
-
    /*** DRAG-AND-DROP SYSTEM ***/
     let activeShape = null;
     let offsetX = 0, offsetY = 0;
 
     // Select all shapes in the small popup window
-   document.addEventListener("DOMContentLoaded", function () {
+ 
     const shapeElements = document.querySelectorAll(".puzzle-shape img");
 
     if (shapeElements.length === 0) {
