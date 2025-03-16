@@ -128,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
         document.removeEventListener("touchend", dropShape);
         activeShape = null;
     }
-});
+
 
 
     /*** SHAPE TRANSFORMATIONS ***/
