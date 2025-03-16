@@ -52,7 +52,6 @@ document.addEventListener("DOMContentLoaded", function () {
             addShapeToPlayArea(this);
         });
     });
-});
 
 
     function addShapeToPlayArea(originalShape) {
