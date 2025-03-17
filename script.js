@@ -105,7 +105,11 @@ document.addEventListener("DOMContentLoaded", function () {
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playAreaRect = document.querySelector(".playarea-large").getBoundingClientRect();
+        const playAreaRect = document.querySelector(".playarea-large");
+        const playAreaRect = playArea.getBoundingClientRect();
+
+        newShape.style.left = `${(playAreaRect.width / 2) - (originalShape.clientWidth / 2)}px`;
+        newShape.style.top = `${(playAreaRect.height / 2) - (originalShape.clientHeight / 2)}px`;
         
         // Calculate new position (inside play area)
         let newX = touch.clientX - offsetX - playAreaRect.left;
