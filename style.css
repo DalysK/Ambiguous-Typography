@@ -356,6 +356,7 @@ body {
     align-items: center;
     justify-content: center; /* Center grid */
     overflow: hidden;
+    position: relative;
 }
 
 .grid-container {
