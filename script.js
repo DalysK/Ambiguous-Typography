@@ -135,9 +135,11 @@ document.addEventListener("DOMContentLoaded", function () {
         newY = Math.max(playAreaRect.top, Math.min(playAreaRect.bottom - shapeRect.height, newY));
 
 
-        // Apply new position
-        activeShape.style.left = `${newX - playAreaRect.left}px`;
-        activeShape.style.top = `${newY - playAreaRect.top}px`;
+              // Apply new position
+        //activeShape.style.left = `${newX}px`;
+       // activeShape.style.top = `${newY}px`;
+//}
+        activeShape.style.transform = `translate(${newX}px, ${newY}px)`;
 }
 
     function dropShape() {
