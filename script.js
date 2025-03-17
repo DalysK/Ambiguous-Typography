@@ -112,6 +112,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const playArea = document.querySelector(".playarea-large");
         const playAreaRect = playArea.getBoundingClientRect();     
+
+        console.log("Touch X:", touch.clientX, "Touch Y:", touch.clientY);
+        console.log("Offset X:", offsetX, "Offset Y:", offsetY);
+        console.log("Play area left:", playAreaRect.left, "top:", playAreaRect.top);
         
         // Calculate new position (inside play area)
         let newX = touch.clientX - offsetX - playAreaRect.left;
