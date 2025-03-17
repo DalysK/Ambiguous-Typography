@@ -90,9 +90,10 @@ document.addEventListener("DOMContentLoaded", function () {
        const shapeRect = activeShape.getBoundingClientRect();
     const playAreaRect = document.querySelector(".playarea-large").getBoundingClientRect();
         
-        console.log("Clicked shape:", activeShape, "Shape position:", activeShape.getBoundingClientRect());
-        console.log("Mouse position:", touch.clientX, touch.clientY);
-        console.log("Play area:", playAreaRect);
+   console.log("Clicked shape:", activeShape);
+    console.log("Shape position:", shapeRect.left, shapeRect.top);
+    console.log("Mouse position:", touch.clientX, touch.clientY);
+    console.log("Play area:", playAreaRect);
 
         // Fix offset calculation (relative to the play area)
         offsetX = touch.clientX - shapeRect.left;
