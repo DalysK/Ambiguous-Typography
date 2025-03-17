@@ -136,11 +136,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
               // Apply new position
-        //activeShape.style.left = `${newX}px`;
-       // activeShape.style.top = `${newY}px`;
-//}
-        activeShape.style.transform = `translate(${newX}px, ${newY}px)`;
+        activeShape.style.left = `${newX}px`;
+        activeShape.style.top = `${newY}px`;
 }
+
 
     function dropShape() {
         document.removeEventListener("mousemove", moveShape);
