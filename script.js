@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const touch = isTouch ? event.touches[0] : event;
 
         const playAreaRect = document.querySelector(".playarea-large");
-        const playAreaRect = playArea.getBoundingClientRect();
+     
 
         newShape.style.left = `${(playAreaRect.width / 2) - (originalShape.clientWidth / 2)}px`;
         newShape.style.top = `${(playAreaRect.height / 2) - (originalShape.clientHeight / 2)}px`;
