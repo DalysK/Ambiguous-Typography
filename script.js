@@ -131,8 +131,8 @@ document.addEventListener("DOMContentLoaded", function () {
         let newY = touch.clientY - offsetY - playAreaRect.top;
 
         // Keep shape inside the play area
-       newX = Math.max(playAreaRect.left, Math.min(playAreaRect.right - shapeRect.width, newX));
-        newY = Math.max(playAreaRect.top, Math.min(playAreaRect.bottom - shapeRect.height, newY));
+   newX = Math.max(0, Math.min(playAreaRect.width - shapeRect.width, newX));
+    newY = Math.max(0, Math.min(playAreaRect.height - shapeRect.height, newY));
 
 
               // Apply new position
