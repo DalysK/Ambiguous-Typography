@@ -87,17 +87,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playArea = document.querySelector(".playarea-large");
-        const playAreaRect = playArea.getBoundingClientRect();
-        const shapeRect = activeShape.getBoundingClientRect();
+       const shapeRect = activeShape.getBoundingClientRect();
+    const playAreaRect = document.querySelector(".playarea-large").getBoundingClientRect();
         
         console.log("Clicked shape:", activeShape, "Shape position:", activeShape.getBoundingClientRect());
         console.log("Mouse position:", touch.clientX, touch.clientY);
         console.log("Play area:", playAreaRect);
 
         // Fix offset calculation (relative to the play area)
-        offsetX = touch.clientX - shapeRect.left + playAreaRect.left;
-        offsetY = touch.clientY - shapeRect.top + playAreaRect.top;
+        offsetX = touch.clientX - shapeRect.left;
+        offsetY = touch.clientY - shapeRect.top;
 
         document.addEventListener(isTouch ? "touchmove" : "mousemove", moveShape, { passive: false });
         document.addEventListener(isTouch ? "touchend" : "mouseup", dropShape);
