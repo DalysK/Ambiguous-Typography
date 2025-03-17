@@ -246,7 +246,6 @@ body {
 
 .placed-shape{
     position: absolute;
-    cursor: grab;
 }
 
 .playarea-small{
