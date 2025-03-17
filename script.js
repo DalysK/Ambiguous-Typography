@@ -110,7 +110,9 @@ document.addEventListener("DOMContentLoaded", function () {
         const touch = isTouch ? event.touches[0] : event;
 
         const playArea = document.querySelector(".playarea-large");
-        const playAreaRect = playArea.getBoundingClientRect();     
+        const playAreaRect = playArea.getBoundingClientRect();    
+        const shapeRect = activeShape.getBoundingClientRect();
+
 
         console.log("Touch X:", touch.clientX, "Touch Y:", touch.clientY);
         console.log("Offset X:", offsetX, "Offset Y:", offsetY);
@@ -121,13 +123,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let newY = touch.clientY - offsetY - playAreaRect.top;
 
         // Keep shape inside the play area
-        newX = Math.max(0, Math.min(playAreaRect.width - activeShape.clientWidth, newX));
-        newY = Math.max(0, Math.min(playAreaRect.height - activeShape.clientHeight, newY));
+       newX = Math.max(playAreaRect.left, Math.min(playAreaRect.right - shapeRect.width, newX));
+        newY = Math.max(playAreaRect.top, Math.min(playAreaRect.bottom - shapeRect.height, newY));
+
 
         // Apply new position
-        activeShape.style.left = `${newX}px`;
-        activeShape.style.top = `${newY}px`;
-    }
+        activeShape.style.left = `${newX - playAreaRect.left}px`;
+        activeShape.style.top = `${newY - playAreaRect.top}px`;
+}
 
     function dropShape() {
         document.removeEventListener("mousemove", moveShape);
