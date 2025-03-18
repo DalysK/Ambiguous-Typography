@@ -152,17 +152,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     /*** SHAPE TRANSFORMATIONS ***/
-    let selectedShape = null;
+   /*** SHAPE TRANSFORMATIONS ***/
+let selectedShape = null;
 
-    document.querySelector(".playarea-large").addEventListener("click", function (event) {
+// Select shape when clicked
+document.querySelector(".playarea-large").addEventListener("click", function (event) {
     if (event.target.classList.contains("placed-shape")) {
         selectedShape = event.target;
         console.log("Selected shape:", selectedShape);
     }
 });
 
-    function getCurrentTransformValues(element) {
-    const transform = element.style.transform;
+// Function to get current transform values
+function getCurrentTransformValues(element) {
+    const transform = element.style.transform || "";
     const matchRotate = transform.match(/rotate\(([-\d]+)deg\)/);
     const matchScaleX = transform.match(/scaleX\(([-\d.]+)\)/);
 
@@ -172,48 +175,45 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 }
 
-    // Rotate Shape
-  document.querySelectorAll(".setting-button img").forEach(button => {
+// Apply transformation buttons
+document.querySelectorAll(".setting-button img").forEach(button => {
     button.addEventListener("click", function () {
         if (!selectedShape) return; // No shape selected
 
         const action = this.getAttribute("src");
+        let { rotation, flip } = getCurrentTransformValues(selectedShape);
 
         if (action.includes("rotate_right")) {
-            // Rotate shape by 90 degrees
-            let { rotation, flip } = getCurrentTransformValues(selectedShape);
-           if (action.includes("rotate_right")) {
             // Rotate by 90 degrees
             rotation += 90;
         } 
-       else if (action.includes("flip")) {
+        else if (action.includes("flip")) {
             // Flip horizontally
             flip *= -1;
         }
- // Apply transform while keeping previous transformations
+
+        // Apply transformations while preserving both rotation and flip
         selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
 
         if (action.includes("plus")) {
             // Increase size
-            let currentWidth = selectedShape.getBoundingClientRect().width;
+            let currentWidth = parseFloat(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
             let newSize = currentWidth + 10;
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
-         
-        }
-
+        } 
         else if (action.includes("minus")) {
             // Decrease size but prevent shrinking too much
-            let currentWidth = selectedShape.getBoundingClientRect().width;
+            let currentWidth = parseFloat(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
             let newSize = Math.max(10, currentWidth - 10);
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
-    
         }
-        console.log("Updated Transform: ", selectedShape.style.transform);
 
+        console.log("Updated Transform:", selectedShape.style.transform);
     });
 });
+
     /*** COLOR CHANGE FOR SVG SHAPES ***/
     document.querySelectorAll(".color-option").forEach(colorOption => {
         colorOption.addEventListener("click", function () {
