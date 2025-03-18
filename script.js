@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /*** SHAPE TRANSFORMATIONS ***/
 let selectedShape = null;
 
-// Select shape when clicked
+// Select a shape when clicked
 document.querySelector(".playarea-large").addEventListener("click", function (event) {
     if (event.target.classList.contains("placed-shape")) {
         selectedShape = event.target;
@@ -162,53 +162,40 @@ document.querySelector(".playarea-large").addEventListener("click", function (ev
     }
 });
 
-// Get current transformation values (rotation & flip)
-function getCurrentTransformValues(element) {
-    const transform = element.style.transform;
-    const matchRotate = transform.match(/rotate\(([-\d]+)deg\)/);
-    const matchScaleX = transform.match(/scaleX\(([-\d.]+)\)/);
-
-    return {
-        rotation: matchRotate ? parseInt(matchRotate[1]) : 0,
-        flip: matchScaleX ? parseFloat(matchScaleX[1]) : 1
-    };
-}
-
-// Add event listeners to all transformation buttons
+// Detect which button was clicked based on the image source
 document.querySelectorAll(".setting-button img").forEach(button => {
     button.addEventListener("click", function () {
-        if (!selectedShape) return; // No shape selected, do nothing
+        if (!selectedShape) return; // No shape selected
 
-        const action = this.getAttribute("data-action"); // Get action type
+        const imgSrc = this.getAttribute("src"); // Get the image source
 
-        let { rotation, flip } = getCurrentTransformValues(selectedShape);
-
-        if (action === "rotate") {
+        if (imgSrc.includes("rotate_right")) {
             // Rotate shape by 90 degrees
-            rotation += 90;
-            selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
-            console.log("Rotated to:", rotation);
+            let currentRotation = getComputedStyle(selectedShape).transform.match(/rotate\((-?\d+)deg\)/);
+            let newRotation = currentRotation ? parseInt(currentRotation[1]) + 90 : 90;
+            selectedShape.style.transform = `rotate(${newRotation}deg) ${selectedShape.style.transform.replace(/rotate\([-?\d]+deg\)/, '')}`;
+            console.log("Rotated to:", newRotation);
         }
 
-        else if (action === "flip") {
+        else if (imgSrc.includes("flip")) {
             // Flip shape horizontally
-            flip *= -1;
-            selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
-            console.log("Flipped:", flip);
+            let flip = selectedShape.style.transform.includes("scaleX(-1)") ? "scaleX(1)" : "scaleX(-1)";
+            selectedShape.style.transform += ` ${flip}`;
+            console.log("Flipped shape");
         }
 
-        else if (action === "plus") {
+        else if (imgSrc.includes("plus")) {
             // Increase size
-            let currentWidth = selectedShape.getBoundingClientRect().width;
+            let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
             let newSize = currentWidth + 10;
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
             console.log("Resized to:", newSize);
         }
 
-        else if (action === "minus") {
+        else if (imgSrc.includes("minus")) {
             // Decrease size but prevent shrinking too much
-            let currentWidth = selectedShape.getBoundingClientRect().width;
+            let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
             let newSize = Math.max(10, currentWidth - 10);
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
@@ -216,6 +203,7 @@ document.querySelectorAll(".setting-button img").forEach(button => {
         }
     });
 });
+
 
     /*** COLOR CHANGE FOR SVG SHAPES ***/
     document.querySelectorAll(".color-option").forEach(colorOption => {
