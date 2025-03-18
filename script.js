@@ -155,42 +155,63 @@ document.addEventListener("DOMContentLoaded", function () {
     let selectedShape = null;
 
     document.querySelector(".playarea-large").addEventListener("click", function (event) {
-        if (event.target.tagName === "IMG") {
-            selectedShape = event.target;
-        }
-    });
+    if (event.target.classList.contains("placed-shape")) {
+        selectedShape = event.target;
+        console.log("Selected shape:", selectedShape);
+    }
+});
+
+    function getCurrentTransformValues(element) {
+    const transform = element.style.transform;
+    const matchRotate = transform.match(/rotate\(([-\d]+)deg\)/);
+    const matchScaleX = transform.match(/scaleX\(([-\d.]+)\)/);
+
+    return {
+        rotation: matchRotate ? parseInt(matchRotate[1]) : 0,
+        flip: matchScaleX ? parseFloat(matchScaleX[1]) : 1
+    };
+}
 
     // Rotate Shape
     document.querySelector(".setting-button img[src*='rotate_right']").addEventListener("click", function () {
-        if (selectedShape) {
-            let currentRotation = selectedShape.style.transform.match(/rotate\((\d+)deg\)/);
-            let newRotation = currentRotation ? parseInt(currentRotation[1]) + 90 : 90;
-            selectedShape.style.transform = `rotate(${newRotation}deg)`;
-        }
-    });
+    if (selectedShape) {
+        let { rotation, flip } = getCurrentTransformValues(selectedShape);
+        let newRotation = rotation + 90;
+        selectedShape.style.transform = `rotate(${newRotation}deg) scaleX(${flip})`;
+        console.log("Rotated to:", newRotation);
+    }
+});
 
     // Flip Shape
     document.querySelector(".setting-button img[src*='flip']").addEventListener("click", function () {
-        if (selectedShape) {
-            let flip = selectedShape.style.transform.includes("scaleX(-1)") ? "scaleX(1)" : "scaleX(-1)";
-            selectedShape.style.transform += ` ${flip}`;
-        }
-    });
+    if (selectedShape) {
+        let { rotation, flip } = getCurrentTransformValues(selectedShape);
+        let newFlip = flip === 1 ? -1 : 1;
+        selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${newFlip})`;
+        console.log("Flipped:", newFlip);
+    }
+});
 
     // Resize Shape (+ / - Buttons)
     document.querySelector(".setting-button img[src*='plus']").addEventListener("click", function () {
-        if (selectedShape) {
-            let currentSize = parseInt(selectedShape.style.width || 80);
-            selectedShape.style.width = `${currentSize + 10}px`;
-        }
-    });
+    if (selectedShape) {
+        let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
+        let newSize = currentWidth + 10;
+        selectedShape.style.width = `${newSize}px`;
+        selectedShape.style.height = "auto"; // Maintain proportions
+        console.log("Resized to:", newSize);
+    }
+});
 
-    document.querySelector(".setting-button img[src*='minus']").addEventListener("click", function () {
-        if (selectedShape) {
-            let currentSize = parseInt(selectedShape.style.width || 80);
-            selectedShape.style.width = `${Math.max(10, currentSize - 10)}px`;
-        }
-    });
+   document.querySelector(".setting-button img[src*='minus']").addEventListener("click", function () {
+    if (selectedShape) {
+        let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
+        let newSize = Math.max(10, currentWidth - 10);
+        selectedShape.style.width = `${newSize}px`;
+        selectedShape.style.height = "auto"; // Maintain proportions
+        console.log("Resized to:", newSize);
+    }
+});
 
     /*** COLOR CHANGE FOR SVG SHAPES ***/
     document.querySelectorAll(".color-option").forEach(colorOption => {
