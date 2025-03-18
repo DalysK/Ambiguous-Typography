@@ -170,35 +170,40 @@ document.querySelectorAll(".setting-button img").forEach(button => {
         const imgSrc = this.getAttribute("src"); // Get the image source
 
         if (imgSrc.includes("rotate_right")) {
-            // Rotate shape by 90 degrees
-            let currentRotation = getComputedStyle(selectedShape).transform.match(/rotate\((-?\d+)deg\)/);
-            let newRotation = currentRotation ? parseInt(currentRotation[1]) + 90 : 90;
-            selectedShape.style.transform = `rotate(${newRotation}deg) ${selectedShape.style.transform.replace(/rotate\([-?\d]+deg\)/, '')}`;
+            // Get the current transform values
+            let transform = getComputedStyle(selectedShape).transform;
+            let matrix = new DOMMatrix(transform);
+            let currentRotation = Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI));
+
+            let newRotation = currentRotation + 90; // Add 90 degrees
+            selectedShape.style.transform = `rotate(${newRotation}deg)`;
             console.log("Rotated to:", newRotation);
         }
 
         else if (imgSrc.includes("flip")) {
-            // Flip shape horizontally
-            let flip = selectedShape.style.transform.includes("scaleX(-1)") ? "scaleX(1)" : "scaleX(-1)";
-            selectedShape.style.transform += ` ${flip}`;
-            console.log("Flipped shape");
+            let currentTransform = getComputedStyle(selectedShape).transform;
+            let matrix = new DOMMatrix(currentTransform);
+
+            let isFlipped = matrix.a === -1; // Check if flipped
+            let newFlip = isFlipped ? 1 : -1;
+
+            selectedShape.style.transform = `scaleX(${newFlip}) rotate(${Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI))}deg)`;
+            console.log("Flipped shape:", newFlip);
         }
 
         else if (imgSrc.includes("plus")) {
-            // Increase size
-            let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
+            let currentWidth = selectedShape.offsetWidth;
             let newSize = currentWidth + 10;
             selectedShape.style.width = `${newSize}px`;
-            selectedShape.style.height = "auto"; // Maintain proportions
+            selectedShape.style.height = "auto"; // Keep aspect ratio
             console.log("Resized to:", newSize);
         }
 
         else if (imgSrc.includes("minus")) {
-            // Decrease size but prevent shrinking too much
-            let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
+            let currentWidth = selectedShape.offsetWidth;
             let newSize = Math.max(10, currentWidth - 10);
             selectedShape.style.width = `${newSize}px`;
-            selectedShape.style.height = "auto"; // Maintain proportions
+            selectedShape.style.height = "auto"; // Keep aspect ratio
             console.log("Resized to:", newSize);
         }
     });
