@@ -173,46 +173,47 @@ document.addEventListener("DOMContentLoaded", function () {
 }
 
     // Rotate Shape
-    document.querySelector(".setting-button img[src*='rotate_right']").addEventListener("click", function () {
-    if (selectedShape) {
-        let { rotation, flip } = getCurrentTransformValues(selectedShape);
-        let newRotation = rotation + 90;
-        selectedShape.style.transform = `rotate(${newRotation}deg) scaleX(${flip})`;
-        console.log("Rotated to:", newRotation);
-    }
-});
+  document.querySelectorAll(".setting-button img").forEach(button => {
+    button.addEventListener("click", function () {
+        if (!selectedShape) return; // No shape selected
 
-    // Flip Shape
-    document.querySelector(".setting-button img[src*='flip']").addEventListener("click", function () {
-    if (selectedShape) {
-        let { rotation, flip } = getCurrentTransformValues(selectedShape);
-        let newFlip = flip === 1 ? -1 : 1;
-        selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${newFlip})`;
-        console.log("Flipped:", newFlip);
-    }
-});
+        const action = this.getAttribute("src");
 
-    // Resize Shape (+ / - Buttons)
-    document.querySelector(".setting-button img[src*='plus']").addEventListener("click", function () {
-    if (selectedShape) {
-        let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
-        let newSize = currentWidth + 10;
-        selectedShape.style.width = `${newSize}px`;
-        selectedShape.style.height = "auto"; // Maintain proportions
-        console.log("Resized to:", newSize);
-    }
-});
+        if (action.includes("rotate_right")) {
+            // Rotate shape by 90 degrees
+            let { rotation, flip } = getCurrentTransformValues(selectedShape);
+            let newRotation = rotation + 90;
+            selectedShape.style.transform = `rotate(${newRotation}deg) scaleX(${flip})`;
+            console.log("Rotated to:", newRotation);
+        }
 
-   document.querySelector(".setting-button img[src*='minus']").addEventListener("click", function () {
-    if (selectedShape) {
-        let currentWidth = parseInt(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
-        let newSize = Math.max(10, currentWidth - 10);
-        selectedShape.style.width = `${newSize}px`;
-        selectedShape.style.height = "auto"; // Maintain proportions
-        console.log("Resized to:", newSize);
-    }
-});
+        else if (action.includes("flip")) {
+            // Flip shape horizontally
+            let { rotation, flip } = getCurrentTransformValues(selectedShape);
+            let newFlip = flip === 1 ? -1 : 1;
+            selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${newFlip})`;
+            console.log("Flipped:", newFlip);
+        }
 
+        else if (action.includes("plus")) {
+            // Increase size
+            let currentWidth = selectedShape.getBoundingClientRect().width;
+            let newSize = currentWidth + 10;
+            selectedShape.style.width = `${newSize}px`;
+            selectedShape.style.height = "auto"; // Maintain proportions
+            console.log("Resized to:", newSize);
+        }
+
+        else if (action.includes("minus")) {
+            // Decrease size but prevent shrinking too much
+            let currentWidth = selectedShape.getBoundingClientRect().width;
+            let newSize = Math.max(10, currentWidth - 10);
+            selectedShape.style.width = `${newSize}px`;
+            selectedShape.style.height = "auto"; // Maintain proportions
+            console.log("Resized to:", newSize);
+        }
+    });
+});
     /*** COLOR CHANGE FOR SVG SHAPES ***/
     document.querySelectorAll(".color-option").forEach(colorOption => {
         colorOption.addEventListener("click", function () {
