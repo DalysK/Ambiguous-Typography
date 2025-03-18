@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", function () {
   /*** SHAPE TRANSFORMATIONS ***/
 let selectedShape = null;
 
-// Select a shape when clicked
+// Select shape when clicked
 document.querySelector(".playarea-large").addEventListener("click", function (event) {
     if (event.target.classList.contains("placed-shape")) {
         selectedShape = event.target;
@@ -162,50 +162,53 @@ document.querySelector(".playarea-large").addEventListener("click", function (ev
     }
 });
 
-// Detect which button was clicked based on the image source
+// Function to get current transform values
+function getCurrentTransformValues(element) {
+    const transform = window.getComputedStyle(element).transform;
+    let rotate = 0, flip = 1;
+
+    if (transform !== "none") {
+        const values = transform.match(/matrix\(([-\d.,\s]+)\)/);
+        if (values) {
+            const matrix = values[1].split(", ").map(parseFloat);
+            rotate = Math.round(Math.atan2(matrix[1], matrix[0]) * (180 / Math.PI));
+            flip = matrix[0] < 0 ? -1 : 1;
+        }
+    }
+
+    return { rotate, flip };
+}
+
+// Apply transformations
 document.querySelectorAll(".setting-button img").forEach(button => {
     button.addEventListener("click", function () {
-        if (!selectedShape) return; // No shape selected
+        if (!selectedShape) return;
 
-        const imgSrc = this.getAttribute("src"); // Get the image source
+        let { rotate, flip } = getCurrentTransformValues(selectedShape);
+        const action = this.getAttribute("src");
 
-        if (imgSrc.includes("rotate_right")) {
-            // Get the current transform values
-            let transform = getComputedStyle(selectedShape).transform;
-            let matrix = new DOMMatrix(transform);
-            let currentRotation = Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI));
-
-            let newRotation = currentRotation + 90; // Add 90 degrees
-            selectedShape.style.transform = `rotate(${newRotation}deg)`;
-            console.log("Rotated to:", newRotation);
+        if (action.includes("rotate_right")) {
+            rotate += 90;
+        } 
+        else if (action.includes("flip")) {
+            flip *= -1;
         }
-
-        else if (imgSrc.includes("flip")) {
-            let currentTransform = getComputedStyle(selectedShape).transform;
-            let matrix = new DOMMatrix(currentTransform);
-
-            let isFlipped = matrix.a === -1; // Check if flipped
-            let newFlip = isFlipped ? 1 : -1;
-
-            selectedShape.style.transform = `scaleX(${newFlip}) rotate(${Math.round(Math.atan2(matrix.b, matrix.a) * (180 / Math.PI))}deg)`;
-            console.log("Flipped shape:", newFlip);
-        }
-
-        else if (imgSrc.includes("plus")) {
-            let currentWidth = selectedShape.offsetWidth;
+        else if (action.includes("plus")) {
+            let currentWidth = selectedShape.getBoundingClientRect().width;
             let newSize = currentWidth + 10;
             selectedShape.style.width = `${newSize}px`;
-            selectedShape.style.height = "auto"; // Keep aspect ratio
-            console.log("Resized to:", newSize);
+            selectedShape.style.height = "auto";
         }
-
-        else if (imgSrc.includes("minus")) {
-            let currentWidth = selectedShape.offsetWidth;
+        else if (action.includes("minus")) {
+            let currentWidth = selectedShape.getBoundingClientRect().width;
             let newSize = Math.max(10, currentWidth - 10);
             selectedShape.style.width = `${newSize}px`;
-            selectedShape.style.height = "auto"; // Keep aspect ratio
-            console.log("Resized to:", newSize);
+            selectedShape.style.height = "auto";
         }
+
+        // Apply transformations
+        selectedShape.style.transform = `rotate(${rotate}deg) scaleX(${flip})`;
+        console.log("Updated Transform:", selectedShape.style.transform);
     });
 });
 
