@@ -151,8 +151,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
 
-    /*** SHAPE TRANSFORMATIONS ***/
-   /*** SHAPE TRANSFORMATIONS ***/
+  /*** SHAPE TRANSFORMATIONS ***/
 let selectedShape = null;
 
 // Select shape when clicked
@@ -163,9 +162,9 @@ document.querySelector(".playarea-large").addEventListener("click", function (ev
     }
 });
 
-// Function to get current transform values
+// Get current transformation values (rotation & flip)
 function getCurrentTransformValues(element) {
-    const transform = element.style.transform || "";
+    const transform = element.style.transform;
     const matchRotate = transform.match(/rotate\(([-\d]+)deg\)/);
     const matchScaleX = transform.match(/scaleX\(([-\d.]+)\)/);
 
@@ -175,42 +174,46 @@ function getCurrentTransformValues(element) {
     };
 }
 
-// Apply transformation buttons
+// Add event listeners to all transformation buttons
 document.querySelectorAll(".setting-button img").forEach(button => {
     button.addEventListener("click", function () {
-        if (!selectedShape) return; // No shape selected
+        if (!selectedShape) return; // No shape selected, do nothing
 
-        const action = this.getAttribute("src");
+        const action = this.getAttribute("data-action"); // Get action type
+
         let { rotation, flip } = getCurrentTransformValues(selectedShape);
 
-        if (action.includes("rotate_right")) {
-            // Rotate by 90 degrees
+        if (action === "rotate") {
+            // Rotate shape by 90 degrees
             rotation += 90;
-        } 
-        else if (action.includes("flip")) {
-            // Flip horizontally
-            flip *= -1;
+            selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
+            console.log("Rotated to:", rotation);
         }
 
-        // Apply transformations while preserving both rotation and flip
-        selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
+        else if (action === "flip") {
+            // Flip shape horizontally
+            flip *= -1;
+            selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
+            console.log("Flipped:", flip);
+        }
 
-        if (action.includes("plus")) {
+        else if (action === "plus") {
             // Increase size
-            let currentWidth = parseFloat(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
+            let currentWidth = selectedShape.getBoundingClientRect().width;
             let newSize = currentWidth + 10;
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
-        } 
-        else if (action.includes("minus")) {
+            console.log("Resized to:", newSize);
+        }
+
+        else if (action === "minus") {
             // Decrease size but prevent shrinking too much
-            let currentWidth = parseFloat(selectedShape.style.width) || selectedShape.getBoundingClientRect().width;
+            let currentWidth = selectedShape.getBoundingClientRect().width;
             let newSize = Math.max(10, currentWidth - 10);
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
+            console.log("Resized to:", newSize);
         }
-
-        console.log("Updated Transform:", selectedShape.style.transform);
     });
 });
 
