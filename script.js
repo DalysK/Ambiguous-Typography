@@ -182,26 +182,24 @@ document.addEventListener("DOMContentLoaded", function () {
         if (action.includes("rotate_right")) {
             // Rotate shape by 90 degrees
             let { rotation, flip } = getCurrentTransformValues(selectedShape);
-            let newRotation = rotation + 90;
-            selectedShape.style.transform = `rotate(${newRotation}deg) scaleX(${flip})`;
-            console.log("Rotated to:", newRotation);
+           if (action.includes("rotate_right")) {
+            // Rotate by 90 degrees
+            rotation += 90;
+        } 
+       else if (action.includes("flip")) {
+            // Flip horizontally
+            flip *= -1;
         }
+ // Apply transform while keeping previous transformations
+        selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${flip})`;
 
-        else if (action.includes("flip")) {
-            // Flip shape horizontally
-            let { rotation, flip } = getCurrentTransformValues(selectedShape);
-            let newFlip = flip === 1 ? -1 : 1;
-            selectedShape.style.transform = `rotate(${rotation}deg) scaleX(${newFlip})`;
-            console.log("Flipped:", newFlip);
-        }
-
-        else if (action.includes("plus")) {
+        if (action.includes("plus")) {
             // Increase size
             let currentWidth = selectedShape.getBoundingClientRect().width;
             let newSize = currentWidth + 10;
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
-            console.log("Resized to:", newSize);
+         
         }
 
         else if (action.includes("minus")) {
@@ -210,8 +208,10 @@ document.addEventListener("DOMContentLoaded", function () {
             let newSize = Math.max(10, currentWidth - 10);
             selectedShape.style.width = `${newSize}px`;
             selectedShape.style.height = "auto"; // Maintain proportions
-            console.log("Resized to:", newSize);
+    
         }
+        console.log("Updated Transform: ", selectedShape.style.transform);
+
     });
 });
     /*** COLOR CHANGE FOR SVG SHAPES ***/
