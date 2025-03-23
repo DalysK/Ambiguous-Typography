@@ -214,14 +214,26 @@ document.querySelectorAll(".setting-button img").forEach(button => {
 
 
     /*** COLOR CHANGE FOR SVG SHAPES ***/
-    document.querySelectorAll(".color-option").forEach(colorOption => {
-        colorOption.addEventListener("click", function () {
-            if (selectedShape) {
-                let color = this.dataset.color;
-                selectedShape.style.filter = `invert(1) sepia(1) saturate(10000%) hue-rotate(${Math.random() * 360}deg) brightness(1.2)`;
-            }
-        });
-    });
+   // document.querySelectorAll(".color-option").forEach(colorOption => {
+       // colorOption.addEventListener("click", function () {
+           // if (selectedShape) {
+             //   let color = this.dataset.color;
+              //  selectedShape.style.filter = `invert(1) sepia(1) saturate(10000%) hue-rotate(${Math.random() * 360}deg) brightness(1.2)`;
+          //  }
+        //});
+  //  });
+
+    document.getElementById("color-icon").addEventListener("click", function () {
+    document.getElementById("color-picker").click();
+});
+// When color is picked, apply it to the selected shape
+document.getElementById("color-picker").addEventListener("input", function () {
+    if (selectedShape) {
+        const color = this.value;
+                selectedShape.style.fill = color;
+                selectedShape.style.filter = `drop-shadow(0 0 0 ${color}) saturate(10000%)`;
+    }
+});
 
     /*** RESET BUTTON (Clears All Placed Shapes) ***/
     document.getElementById("reset").addEventListener("click", function () {
