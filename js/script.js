@@ -78,7 +78,12 @@ document.addEventListener("DOMContentLoaded", function () {
         // Make the shape draggable
         newShape.addEventListener("mousedown", startDrag);
         newShape.addEventListener("touchstart", startDrag);
-    }
+
+        newShape.addEventListener("click", function (){
+            selectedShape = this;
+            console.log("Shape selected (new):", selectedShape)'
+                
+    });
 
     function startDrag(event) {
         event.preventDefault();
