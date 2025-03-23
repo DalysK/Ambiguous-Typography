@@ -84,6 +84,7 @@ document.addEventListener("DOMContentLoaded", function () {
             console.log("Shape selected (new):", selectedShape);
                 
     });
+    }
 
     function startDrag(event) {
         event.preventDefault();
