@@ -223,18 +223,13 @@ document.querySelectorAll(".setting-button img").forEach(button => {
         //});
   //  });
 
-    document.getElementById("color-icon").addEventListener("click", function () {
-    document.getElementById("color-picker").click();
+   const colorPicker = document.getElementById("color-picker");
+    colorPicker.addEventListener("input", (event) => {
+        const color = event.target.value;
+        if (selectedShape) {
+         selectedShape.style.filter = `drop-shadow(0 0 0 ${color}) saturate(10000%)`;
+  }
 });
-// When color is picked, apply it to the selected shape
-document.getElementById("color-picker").addEventListener("input", function () {
-    if (selectedShape) {
-        const color = this.value;
-                selectedShape.style.fill = color;
-                selectedShape.style.filter = `drop-shadow(0 0 0 ${color}) saturate(10000%)`;
-    }
-});
-
     /*** RESET BUTTON (Clears All Placed Shapes) ***/
     document.getElementById("reset").addEventListener("click", function () {
         document.querySelectorAll(".playarea-large .placed-shape").forEach(shape => shape.remove());
