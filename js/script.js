@@ -224,11 +224,13 @@ document.querySelectorAll(".setting-button img").forEach(button => {
   //  });
 
    const colorPicker = document.getElementById("color-picker");
-    colorPicker.addEventListener("input", (event) => {
-        const color = event.target.value;
-        if (selectedShape) {
-         selectedShape.style.filter = `drop-shadow(0 0 0 ${color}) saturate(10000%)`;
-  }
+
+colorPicker.addEventListener("input", function (event) {
+    if (selectedShape) {
+        const chosenColor = event.target.value;
+        selectedShape.style.filter = `brightness(0) saturate(100%) sepia(1) hue-rotate(0deg) drop-shadow(0 0 0 ${chosenColor})`;
+        selectedShape.style.transition = "filter 0.2s ease";
+    }
 });
     /*** RESET BUTTON (Clears All Placed Shapes) ***/
     document.getElementById("reset").addEventListener("click", function () {
