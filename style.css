@@ -26,7 +26,7 @@ body {
     margin: 0px;
 }
 
-/*  TOP SECTION */
+/* 🔹 TOP SECTION */
 #nav{
     background: white;
     border-bottom: 3px solid black;
@@ -106,7 +106,7 @@ body {
 }
 
 
-/*  Pop-up Window */
+/* 📌 Pop-up Window */
 .popup-window-main{
     width: 80vw;
     max-width: 800px;
@@ -121,7 +121,7 @@ body {
 
 }
 
-/*  Header */
+/* 📌 Header */
 .popup-header-main{
     display: flex;
     justify-content: space-between;
@@ -132,7 +132,7 @@ body {
     border-radius: 4px 4px 0px 0px;
 }
 
-/* Play Area */
+/* 📌 Play Area */
 .play-area-main{
     background: white;
     background-size: contain;
@@ -145,7 +145,7 @@ body {
     object-fit: cover;
 }
 
-/*  Footer */
+/* 📌 Footer */
 .popup-footer-main{
     color: D5D5D5;
     border-top: 3px solid black;
@@ -293,7 +293,6 @@ body {
     margin-right: 20px;
 }
 
-
 .color-option {
     width: 25px;
     height: 25px;
@@ -305,23 +304,6 @@ body {
 .color-option:hover {
     border: 2px solid white;
 }
-
-.color-setting-button{
-    gap: 5px;
-    padding: 5px;
-    max-width: 100px; /* Adjust width */
-    align-items: center;
-    margin-right: 20px;
-}
-#colorTrigger{
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    border-radius: 3px;
-    border: 2px solid black;
-}
-
-
 
 .selected {
     border: 2px solid black; /* Highlight selected color */
@@ -521,4 +503,3 @@ input[type="range"]::-moz-range-thumb {
        
     }
 }
-
