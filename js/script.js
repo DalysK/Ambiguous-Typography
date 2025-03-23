@@ -234,7 +234,7 @@ document.querySelectorAll(".setting-button img").forEach(button => {
 colorPicker.addEventListener("input", function (event) {
     if (selectedShape) {
         const chosenColor = event.target.value;
-        const shapePath = selectedShape.querySelector("path");
+        const shapePath = selectedShape.querySelector("path, rect, circle, polygon");
         if (shapePath) {
             shapePath.setAttribute("fill", chosenColor);
         }
