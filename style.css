@@ -214,7 +214,7 @@ body {
 
 /* small-top container */
 .playarea-top{
-    height: 300px;
+    /*height: 300px;*/
     border-bottom: 3px solid black;  
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; 
