@@ -82,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     function startDrag(event) {
         event.preventDefault();
-        activeShape = event.target.closet(".placed-shape");
+        activeShape = event.target.closest(".placed-shape");
 
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
