@@ -293,6 +293,7 @@ body {
     margin-right: 20px;
 }
 
+
 .color-option {
     width: 25px;
     height: 25px;
@@ -303,6 +304,23 @@ body {
 
 .color-option:hover {
     border: 2px solid white;
+}
+
+.color-setting-button{
+    gap: 5px;
+    padding: 5px;
+    max-width: 100px; /* Adjust width */
+    align-items: center;
+    margin-right: 20px;
+}
+#colorTrigger{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+    border-radius: 3px;
+    border: 2px solid black;
+}
+
 }
 
 .selected {
