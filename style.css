@@ -26,7 +26,7 @@ body {
     margin: 0px;
 }
 
-/* 🔹 TOP SECTION */
+/*  TOP SECTION */
 #nav{
     background: white;
     border-bottom: 3px solid black;
@@ -232,6 +232,10 @@ body {
     height: 130px;
 }
 
+svg{
+    width: 130px;
+    height: 130px;
+}
 
 .placed-shape{
     position: absolute;
