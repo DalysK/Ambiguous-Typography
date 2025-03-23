@@ -262,7 +262,7 @@ body {
     
 }
 
-.setting-button .color-setting-button{
+.setting-button, .color-setting-button{
     border-radius: 4px 4px 4px 4px;
     padding: 6px 6px;
     background-color: #D5D5D5;
@@ -433,7 +433,7 @@ input[type="range"]::-moz-range-thumb {
 
 
 
-/* 🔹 BOTTOM SECTION */
+/*  BOTTOM SECTION */
 .bottom-section {
     position: fixed;
     width: 100%;
