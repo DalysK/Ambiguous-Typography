@@ -81,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         newShape.addEventListener("click", function (){
             selectedShape = this;
-            console.log("Shape selected (new):", selectedShape)'
+            console.log("Shape selected (new):", selectedShape);
                 
     });
 
