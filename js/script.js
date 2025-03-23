@@ -40,7 +40,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Select all shapes in the small popup window
  
-    const shapeElements = document.querySelectorAll(".puzzle-shape img");
+    const shapeElements = document.querySelectorAll(".puzzle-shape");
 
     if (shapeElements.length === 0) {
         console.error("No shapes found! Check your selector.");
