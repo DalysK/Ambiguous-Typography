@@ -79,11 +79,16 @@ document.addEventListener("DOMContentLoaded", function () {
         newShape.addEventListener("mousedown", startDrag);
         newShape.addEventListener("touchstart", startDrag);
 
-        newShape.addEventListener("click", function (){
-            selectedShape = this;
-            console.log("Shape selected (new):", selectedShape);
-                
-    });
+        function selectShape(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  selectedShape = this;
+  console.log("Shape selected (touch/click):", selectedShape);
+}
+
+newShape.addEventListener("click", selectShape);
+newShape.addEventListener("touchstart", selectShape, { passive: false });
+
     }
 
     function startDrag(event) {
@@ -187,7 +192,8 @@ function getCurrentTransformValues(element) {
 
 // Apply transformations
 document.querySelectorAll(".setting-button img").forEach(button => {
-    button.addEventListener("click", function () {
+    button.addEventListener("click", handleTransform);
+    button.addEventListener("touchstart", handleTransform, { passive:false});
         if (!selectedShape) return;
 
         let { rotate, flip } = getCurrentTransformValues(selectedShape);
