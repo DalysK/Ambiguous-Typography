@@ -224,8 +224,7 @@ e.preventDefault();
         // Apply transformations
         selectedShape.style.transform = `rotate(${rotate}deg) scaleX(${flip})`;
         console.log("Updated Transform:", selectedShape.style.transform);
-    });
-});
+    }
 
 
     /*** COLOR CHANGE FOR SVG SHAPES ***/
