@@ -197,10 +197,10 @@ document.querySelectorAll(".setting-button img").forEach(button => {
 });
     function hnadleTransform(e) {
 e.preventDefault();
+        const src = e.currentTarget.getAttribute("src");
         if (!selectedShape) return;
-
+        
         let { rotate, flip } = getCurrentTransformValues(selectedShape);
-        const action = this.getAttribute("src");
 
         if (action.includes("rotate_right")) {
             rotate += 90;
