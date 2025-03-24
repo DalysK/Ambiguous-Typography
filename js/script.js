@@ -193,38 +193,39 @@ function getCurrentTransformValues(element) {
 // Apply transformations
 document.querySelectorAll(".setting-button img").forEach(button => {
     button.addEventListener("click", handleTransform);
-    button.addEventListener("touchstart", handleTransform, { passive:false});
+    button.addEventListener("touchstart", handleTransform, { passive: false });
 });
-    function hnadleTransform(e) {
-e.preventDefault();
-        const src = e.currentTarget.getAttribute("src");
-        if (!selectedShape) return;
-        
-        let { rotate, flip } = getCurrentTransformValues(selectedShape);
 
-        if (action.includes("rotate_right")) {
-            rotate += 90;
-        } 
-        else if (action.includes("flip")) {
-            flip *= -1;
-        }
-        else if (action.includes("plus")) {
-            let currentWidth = selectedShape.getBoundingClientRect().width;
-            let newSize = currentWidth + 10;
-            selectedShape.style.width = `${newSize}px`;
-            selectedShape.style.height = "auto";
-        }
-        else if (action.includes("minus")) {
-            let currentWidth = selectedShape.getBoundingClientRect().width;
-            let newSize = Math.max(10, currentWidth - 10);
-            selectedShape.style.width = `${newSize}px`;
-            selectedShape.style.height = "auto";
-        }
+function handleTransform(e) {
+    e.preventDefault();
+    if (!selectedShape) return;
 
-        // Apply transformations
-        selectedShape.style.transform = `rotate(${rotate}deg) scaleX(${flip})`;
-        console.log("Updated Transform:", selectedShape.style.transform);
+    const src = e.currentTarget.getAttribute("src");
+    let { rotate, flip } = getCurrentTransformValues(selectedShape);
+
+    if (src.includes("rotate_right")) {
+        rotate += 90;
+    } 
+    else if (src.includes("flip")) {
+        flip *= -1;
     }
+    else if (src.includes("plus")) {
+        let currentWidth = selectedShape.getBoundingClientRect().width;
+        let newSize = currentWidth + 10;
+        selectedShape.style.width = `${newSize}px`;
+        selectedShape.style.height = "auto";
+    }
+    else if (src.includes("minus")) {
+        let currentWidth = selectedShape.getBoundingClientRect().width;
+        let newSize = Math.max(10, currentWidth - 10);
+        selectedShape.style.width = `${newSize}px`;
+        selectedShape.style.height = "auto";
+    }
+
+    selectedShape.style.transform = `rotate(${rotate}deg) scaleX(${flip})`;
+    console.log("Updated Transform:", selectedShape.style.transform);
+}
+
 
 
     /*** COLOR CHANGE FOR SVG SHAPES ***/
