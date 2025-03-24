@@ -505,3 +505,9 @@ input[type="range"]::-moz-range-thumb {
 .stroke-setting{
     border: 2px;
 }
+
+.line-playarea-top{
+display: grid;
+grid-template-columns: 1fr 1fr;
+    
+}
