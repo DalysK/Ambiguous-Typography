@@ -194,6 +194,9 @@ function getCurrentTransformValues(element) {
 document.querySelectorAll(".setting-button img").forEach(button => {
     button.addEventListener("click", handleTransform);
     button.addEventListener("touchstart", handleTransform, { passive:false});
+});
+    function hnadleTransform(e) {
+e.preventDefault();
         if (!selectedShape) return;
 
         let { rotate, flip } = getCurrentTransformValues(selectedShape);
