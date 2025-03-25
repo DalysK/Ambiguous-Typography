@@ -511,3 +511,21 @@ display: grid;
 grid-template-columns: 1fr 1fr;
     
 }
+
+.stroke-option {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 5px;
+}
+
+.stroke-option .checkmark {
+  width: 20px;
+  color: black;
+  font-weight: bold;
+  visibility: hidden;
+}
+.stroke-option.selected .checkmark {
+  visibility: visible;
+}
+
