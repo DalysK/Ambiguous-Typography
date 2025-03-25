@@ -1,47 +1,69 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const canvas = document.getElementById("drawing-board");
-  const ctx = canvas.getContext("2d");
+const canvas = document.getElementById("drawing-board");
+const ctx = canvas.getContext("2d");
 
-  // Resize canvas to fit its parent container
-  canvas.width = canvas.parentElement.clientWidth;
-  canvas.height = canvas.parentElement.clientHeight;
+// Resize canvas to fit its parent container
+canvas.width = canvas.parentElement.clientWidth;
+canvas.height = canvas.parentElement.clientHeight;
 
-  let isDrawing = false;
-  let strokeColor = "#000000";
-  let strokeWidth = 2;
-  let strokeStyle = "solid"; // or "dashed"
+let isDrawing = false;
+let strokeColor = "#000000";
+let strokeWidth = 2;
+let strokeStyle = "solid";
 
-  // Start drawing
-  canvas.addEventListener("mousedown", (e) => {
-    isDrawing = true;
-    ctx.beginPath();
-    ctx.moveTo(e.offsetX, e.offsetY);
-  });
+// Helper draw function
+function drawLine(x, y) {
+  if (strokeStyle === "dashed") {
+    ctx.setLineDash([10, 5]);
+  } else {
+    ctx.setLineDash([]);
+  }
+  ctx.lineWidth = strokeWidth;
+  ctx.strokeStyle = strokeColor;
+  ctx.lineTo(x, y);
+  ctx.stroke();
+}
 
-  // Draw while moving mouse
-  canvas.addEventListener("mousemove", (e) => {
-    if (!isDrawing) return;
-    if (strokeStyle === "dashed") {
-      ctx.setLineDash([10, 5]); // dashed
-    } else {
-      ctx.setLineDash([]); // solid
-    }
-    ctx.lineWidth = strokeWidth;
-    ctx.strokeStyle = strokeColor;
-    ctx.lineTo(e.offsetX, e.offsetY);
-    ctx.stroke();
-  });
+// --- Mouse events ---
+canvas.addEventListener("mousedown", (e) => {
+  isDrawing = true;
+  ctx.beginPath();
+  ctx.moveTo(e.offsetX, e.offsetY);
+});
 
-  // Stop drawing
-  canvas.addEventListener("mouseup", () => {
-    isDrawing = false;
-    ctx.closePath();
-  });
+canvas.addEventListener("mousemove", (e) => {
+  if (!isDrawing) return;
+  drawLine(e.offsetX, e.offsetY);
+});
 
-  canvas.addEventListener("mouseleave", () => {
-    isDrawing = false;
-    ctx.closePath();
-  });
+canvas.addEventListener("mouseup", () => {
+  isDrawing = false;
+  ctx.closePath();
+});
+
+// --- Touch events (iPad / mobile) ---
+canvas.addEventListener("touchstart", (e) => {
+  e.preventDefault();
+  isDrawing = true;
+  const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  ctx.beginPath();
+  ctx.moveTo(touch.clientX - rect.left, touch.clientY - rect.top);
+}, { passive: false });
+
+canvas.addEventListener("touchmove", (e) => {
+  if (!isDrawing) return;
+  e.preventDefault();
+  const touch = e.touches[0];
+  const rect = canvas.getBoundingClientRect();
+  drawLine(touch.clientX - rect.left, touch.clientY - rect.top);
+}, { passive: false });
+
+canvas.addEventListener("touchend", () => {
+  isDrawing = false;
+  ctx.closePath();
+});
+
 
   // Handle color picker
   const colorPicker = document.getElementById("color-picker");
