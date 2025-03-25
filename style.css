@@ -198,16 +198,17 @@ body {
 
 .popup-container{
     display: grid;
-    grid-template-columns: 1fr 2fr auto;
-    gap: 20px;
+    grid-template-columns: 1fr 2fr 0.5fr;
+    gap: 2rem;
     justify-content: center;
-    height: auto;
+    height: 75vh;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%, -50%); */
     border-radius: 8px;
-    margin-left: 30px;
+    /* margin: 0 auto; */
+    margin-left: 4rem;
 }
 
 /*SMALL CONTAINER */
