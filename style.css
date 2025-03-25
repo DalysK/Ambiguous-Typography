@@ -561,7 +561,7 @@ canvas{
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
     justify-content: center;
-    height: 75vh;
+    height: 50vh;
     width: auto;
     position: absolute;
     border-radius: 8px;
