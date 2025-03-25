@@ -504,6 +504,7 @@ input[type="range"]::-moz-range-thumb {
 .draw-body{
     display: grid;
     grid-template-rows: 1fr auto;
+    gap: 2em;
 }
 .stroke-setting{
     border: 2px;
