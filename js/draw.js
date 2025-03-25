@@ -50,14 +50,16 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Handle stroke width and dashed/solid
-  const strokes = document.querySelectorAll(".stroke-option");
-  strokes.forEach(option => {
+ const strokes = document.querySelectorAll(".stroke-option");
+
+strokes.forEach(option => {
   option.style.cursor = "pointer";
 
-  option.addEventListener("click", () => {
+  // Shared logic for click and touch
+  function selectStroke() {
     // Remove checkmark from all
     strokes.forEach(o => o.querySelector(".checkmark").textContent = "");
-    
+
     // Add checkmark to this one
     option.querySelector(".checkmark").textContent = "✔";
 
@@ -66,9 +68,20 @@ document.addEventListener("DOMContentLoaded", function () {
     strokeStyle = option.getAttribute("data-style");
 
     console.log("Stroke updated:", strokeWidth, strokeStyle);
-  });
+  }
+
+  // Event listeners for both mouse and touch
+  option.addEventListener("click", selectStroke);
+
+  option.addEventListener("touchstart", (e) => {
+    e.preventDefault(); // prevent double-tap zoom and simulate click
+    selectStroke();
+  }, { passive: false });
 });
 
+
+
+  
   // Reset button
   const resetBtn = document.getElementById("reset");
   resetBtn.addEventListener("click", () => {
