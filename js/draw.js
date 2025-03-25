@@ -3,8 +3,13 @@ const canvas = document.getElementById("drawing-board");
 const ctx = canvas.getContext("2d");
 
 // Resize canvas to fit its parent container
-canvas.width = canvas.parentElement.clientWidth;
-canvas.height = canvas.parentElement.clientHeight;
+  function resizeCanvas() {
+    canvas.width = canvas.parentElement.clientWidth;
+    canvas.height = canvas.parentElement.clientHeight;
+  }
+
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
 let isDrawing = false;
 let strokeColor = "#000000";
