@@ -501,7 +501,10 @@ input[type="range"]::-moz-range-thumb {
 
 
 /* LINE HTML */
-
+.draw-body{
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
 .stroke-setting{
     border: 2px;
 }
