@@ -536,3 +536,17 @@ canvas{
     display: block;
     background-color: white;
 }
+
+.draw-popup-container{
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+    justify-content: center;
+    height: 75vh;
+    width: auto;
+    position: absolute;
+    border-radius: 8px;
+    margin-left: 100px;
+    margin-right: 100px;
+
+}
