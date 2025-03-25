@@ -554,7 +554,6 @@ canvas{
     height: 75vh;
     display: flex;
     justify-content: center;
-    align-items: center;
     overflow: hidden;
     margin: 50px;
     margin-left: auto;
@@ -589,9 +588,7 @@ background: #D5D5D5;
 }
 
  .draw-popup-window-small{
-
     max-height: 50vh;
-     width: fit-content;
     background: white;
     border: 3px solid black;
  /*   display: flex;
