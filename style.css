@@ -550,3 +550,8 @@ canvas{
     margin-right: 100px;
 
 }
+
+.stroke-setting svg{
+    height:20px;
+    width: 180px;
+}
