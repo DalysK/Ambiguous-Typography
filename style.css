@@ -596,6 +596,7 @@ background: #D5D5D5;
     z-index: 1;
     border-radius: 8px;
     grid-template-rows: auto 2fr auto;
+    height: 70vh;
 
 }
 
