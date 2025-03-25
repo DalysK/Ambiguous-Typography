@@ -247,7 +247,6 @@ body {
 .small-playarea-bottom{
     display: grid;
     grid-template-columns: 1fr 2fr;
-    gap: 40px;
     align-items: center;
     height: fit-content;
     margin-top: 10px;
@@ -276,12 +275,13 @@ body {
 
 .color-palette {
     /* display: grid;
-    grid-template-columns: repeat(3, 1fr);  5 columns */
+    
     gap: 5px;
     padding: 5px;
-    max-width: 200px; /* Adjust width */
+    max-width: 200px; 
     align-items: center;
-    margin-right: 20px;
+    margin-right: 20px; */
+    margin: 0 auto;
 }
 
 .color-option {
