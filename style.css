@@ -548,7 +548,13 @@ canvas{
     position: relative;
 }
 
-
+.drawing-board {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
 .stroke-setting svg{
     height:20px;
     width: 150px;
