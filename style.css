@@ -585,7 +585,7 @@ canvas{
  .draw-popup-window-small{
 
     max-height: 50vh;
-     width: 25vw;
+     width: fit-content;
     background: white;
     border: 3px solid black;
  /*   display: flex;
