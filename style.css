@@ -586,7 +586,6 @@ background: #D5D5D5;
     flex-direction: column;
     z-index: 1;
     border-radius: 8px;
-    max-height: 75vh;
     grid-template-rows: auto 2fr auto;
 
 }
