@@ -23,6 +23,9 @@ function drawLine(x, y) {
   ctx.lineTo(x, y);
   ctx.stroke();
 }
+canvas.addEventListener("touchstart", () => {
+  alert("touch works!");
+});
 
 // --- Mouse events ---
 canvas.addEventListener("mousedown", (e) => {
@@ -41,7 +44,7 @@ canvas.addEventListener("mouseup", () => {
   ctx.closePath();
 });
 
-// --- Touch events (iPad / mobile) ---
+// --- Touch events ---
 canvas.addEventListener("touchstart", (e) => {
   e.preventDefault();
   isDrawing = true;
