@@ -23,9 +23,7 @@ function drawLine(x, y) {
   ctx.lineTo(x, y);
   ctx.stroke();
 }
-canvas.addEventListener("touchstart", () => {
-  alert("touch works!");
-});
+
 
 // --- Mouse events ---
 canvas.addEventListener("mousedown", (e) => {
