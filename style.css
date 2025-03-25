@@ -594,7 +594,7 @@ background: #D5D5D5;
 }
 
  .draw-popup-window-small{
-    height: auto;
+    height: fit-content;
     background: white;
     border: 3px solid black;
  /*   display: flex;
