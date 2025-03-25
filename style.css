@@ -514,7 +514,7 @@ input[type="range"]::-moz-range-thumb {
 
 .line-playarea-top{
 display: grid;
-grid-template-rows: 1fr 1fr;
+grid-template-rows: 1fr 0.5fr;
 gap: 20px; 
     
 }
