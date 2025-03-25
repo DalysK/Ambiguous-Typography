@@ -529,3 +529,8 @@ grid-template-columns: 1fr 1fr;
   visibility: visible;
 }
 
+canvas{
+    width: 100%;
+    height: 100%;
+    display: block;
+}
