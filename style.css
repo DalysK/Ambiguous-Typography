@@ -320,8 +320,7 @@ body {
 }
 
  .popup-window-small{
-
-    max-height: 50vh;
+    height: fit-content;
     background: white;
     border: 3px solid black;
  /*   display: flex;
