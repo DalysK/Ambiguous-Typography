@@ -50,23 +50,24 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   // Handle stroke width and dashed/solid
-  const strokes = document.querySelectorAll(".stroke-setting path");
-  strokes.forEach((path, index) => {
-    path.style.cursor = "pointer";
-    path.addEventListener("click", () => {
-      // You can customize this logic based on which stroke is which
-      strokeWidth = path.getAttribute("stroke-width");
+  const strokes = document.querySelectorAll(".stroke-option");
+  strokes.forEach(option => {
+  option.style.cursor = "pointer";
 
-      // Use first path as dashed, others as solid
-      if (index === 0) {
-        strokeStyle = "dashed";
-      } else {
-        strokeStyle = "solid";
-      }
+  option.addEventListener("click", () => {
+    // Remove checkmark from all
+    strokes.forEach(o => o.querySelector(".checkmark").textContent = "");
+    
+    // Add checkmark to this one
+    option.querySelector(".checkmark").textContent = "✔";
 
-      console.log("Stroke updated:", strokeWidth, strokeStyle);
-    });
+    // Update stroke settings
+    strokeWidth = parseInt(option.getAttribute("data-width"));
+    strokeStyle = option.getAttribute("data-style");
+
+    console.log("Stroke updated:", strokeWidth, strokeStyle);
   });
+});
 
   // Reset button
   const resetBtn = document.getElementById("reset");
