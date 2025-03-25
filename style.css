@@ -30,7 +30,7 @@ body {
 #nav{
     background: white;
     border-bottom: 3px solid black;
-    padding: 20px;
+    padding: 1em;
 }
 
 #nav a{
