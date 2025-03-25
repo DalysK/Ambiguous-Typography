@@ -508,7 +508,7 @@ input[type="range"]::-moz-range-thumb {
 
 .line-playarea-top{
 display: grid;
-grid-template-columns: 1fr 1fr;
+grid-template-rows: 1fr 1fr;
 gap: 20px; 
     
 }
@@ -561,7 +561,7 @@ canvas{
     grid-template-columns: 1fr 2fr;
     gap: 2rem;
     justify-content: center;
-    height: 50vh;
+    height: 75vh;
     width: auto;
     position: absolute;
     border-radius: 8px;
