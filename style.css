@@ -534,8 +534,8 @@ gap: 20px;
 }
 
 canvas{
-    width: 100%;
-    height: 100%;
+     width: 100%;
+    height: 60vh;
     background: white;
     background-size: contain;
     display: flex;
@@ -552,13 +552,13 @@ canvas{
 }
 
 .draw-main-section{
-    position: relative;
+        position: relative;
     width: 100%;
     height: 75vh;
     display: flex;
     justify-content: center;
     overflow: hidden;
-    margin: 50px;
+    /* margin: 50px; */
     margin-left: auto;
     padding-bottom: 30px;
 }
