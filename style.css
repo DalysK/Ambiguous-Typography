@@ -366,9 +366,9 @@ body {
 
 .scale-container {
     display: flex;
-    margin: 50px;
+    margin: -50px;
     place-items: center;
-    max-width: 300px;
+    max-width: 200px;
 }
 
 #scale-slider {
