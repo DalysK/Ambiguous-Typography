@@ -211,7 +211,6 @@ body {
     margin-left: 4rem;
 }
 
-/*SMALL CONTAINER */
 
 /* small-top container */
 .playarea-top{
@@ -303,7 +302,11 @@ body {
     border: 2px solid black; /* Highlight selected color */
 }
 
-
+/* popup-playarea (popup-window+scale) */
+.popup-playarea{
+    display: grid;
+    grid-template-colums: 2fr auto;
+}
 
 /* Pop-up Window Large*/
 .popup-window{
