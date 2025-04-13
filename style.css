@@ -70,27 +70,6 @@ body {
 }
 
 
-/* 📌 POPUP WINDOW */
-/*.popup-window {
-    position: relative;
-    width: 70%;
-    max-width: 800px;
-    background: lightgray;
-    border: 3px solid black;
-    display: flex;
-    flex-direction: column;
-    z-index: 1; /*make sure it stays ontop */
-
-/*.main-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh; 
-    position: relative;
-    width: 100%; 
-} */
-
-
 .popup-container-main{
     display: flex;
     justify-content: center;
@@ -184,28 +163,21 @@ body {
 
 .main-section{
     position: relative;
-    width: 100%;
-    height: 75vh;
+    width: 100vw;
+    height: 85vh;
     display: flex;
-    justify-content: center;
-    align-items: center;
-   overflow: hidden;
-    margin: 50px;
-    margin-left: auto;
-    margin-top: 30px;
+    place-items: center;
+    overflow: hidden;
 }
 
 
 .popup-container{
     display: grid;
-    grid-template-columns: 1fr 2fr 0.5fr;
+    /*grid-template-rows: 2fr auto;*/
     gap: 2rem;
     justify-content: center;
-    height: 75vh;
+    height: 100%;
     position: absolute;
-    /* top: 50%; */
-    /* left: 50%; */
-    /* transform: translate(-50%, -50%); */
     border-radius: 8px;
     /* margin: 0 auto; */
     margin-left: 4rem;
@@ -215,10 +187,11 @@ body {
 /* small-top container */
 .playarea-top{
     /*height: 300px;*/
-    border-bottom: 3px solid black;  
+    border-right: 3px solid black;  
     display: grid;
     grid-template-columns: 1fr 1fr 1fr; 
     place-items: center;
+    margin: 1rem;
 
 }
 
@@ -242,7 +215,7 @@ body {
 
 .playarea-small{
     display: grid;
-    grid-template-rows: 2fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .small-playarea-bottom{
@@ -306,29 +279,27 @@ body {
 /* popup-playarea (popup-window+scale) */
 .popup-playarea{
     display: grid;
-    grid-template-columns: 2fr auto;
+    grid-template-columns: 3fr 1fr;
+    align-items: center;
 }
 /* Pop-up Window Large*/
 .popup-window{
-    height: 70vh;
     background: #D5D5D5;
     border: 3px solid black;
     display: grid;
     grid-template-rows: auto 2fr auto;
-    flex-direction: column;
     z-index: 1;
     border-radius: 8px;
-    max-height: 600px;
-    width: 65vw;
+    max-height: 70vh;
+    width: 75vw;
 
 }
 
  .popup-window-small{
     height: fit-content;
+    width: 75%
     background: white;
     border: 3px solid black;
- /*   display: flex;
-    flex-direction: column; */
     z-index: 1;
     border-radius: 8px;
     box-shadow: 0px 10px 4px rgb(0, 0, 0, 0.3);
@@ -357,11 +328,11 @@ body {
 }
 
 .grid-container {
-    display: grid;
+    /*display: grid;*/
     width: 100%;
     height: 100%;
-    grid-template-columns: repeat(20, 1fr);
-    grid-template-rows: repeat(20, 1fr);
+    grid-template-columns: repeat(25, 45px);
+    /*grid-template-rows: repeat(20, 1fr);*/
     gap: 1px; /* Space between grid lines */
     background-color: transparent; /* Remove solid black */
     aspect-ratio: 1/1;
@@ -395,10 +366,10 @@ body {
 
 .scale-container {
     display: flex;
-    margin-left: -70px;
+    margin: 50px;
     align-items: center;
-    min-width: 100px;
-    width: 150px
+    place-tems: center;
+    max-width: 300px;
 }
 
 #scale-slider {
