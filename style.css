@@ -215,7 +215,7 @@ body {
 
 .playarea-small{
     display: grid;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
 }
 
 .small-playarea-bottom{
@@ -309,7 +309,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: D5D5D5;
+    background: #D5D5D5;
     border-bottom: 3px solid black;
     padding-right: 0px;
     border-radius: 4px 4px 0px 0px;
@@ -350,7 +350,7 @@ body {
 
 /* Footer */
 .popup-footer{
-    background-color: D5D5D5;
+    background: #D5D5D5;
     border-top: 3px solid black;
     padding: 16px;
     gap: 10px; /* Adjust gap between buttons */
@@ -367,8 +367,7 @@ body {
 .scale-container {
     display: flex;
     margin: 50px;
-    align-items: center;
-    place-tems: center;
+    place-items: center;
     max-width: 300px;
 }
 
