@@ -135,18 +135,20 @@ body {
     box-shadow: 0px 10px 4px rgb(0, 0, 0, 0.3);
 }
 
-.close-btn{
-    margin-left: auto;
-    border-top: 0px solid black;    
-    border-right: 0px solid black;  
-    border-bottom: 0px solid black; 
+.close-btn-icon{
+    border-top: 3px solid black; 
     border-left: 3px solid black; 
+    border-bottom: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
-    padding: 3px 6px;
     background-color: RGB(144,144,144);
     cursor: pointer;
+    margin-left: auto;
 }
 
+#close.btn{ 
+    width: 4vw;
+    height: 4vh; 
+          }
 
 
 #reset, #save{
@@ -327,13 +329,13 @@ body {
 
 #prompt{
     display: grid;
-    grid-templates-columns: 2fr auto;
+    grid-template-columns: 2fr auto;
 }
 
 .prompt-box{
     font-family: ChicagoFLF, sans-serif;
-    padding: 0.5rem;
     width: 50vw;
+    height: 4vh;
     border: 2px solid black;
     background-color: white;
     cursor: pointer;
