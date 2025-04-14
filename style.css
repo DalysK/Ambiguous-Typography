@@ -325,19 +325,33 @@ body {
     border-radius: 4px 4px 0px 0px;
 }
 
-#prompt-box{
+#prompt{
+    display: grid;
+    grid-templates-columns: 2fr auto;
+}
+
+.prompt-box{
     font-family: ChicagoFLF, sans-serif;
-    padding: 4px 28px;
+    padding: 0.5rem;
+    width: 50vw;
     border: 2px solid black;
     background-color: white;
     cursor: pointer;
-    margin-left: auto;
     border-radius: 4px;
-    box-shadow: 2px 1px;
-margin-left: 1rem;
+    margin-left: 1rem;
   font-size: 16px;
-  font-weight: bold;
-  text-align: center;
+  text-align: left;
+}
+
+.restart-btn{
+    border-top: 0px solid black;    
+    border-right: 0px solid black;  
+    border-bottom: 0px solid black; 
+    border-left: 3px solid black; 
+    border-radius: 0px 4px 0px 0px;
+    padding: 3px 6px;
+    background-color: RGB(144,144,144);
+    cursor: pointer;
 }
 /*  Play Area */
 .playarea-large {
