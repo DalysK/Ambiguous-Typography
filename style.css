@@ -334,7 +334,6 @@ body {
 }
 
 .prompt-box{
-    font-family: ChicagoFLF, sans-serif;
     width: 50vw;
     height: 4vh;
     border: 3px solid black;
@@ -342,10 +341,12 @@ body {
     cursor: pointer;
     border-radius: 4px;
     margin-left: 1rem;
-  font-size: 16px;
-  text-align: left;
 }
-
+.prompt-text{
+    font-family: ChicagoFLF, sans-serif;
+    font-size: 16px;
+    text-align: left; 
+}
 .restart-btn{
     border-top: 3px solid black;    
     border-right: 3px solid black;  
