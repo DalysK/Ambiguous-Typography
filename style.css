@@ -335,17 +335,21 @@ body {
 
 .prompt-box{
     width: 50vw;
-    height: 4vh;
-    border: 3px solid black;
+    border-left: 3px solid black;
+    border-top: 3px solid black;
+    border-bottom: 3px solid black;
     background-color: white;
     cursor: pointer;
     border-radius: 4px;
     margin-left: 1rem;
+    display: flex;
+    align-items: center; 
 }
 .prompt-text{
     font-family: ChicagoFLF, sans-serif;
     font-size: 16px;
     text-align: left; 
+    margin-left: 1rem;
 }
 .restart-btn{
     border-top: 3px solid black;    
@@ -362,7 +366,8 @@ body {
 .playarea-large {
     background: white;
     background-size: contain;
-    min-height: 350px;
+    width: 100%;
+    height:100%;
     display: flex;
     align-items: center;
     justify-content: center; /* Center grid */
@@ -372,11 +377,11 @@ body {
 
 .grid-container {
     /*display: grid;*/
+    display: grid;
     width: 100%;
     height: 100%;
     grid-template-columns: repeat(25, 45px);
     /*grid-template-rows: repeat(20, 1fr);*/
-    gap: 1px; /* Space between grid lines */
     background-color: transparent; /* Remove solid black */
     aspect-ratio: 1/1;
     max-width:100%;
