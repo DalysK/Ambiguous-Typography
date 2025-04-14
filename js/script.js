@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", function () {
         const rows = Math.floor(containerHeight / gridSize);
         
         gridContainer.style.display = "grid"; 
-        gridContainer.style.gridTemplateColumns = `repeat(${cols}, ${gridSize}px)`;
-        gridContainer.style.gridTemplateRows = `repeat(${rows}, ${gridSize}px)`;
+        gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
+        gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
         
        // Preserve existing elements and only update the grid
     if (gridContainer.childNodes.length !== rows * cols) {
