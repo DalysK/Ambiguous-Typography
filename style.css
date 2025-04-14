@@ -1,4 +1,4 @@
-t
+
 * {
     margin: 0;
     padding: 0;
@@ -145,7 +145,7 @@ body {
     margin-left: auto;
 }
 
-#close.btn{ 
+#close-btn{ 
     width: 4vw;
     height: 4vh; 
           }
