@@ -147,7 +147,7 @@ body {
 }
 
 #close-btn{ 
-    width: 4vw;
+    width: fit-content;
     height: 4vh; 
           }
 
@@ -347,14 +347,15 @@ body {
 }
 
 .restart-btn{
-    border-top: 0px solid black;    
-    border-right: 0px solid black;  
-    border-bottom: 0px solid black; 
-    border-left: 3px solid black; 
+    border-top: 3px solid black;    
+    border-right: 3px solid black;  
+    border-bottom: 3px solid black; 
     border-radius: 0px 4px 0px 0px;
     padding: 3px 6px;
     background-color: RGB(144,144,144);
     cursor: pointer;
+    width: fit-content;
+    padding: 0.5rem;
 }
 /*  Play Area */
 .playarea-large {
