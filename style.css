@@ -136,13 +136,14 @@ body {
 }
 
 .close-btn-icon{
-    border-top: 3px solid black; 
-    border-left: 3px solid black; 
-    border-bottom: 3px solid black; 
-    border-radius: 0px 4px 0px 0px;
+    border: 3px solid black; 
+    border-radius: 4px;
     background-color: RGB(144,144,144);
     cursor: pointer;
-    margin-left: auto;
+    width: fit-content;
+    height: fit-content;
+    padding: 0.5rem;
+    margin-right: 1rem;
 }
 
 #close-btn{ 
@@ -218,7 +219,7 @@ body {
     display: grid;
     grid-template-columns: 1fr 1fr;
      background: white;
-    border-radius: 8px;
+    border-radius: 0px 0px 8px 8px;
 }
 
 .small-playarea-bottom{
@@ -243,12 +244,12 @@ body {
 
 .setting-button, #color-icon{
     border-radius: 4px 4px 4px 4px;
-    padding: 6px 6px;
+    padding: 0.5rem;
     background-color: #D5D5D5;
     cursor: pointer;
     border: 3px solid;
-    width: 25px;
-    height: 25px;
+    width: fit-content;
+    height: fit-content;
 }
 
 .color-palette {
