@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function () {
         gridContainer.style.gridTemplateColumns = `repeat(${cols}, 1fr)`;
         gridContainer.style.gridTemplateRows = `repeat(${rows}, 1fr)`;
         
-       // Preserve existing elements and only update the grid
+       // Keep existing elements and only update the grid
     if (gridContainer.childNodes.length !== rows * cols) {
         gridContainer.innerHTML = ""; // Clear only if the grid size changes
         for (let i = 0; i < rows * cols; i++) {
@@ -226,18 +226,6 @@ function handleTransform(e) {
     console.log("Updated Transform:", selectedShape.style.transform);
 }
 
-
-
-    /*** COLOR CHANGE FOR SVG SHAPES ***/
-   // document.querySelectorAll(".color-option").forEach(colorOption => {
-       // colorOption.addEventListener("click", function () {
-           // if (selectedShape) {
-             //   let color = this.dataset.color;
-              //  selectedShape.style.filter = `invert(1) sepia(1) saturate(10000%) hue-rotate(${Math.random() * 360}deg) brightness(1.2)`;
-          //  }
-        //});
-  //  });
-
    const colorPicker = document.getElementById("color-picker");
 
 colorPicker.addEventListener("input", function (event) {
@@ -265,15 +253,6 @@ document.getElementById("delete").addEventListener("click", function () {
   }
 });
 
- document.querySelector(".playarea-large").addEventListener("click", function (event) {
-  if (event.target.classList.contains("placed-shape")) {
-    if (selectedShape) {
-      selectedShape.style.outline = "none"; // clear previous
-    }
-    selectedShape = event.target;
-    selectedShape.style.outline = "2px dashed red";
-  }
-});
 
     const prompts = [
   "Make a letter that feels angry",
