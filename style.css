@@ -166,8 +166,8 @@ body {
 
 .main-section{
     position: relative;
-    width: 100vw;
-    height: 85vh;
+    width: 100%;
+    height: 90%;
     display: flex;
     place-items: center;
     overflow: hidden;
@@ -176,13 +176,15 @@ body {
 
 .popup-container{
     display: grid;
-    /*grid-template-rows: 2fr auto;*/
+    grid-template-rows: 2fr 1fr;
     justify-content: center;
     height: 100%;
     position: absolute;
     border-radius: 8px;
     /* margin: 0 auto; */
     margin-left: 4rem;
+    padding-top: 1rem;
+    gap: 1rem;
 }
 
 
@@ -283,7 +285,7 @@ body {
 /* popup-playarea (popup-window+scale) */
 .popup-playarea{
     display: grid;
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 3fr auto;
     align-items: center;
 }
 /* Pop-up Window Large*/
