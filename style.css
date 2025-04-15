@@ -175,10 +175,9 @@ body {
     display: grid;
     grid-template-rows: 2fr 1fr;
     justify-content: center;
-    
+    height: calc(var(--vh, 1vh) * 100);
     position: absolute;
     border-radius: 8px;
-    /* margin: 0 auto; */
     margin-left: 4rem;
 }
 
