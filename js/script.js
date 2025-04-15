@@ -250,11 +250,30 @@ colorPicker.addEventListener("input", function (event) {
     }
 });
 
-    /*** RESET BUTTON (Clears All Placed Shapes) ***/
+    /*** RESET BUTTON ***/
     document.getElementById("reset").addEventListener("click", function () {
         document.querySelectorAll(".playarea-large .placed-shape").forEach(shape => shape.remove());
         selectedShape = null;
     });
+
+    /*** DELETE BUTTON ***/
+
+document.getElementById("delete").addEventListener("click", function () {
+  if (selectedShape) {
+    selectedShape.remove();
+    selectedShape = null;
+  }
+});
+
+ document.querySelector(".playarea-large").addEventListener("click", function (event) {
+  if (event.target.classList.contains("placed-shape")) {
+    if (selectedShape) {
+      selectedShape.style.outline = "none"; // clear previous
+    }
+    selectedShape = event.target;
+    selectedShape.style.outline = "2px dashed red";
+  }
+});
 
     const prompts = [
   "Make a letter that feels angry",
