@@ -146,10 +146,6 @@ body {
     margin-right: 1rem;
 }
 
-#close-btn{ 
-    width: fit-content;
-    height: 4vh; 
-          }
 
 
 #reset, #save{
