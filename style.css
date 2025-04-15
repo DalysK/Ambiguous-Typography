@@ -193,7 +193,14 @@ body {
     gap: 1rem;
 
 }
-
+.playarea-top-line{
+    border-right: 3px solid black;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    place-items: center;
+    margin: 0.5rem;
+    gap: 1rem;
+}
 .puzzle-shape{
     display: flex;
     align-items: center;
