@@ -13,9 +13,9 @@
     font-style: normal;
 }
 html, body {
-    width: 100vw;  /* Force full width */
-    height: 100vh; /* Force full height */
-    overflow: hidden; /* Stop unwanted scrolling */
+    width: 100%;  /* Force full width */
+    height: 100%; /* Force full height */
+    overflow: hidden;
 }
 
 body {
