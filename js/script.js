@@ -278,7 +278,7 @@ function getRandomPrompt() {
 
 function updatePrompt() {
   const newPrompt = getRandomPrompt();
-  promptText.textContent = `Your Prompt: ${newPrompt}`;
+  promptText.textContent = `Prompt: ${newPrompt}`;
 }
 
 // Show a prompt immediately when the game loads
