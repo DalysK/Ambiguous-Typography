@@ -178,13 +178,11 @@ body {
     display: grid;
     grid-template-rows: 2fr 1fr;
     justify-content: center;
-    height: 100%;
+    
     position: absolute;
     border-radius: 8px;
     /* margin: 0 auto; */
     margin-left: 4rem;
-    padding-top: 1rem;
-    gap: 1rem;
 }
 
 
@@ -285,8 +283,9 @@ body {
 /* popup-playarea (popup-window+scale) */
 .popup-playarea{
     display: grid;
-    grid-template-columns: 3fr auto;
+    grid-template-columns: 1fr auto;
     align-items: center;
+    height: 50vh;
 }
 /* Pop-up Window Large*/
 .popup-window{
