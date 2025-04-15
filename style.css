@@ -294,8 +294,7 @@ body {
     grid-template-rows: auto 2fr auto;
     z-index: 1;
     border-radius: 8px;
-    height: 60vh;
-    width: 75vw;
+    height: 75%;
 
 }
 
