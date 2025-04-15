@@ -284,8 +284,7 @@ body {
 .popup-playarea{
     display: grid;
     grid-template-columns: 1fr auto;
-    align-items: center;
-    height: 50vh;
+    height: 60vh;
 }
 /* Pop-up Window Large*/
 .popup-window{
@@ -420,7 +419,7 @@ body {
 }
 
 #scale-slider {
-    width: 300px; /* Make slider long */
+    width: 200px; /* Make slider long */
     flex-grow: 1; /* Allow it to stretch */    
 }
 
