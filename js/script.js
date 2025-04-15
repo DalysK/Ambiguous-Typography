@@ -301,5 +301,11 @@ const restartBtn = document.querySelector(".restart-btn");
 if (restartBtn) {
   restartBtn.addEventListener("click", updatePrompt);
 }
+function fixViewportHeight() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('load', fixViewportHeight);
+window.addEventListener('resize', fixViewportHeight);
 
 });
