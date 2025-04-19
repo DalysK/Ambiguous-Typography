@@ -248,7 +248,7 @@ body {
     
 }
 
-.setting-button, #color-icon{
+.setting-button, #color-icon, #pause-btn{
     border-radius: 4px 4px 4px 4px;
     padding: 0.5rem;
     background-color: #D5D5D5;
