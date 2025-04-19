@@ -664,8 +664,10 @@ background: #D5D5D5;
 }
 
 #setting-tetris{
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    padding: 2rem;
+    place-items: center;
 }
 
 #playarea-tetris{
