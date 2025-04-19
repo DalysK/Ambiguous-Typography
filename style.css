@@ -640,6 +640,11 @@ background: #D5D5D5;
  }
 
 
+#mainsection-tetris{
+    display: grid;
+    grid-template-rows: 1fr auto;
+}
+
 #playarea-container-tetris{
     height: 75%;
 }
