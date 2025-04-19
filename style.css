@@ -286,7 +286,7 @@ body {
 }
 
 
-/* popup-playarea (popup-window+scale) */
+/* popup-playarea ) */
 .popup-playarea{
     display: grid;
     grid-template-columns: 1fr auto;
@@ -638,3 +638,8 @@ background: #D5D5D5;
     border-radius: 8px;
     box-shadow: 0px 10px 4px rgb(0, 0, 0, 0.3);
  }
+
+
+#playarea-container-tetris{
+    height: 75%;
+}
