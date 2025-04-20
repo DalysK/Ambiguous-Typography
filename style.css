@@ -712,4 +712,8 @@ canvas{
   border: 1px solid #ccc;
   background: transparent;
 }
-
+#setting-control-tetris{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
