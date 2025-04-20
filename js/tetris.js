@@ -9,38 +9,35 @@ document.addEventListener("DOMContentLoaded", function () {
     cell.classList.add("grid-cell");
     grid.appendChild(cell);
   }
-const shapes = ["I", "L", "O", "T", "Z"];
+ const shapeData = {
+    I: [[1], [1], [1], [1]],
+    L: [[1, 0], [1, 0], [1, 1]],
+    O: [[1, 1], [1, 1]],
+    T: [[1, 1, 1], [0, 1, 0]],
+    Z: [[1, 1, 0], [0, 1, 1]],
+  };
 
-function getRandomShape() {
-  const type = shapes[Math.floor(Math.random() * shapes.length)];
-  const template = document.getElementById(`shape-${type}`);
-  return template.content.firstElementChild.cloneNode(true);
-}
-
-function dropNewShape() {
-  const shape = getRandomShape();
-  shape.classList.add("falling-shape");
-  document.getElementById("grid-container-tetris").appendChild(shape);
-
-  let y = 0;
-  const container = document.getElementById("grid-container-tetris");
-  const containerHeight = container.offsetHeight;
-
-  const interval = setInterval(() => {
-    y += 5;
-    shape.style.transform = `translate(-50%, ${y}px)`;
-
-    if (y + shape.offsetHeight >= containerHeight) {
-      clearInterval(interval);
-      shape.classList.remove("falling-shape");
-      shape.classList.add("placed-shape");
-      shape.style.transform = `translate(-50%, ${containerHeight - shape.offsetHeight}px)`;
-    }
-  }, 30);
-}
-dropNewShape();
-
-
+  function getRandomShape() {
+    const types = Object.keys(shapeData);
+    const type = types[Math.floor(Math.random() * types.length)];
+    return shapeData[type];
+  }
+function drawShape(matrix, startRow = 1, startCol = 4) {
+    matrix.forEach((row, rIdx) => {
+      row.forEach((cell, cIdx) => {
+        if (cell === 1) {
+          const block = document.createElement("div");
+          block.classList.add("block", "falling-shape");
+          block.style.gridRowStart = startRow + rIdx;
+          block.style.gridColumnStart = startCol + cIdx;
+          grid.appendChild(block);
+        }
+      });
+    });
+  }
+const newShape = getRandomShape();
+  drawShape(newShape);
+  
  document.getElementById("color-picker").addEventListener("input", (e) => {
   const color = e.target.value;
   const shape = document.querySelector(".falling-shape");
