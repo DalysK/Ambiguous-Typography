@@ -295,7 +295,6 @@ body {
 }
 /* Pop-up Window Large*/
 .popup-window{
-    border: 3px solid black;
     display: grid;
     grid-template-rows: auto 2fr auto;
     z-index: 1;
@@ -318,7 +317,7 @@ body {
     justify-content: space-between;
     align-items: center;
     background: #D5D5D5;
-    border-bottom: 3px solid black;
+    border: 3px solid black;
     padding-right: 0px;
     border-radius: 4px 4px 0px 0px;
     height: 10vw;
@@ -378,6 +377,8 @@ body {
     justify-content: center; /* Center grid */
     overflow: hidden;
     position: relative;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
 }
 
 .grid-container {
@@ -404,7 +405,7 @@ body {
 /* Footer */
 .popup-footer{
     background: #D5D5D5;
-    border-top: 3px solid black;
+    border: 3px solid black;
     padding: 16px;
     gap: 10px; /* Adjust gap between buttons */
     display: grid;
@@ -699,6 +700,8 @@ background: #D5D5D5;
     justify-content: center; /* Center grid */
     overflow: hidden;
     position: relative;
+    border-left: 3px solid black;
+    border-right: 3px solid black;
 }
 
 #setting-grid-tetris{
