@@ -667,7 +667,6 @@ canvas{
 }
 
 #next-shape-tetris{
-    width: 75%;
     background: white;
     border: 3px solid black;
     z-index: 1;
@@ -690,7 +689,8 @@ canvas{
 
 #setting-grid-tetris{
     display: grid;
-    grid-template-rows: 1fr;
+    grid-template-rows: auto;
+    gap: 1rem;
 }
 
 #grid-empty{
@@ -713,4 +713,7 @@ canvas{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
+    gap: 1rem;
+    padding: 1rem;
+    place-items: center;
 }
