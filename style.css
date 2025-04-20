@@ -640,7 +640,7 @@ background: #D5D5D5;
 #mainsection-tetris{
     display: grid;
     grid-template-rows: 1fr auto;
-    height: 80%;
+    height: 85%;
 }
 
 #playarea-container-tetris{
@@ -676,7 +676,7 @@ background: #D5D5D5;
 }
 
 #playarea-tetris{
-    height:75%;
+    height:100%;
 }
 
 #next-shape-tetris{
@@ -693,7 +693,7 @@ background: #D5D5D5;
     background: white;
     background-size: contain;
     width: 100%;
-    height:100%;
+    height:80%;
     display: flex;
     align-items: center;
     justify-content: center; /* Center grid */
