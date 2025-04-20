@@ -582,6 +582,10 @@ canvas{
   align-items: center;
   justify-content: center;
   overflow: hidden;
+border-left: 3px solid black;
+border-right: 3px solid black;
+    background: white;
+
 }
 .stroke-setting svg{
     height:20px;
@@ -618,7 +622,6 @@ canvas{
 /* Pop-up Window Large*/
 .draw-popup-window{
 background: #D5D5D5;
-    border: 3px solid black;
     display: grid;
     flex-direction: column;
     z-index: 1;
