@@ -703,6 +703,7 @@ canvas{
   grid-template-rows: repeat(20, 1fr);
   width: 100%;
   aspect-ratio: 10 / 20;
+    position: relative;
 }
 
 .grid-cell {
