@@ -652,12 +652,11 @@ canvas{
     z-index: 1;
     border-radius: 8px;
     box-shadow: 0px 10px 4px rgb(0, 0, 0, 0.3);
-    margin-left: 1rem;
 }
 
 #setting-tetris{
     display: grid;
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr;
     padding: 2rem;
     gap: 2rem;
     place-items: center;
@@ -668,8 +667,7 @@ canvas{
 }
 
 #next-shape-tetris{
-    height: 50%;
-    width: 25vw;
+    width: 75%;
     background: white;
     border: 3px solid black;
     z-index: 1;
@@ -692,8 +690,7 @@ canvas{
 
 #setting-grid-tetris{
     display: grid;
-    grid-template-columns: auto 1fr;
-    padding: 1rem;
+    grid-template-rows: 1fr;
 }
 
 #grid-empty{
