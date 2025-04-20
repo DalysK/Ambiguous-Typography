@@ -686,7 +686,7 @@ canvas{
     background: white;
     background-size: contain;
     width: 100%;
-    height:80%;
+   height: 60vh;
     display: flex;
     align-items: center;
     justify-content: center; /* Center grid */
@@ -712,7 +712,6 @@ canvas{
   grid-template-rows: repeat(20, 1fr);
   width: 100%;
   aspect-ratio: 10 / 20;
-  border: 2px solid black;
 }
 
 .grid-cell {
