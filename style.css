@@ -532,18 +532,15 @@ input[type="range"]::-moz-range-thumb {
 .draw-body{
     display: grid;
     grid-template-rows: 1fr auto;
-    gap: 2em;
 }
 .stroke-setting{
-    border: 2px;
-    margin-top: 2em;
-    
+    margin: 1rem;
 }
 
 .line-playarea-top{
 display: grid;
-grid-template-rows: 1fr 0.5fr;
-gap: 20px; 
+grid-template-columns: 1fr 0.5fr;
+align-items: center;
     
 }
 
@@ -585,8 +582,8 @@ canvas{
 
 }
 .stroke-setting svg{
-    height:20px;
-    width: 150px;
+    height:30px;
+    width: 200px;
 }
 
 .draw-main-section{
