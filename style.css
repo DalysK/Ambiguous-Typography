@@ -717,3 +717,12 @@ canvas{
     padding: 1rem;
     place-items: center;
 }
+.falling-shape {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  transition: transform 0.1s linear;
+  pointer-events: none;
+}
+
