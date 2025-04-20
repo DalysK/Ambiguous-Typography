@@ -705,3 +705,18 @@ canvas{
 #grid-empty{
     width: 25vw;
 }
+
+.grid-container-tetris {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  width: 100%;
+  aspect-ratio: 10 / 20;
+  border: 2px solid black;
+}
+
+.grid-cell {
+  border: 1px solid #ccc;
+  background: white;
+}
+
