@@ -703,7 +703,7 @@ background: #D5D5D5;
 
 #setting-grid-tetris{
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: auto 1fr;
     padding: 1rem;
 }
 
