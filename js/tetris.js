@@ -17,26 +17,40 @@ function getRandomShape() {
   return template.content.firstElementChild.cloneNode(true);
 }
 
-  function dropNewShape() {
+function dropNewShape() {
   const shape = getRandomShape();
   shape.classList.add("falling-shape");
   document.getElementById("grid-container-tetris").appendChild(shape);
 
   let y = 0;
-  const interval = setInterval(() => {
-    y += 10;
-    shape.style.transform = `translateY(${y}px)`;
-    // Stop when hits bottom
-    if (y >= 400) clearInterval(interval);
-  }, 100);
-}
+  const container = document.getElementById("grid-container-tetris");
+  const containerHeight = container.offsetHeight;
 
-  document.getElementById("color-picker").addEventListener("input", (e) => {
+  const interval = setInterval(() => {
+    y += 5;
+    shape.style.transform = `translate(-50%, ${y}px)`;
+
+    if (y + shape.offsetHeight >= containerHeight) {
+      clearInterval(interval);
+      shape.classList.remove("falling-shape");
+      shape.classList.add("placed-shape");
+      shape.style.transform = `translate(-50%, ${containerHeight - shape.offsetHeight}px)`;
+    }
+  }, 30);
+}
+dropNewShape();
+
+
+ document.getElementById("color-picker").addEventListener("input", (e) => {
   const color = e.target.value;
-  const selected = document.querySelector(".falling-shape.selected");
-  if (selected) {
-    selected.querySelector("svg path").setAttribute("fill", color);
-  }
+  const shape = document.querySelector(".falling-shape");
+  if (!shape) return;
+
+  const svg = shape.querySelector("svg");
+  if (!svg) return;
+
+  const paths = svg.querySelectorAll("path, rect, circle, polygon");
+  paths.forEach(p => p.setAttribute("fill", color));
 });
 
   
