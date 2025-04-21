@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
   const grid = document.getElementById("grid-container-tetris");
 
-  const COLS = 16;
+  const COLS = 12;
   const ROWS = 20;
 const filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 
