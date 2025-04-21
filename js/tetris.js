@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   const grid = document.getElementById("grid-container-tetris");
 
-  const COLS = 10;
-  const ROWS = 20;
+  const COLS = 16;
+  const ROWS = 24;
 
    grid.style.display = "grid";
   grid.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
