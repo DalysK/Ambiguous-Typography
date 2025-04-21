@@ -86,7 +86,10 @@ function canMoveDown() {
         const newCol = currentCol + j;
 
         // Reached bottom or hit another block
-        if (newRow >= ROWS || filledCells[newRow][newCol] === 1) {
+         if (newRow >= ROWS || newCol < 0 || newCol >= COLS) {
+          return false;
+        }
+   if (filledCells[newRow][newCol] === 1) {
           return false;
         }
       }
