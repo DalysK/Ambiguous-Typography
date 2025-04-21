@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const grid = document.getElementById("grid-container-tetris");
 
   const COLS = 16;
-  const ROWS = 24;
+  const ROWS = 23;
 const filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 
    grid.style.display = "grid";
@@ -150,7 +150,7 @@ document.querySelector('img[src*="arrow_circle_right"]').addEventListener("click
 });
 
 document.querySelector('img[src*="arrow_circle_down"]').addEventListener("click", () => {
-  moveShape(0, 1);
+  moveDown(); 
 });
 
   function rotateMatrix(matrix) {
