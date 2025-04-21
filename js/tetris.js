@@ -66,7 +66,7 @@ function drawShape(matrix, row, col) {
 }
 drawShape(shapeMatrix, currentRow, currentCol);
 updateNextShapePreview(nextShape);
-const fallInterval = setInterval(moveDown, 400);
+let fallInterval = setInterval(moveDown, 400);
 
 
   function moveDown() {
@@ -99,6 +99,10 @@ function lockShape() {
   fallingBlocks.length = 0;
   drawShape(shapeMatrix, currentRow, currentCol);
   updateNextShapePreview(nextShape); 
+  
+  clearInterval(fallInterval);
+fallInterval = setInterval(moveDown, 400);
+
 }
 
 
