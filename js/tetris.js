@@ -3,6 +3,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   const COLS = 16;
   const ROWS = 24;
+const filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 
    grid.style.display = "grid";
   grid.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
@@ -69,15 +70,31 @@ updateNextShapePreview(nextShape);
 let fallInterval = setInterval(moveDown, 400);
 
 
-  function moveDown() {
-    if (currentRow + shapeMatrix.length >= ROWS) {
-      lockShape();
-      return;
-    }
-
+function moveDown() {
+  if (canMoveDown()) {
     currentRow++;
     updateShapePosition();
+  } else {
+    lockShape();
   }
+}
+function canMoveDown() {
+  for (let i = 0; i < shapeMatrix.length; i++) {
+    for (let j = 0; j < shapeMatrix[i].length; j++) {
+      if (shapeMatrix[i][j] === 1) {
+        const newRow = currentRow + i + 1;
+        const newCol = currentCol + j;
+
+        // Reached bottom or hit another block
+        if (newRow >= ROWS || filledCells[newRow][newCol] === 1) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
 
   function updateShapePosition() {
     // Just move each block down by +1 row
@@ -92,18 +109,26 @@ function lockShape() {
     block.classList.remove("falling-shape");
   });
 
+  // Mark filled cells
+  for (let i = 0; i < shapeMatrix.length; i++) {
+    for (let j = 0; j < shapeMatrix[i].length; j++) {
+      if (shapeMatrix[i][j] === 1) {
+        const r = currentRow + i;
+        const c = currentCol + j;
+        filledCells[r][c] = 1;
+      }
+    }
+  }
+
   currentRow = 1;
   currentCol = 4;
   shapeMatrix = nextShape;
   nextShape = getRandomShape();
   fallingBlocks.length = 0;
   drawShape(shapeMatrix, currentRow, currentCol);
-  updateNextShapePreview(nextShape); 
-  
-  clearInterval(fallInterval);
-fallInterval = setInterval(moveDown, 400);
-
+  updateNextShapePreview(nextShape);
 }
+
 
 
 function moveShape(dx, dy) {
@@ -126,6 +151,32 @@ document.querySelector('img[src*="arrow_circle_right"]').addEventListener("click
 
 document.querySelector('img[src*="arrow_circle_down"]').addEventListener("click", () => {
   moveShape(0, 1);
+});
+
+  function rotateMatrix(matrix) {
+  const rows = matrix.length;
+  const cols = matrix[0].length;
+  const rotated = [];
+
+  for (let c = 0; c < cols; c++) {
+    rotated[c] = [];
+    for (let r = rows - 1; r >= 0; r--) {
+      rotated[c][rows - 1 - r] = matrix[r][c];
+    }
+  }
+
+  return rotated;
+}
+document.getElementById("rotate").addEventListener("click", () => {
+  // Remove current blocks from the grid
+  fallingBlocks.forEach(block => block.remove());
+  fallingBlocks.length = 0;
+
+  // Rotate the shape matrix
+  shapeMatrix = rotateMatrix(shapeMatrix);
+
+  // Re-draw shape at the current position
+  drawShape(shapeMatrix, currentRow, currentCol);
 });
 
   // Color picker applies only to current falling shape
