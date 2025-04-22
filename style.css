@@ -115,7 +115,6 @@ body {
 .play-area-main{
     background: white;
     background-size: contain;
-    min-height: 500px;
 }
 
 .play-area-main img{
