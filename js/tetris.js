@@ -1,8 +1,8 @@
 document.addEventListener("DOMContentLoaded", function () {
   const grid = document.getElementById("grid-container-tetris");
 
-  const COLS = 14;
-  const ROWS = 30;
+  const COLS = 12;
+  const ROWS = 20;
 const filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
 
    grid.style.display = "grid";
@@ -85,11 +85,13 @@ function canMoveDown() {
         const newRow = currentRow + i + 1;
         const newCol = currentCol + j;
 
-        // Reached bottom or hit another block
-         if (newRow >= ROWS || newCol < 0 || newCol >= COLS) {
+        // Prevent going beyond the bottom of the grid
+        if (newRow >= ROWS) {
           return false;
         }
-   if (filledCells[newRow][newCol] === 1) {
+
+        // Prevent going into filled cells
+        if (filledCells[newRow][newCol] === 1) {
           return false;
         }
       }
@@ -97,6 +99,7 @@ function canMoveDown() {
   }
   return true;
 }
+
 
 
   function updateShapePosition() {
