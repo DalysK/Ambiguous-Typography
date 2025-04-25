@@ -112,20 +112,18 @@ function canMoveDown() {
 
 function lockShape() {
   fallingBlocks.forEach(block => {
-    block.classList.remove("falling-shape");
+    const row = parseInt(block.style.gridRowStart);
+    const col = parseInt(block.style.gridColumnStart);
+
+    if (row < ROWS) {
+      filledCells[row][col] = 1;
+      block.classList.remove("falling-shape");
+    } else {
+      block.remove(); 
+    }
   });
 
-  // Mark filled cells
-  for (let i = 0; i < shapeMatrix.length; i++) {
-    for (let j = 0; j < shapeMatrix[i].length; j++) {
-      if (shapeMatrix[i][j] === 1) {
-        const r = currentRow + i;
-        const c = currentCol + j;
-        filledCells[r][c] = 1;
-      }
-    }
-  }
-
+  // Reset for next shape
   currentRow = 1;
   currentCol = 4;
   shapeMatrix = nextShape;
