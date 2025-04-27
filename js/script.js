@@ -306,13 +306,14 @@ function fixViewportHeight() {
 window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
+    
 document.getElementById("save").addEventListener("click", () => {
   const playArea = document.querySelector(".playarea-large");
 
   // 1. Clone the play area
   const clone = playArea.cloneNode(true);
 
-  // 2. Inside the clone, replace SVGs with images
+  // 2. Replace SVG with IMG
   clone.querySelectorAll("svg").forEach(svg => {
     const svgString = new XMLSerializer().serializeToString(svg);
     const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
@@ -320,7 +321,6 @@ document.getElementById("save").addEventListener("click", () => {
 
     const img = document.createElement("img");
     img.src = dataUrl;
-    img.className = svg.className; // keep class if needed
     img.style.position = "absolute";
     img.style.left = svg.style.left;
     img.style.top = svg.style.top;
@@ -331,27 +331,43 @@ document.getElementById("save").addEventListener("click", () => {
     svg.replaceWith(img);
   });
 
-  // 3. Temporary wrapper to hide it
+  // 3. Temporary wrapper
   const tempWrapper = document.createElement("div");
   tempWrapper.style.position = "fixed";
-  tempWrapper.style.left = "-9999px";
+  tempWrapper.style.left = "-9999px"; 
   tempWrapper.appendChild(clone);
   document.body.appendChild(tempWrapper);
 
-  // 4. Snapshot the clone
-  html2canvas(clone, {
-    backgroundColor: "white",
-    useCORS: true,
-    foreignObjectRendering: true
-  }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "my_creation.png";
-    link.href = canvas.toDataURL();
-    link.click();
+  // 4. WAIT for all images to load first
+  const allImages = clone.querySelectorAll("img");
+  const promises = [];
 
-    document.body.removeChild(tempWrapper);
+  allImages.forEach(img => {
+    if (!img.complete) {
+      promises.push(new Promise(resolve => {
+        img.onload = img.onerror = resolve;
+      }));
+    }
+  });
+
+  Promise.all(promises).then(() => {
+    // 5. Now safe to snapshot
+    html2canvas(clone, {
+      backgroundColor: "white",
+      useCORS: true,
+      foreignObjectRendering: true
+    }).then(canvas => {
+      const link = document.createElement("a");
+      link.download = "my_creation.png";
+      link.href = canvas.toDataURL();
+      link.click();
+
+      // 6. Clean up
+      document.body.removeChild(tempWrapper);
+    });
   });
 });
+
 
 
 
