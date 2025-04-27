@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const canvas = document.getElementById("playarea-canvas");
   const ctx = canvas.getContext("2d");
 
-  const COLS = 12;
+  const COLS = 13;
   const ROWS = 20;
   const BLOCK_SIZE = 30; // each block size
 
