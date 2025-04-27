@@ -120,21 +120,23 @@ function moveDown() {
     return true;
   }
 
-  function lockShape() {
-    currentShape.forEach((row, rIdx) => {
-      row.forEach((cell, cIdx) => {
-        if (cell === 1) {
+function lockShape() {
+  currentShape.forEach((row, rIdx) => {
+    row.forEach((cell, cIdx) => {
+      if (cell) {
+        if (currentRow + rIdx < ROWS && currentCol + cIdx >= 0 && currentCol + cIdx < COLS) {
           filledCells[currentRow + rIdx][currentCol + cIdx] = currentColor;
         }
-      });
+      }
     });
+  });
 
-    currentRow = 0;
-    currentCol = 4;
-    currentShape = getRandomShape();
-    currentColor = defaultColor;
-    drawGrid();
-  }
+  currentRow = 0;
+  currentCol = 4;
+  currentShape = getRandomShape();
+  currentColor = defaultColor;
+}
+
 
   function rotateShape() {
     const rows = currentShape.length;
