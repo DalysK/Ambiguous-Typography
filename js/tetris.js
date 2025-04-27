@@ -1,20 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
-  const grid = document.getElementById("grid-container-tetris");
+  const canvas = document.getElementById("playarea-canvas");
+  const ctx = canvas.getContext("2d");
 
   const COLS = 12;
   const ROWS = 20;
-const filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+  const BLOCK_SIZE = 30; // size of each square
 
-   grid.style.display = "grid";
-  grid.style.gridTemplateColumns = `repeat(${COLS}, 1fr)`;
-  grid.style.gridTemplateRows = `repeat(${ROWS}, 1fr)`;
+  canvas.width = COLS * BLOCK_SIZE;
+  canvas.height = ROWS * BLOCK_SIZE;
 
-  for (let i = 0; i < COLS * ROWS; i++) {
-    const cell = document.createElement("div");
-    cell.classList.add("grid-cell");
-    grid.appendChild(cell);
-  }
- const shapeData = {
+  let filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
+
+  const shapeData = {
     I: [[1], [1], [1], [1]],
     L: [[1, 0], [1, 0], [1, 1]],
     O: [[1, 1], [1, 1]],
@@ -22,166 +19,130 @@ const filledCells = Array.from({ length: ROWS }, () => Array(COLS).fill(0));
     Z: [[1, 1, 0], [0, 1, 1]],
   };
 
-    function getRandomShape() {
-    const keys = Object.keys(shapeData);
-    const random = keys[Math.floor(Math.random() * keys.length)];
-    return shapeData[random];
-  }
-const nextShapeBox = document.getElementById("next-shape-tetris");
-
-function updateNextShapePreview(shapeType) {
-  nextShapeBox.innerHTML = ""; 
-  shapeType.forEach((row, rIdx) => {
-    row.forEach((cell, cIdx) => {
-      if (cell === 1) {
-        const block = document.createElement("div");
-        block.classList.add("preview-shape");
-        block.style.gridRowStart = rIdx + 1;
-        block.style.gridColumnStart = cIdx + 1;
-        nextShapeBox.appendChild(block);
-      }
-    });
-  });
-}
-
-  let currentRow = 1;
+  let currentShape = getRandomShape();
+  let currentRow = 0;
   let currentCol = 4;
-let nextShape = getRandomShape();
-let shapeMatrix = nextShape;
-nextShape = getRandomShape();
-  const fallingBlocks = [];
+  let fallInterval;
+  let paused = false;
 
-function drawShape(matrix, row, col) {
-  matrix.forEach((r, rIdx) => {
-    r.forEach((cell, cIdx) => {
-      if (cell === 1) {
-        const block = document.createElement("div");
-        block.classList.add("block", "falling-shape");
-        block.style.gridRowStart = row + rIdx;
-        block.style.gridColumnStart = col + cIdx;
-        grid.appendChild(block);
-        fallingBlocks.push(block);
+  function getRandomShape() {
+    const keys = Object.keys(shapeData);
+    const randomKey = keys[Math.floor(Math.random() * keys.length)];
+    return shapeData[randomKey];
+  }
+
+  function drawGrid() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Draw placed blocks
+    for (let r = 0; r < ROWS; r++) {
+      for (let c = 0; c < COLS; c++) {
+        if (filledCells[r][c]) {
+          ctx.fillStyle = "#969696";
+          ctx.fillRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+          ctx.strokeRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        }
       }
+    }
+
+    // Draw falling shape
+    ctx.fillStyle = "#969696";
+    currentShape.forEach((row, rIdx) => {
+      row.forEach((cell, cIdx) => {
+        if (cell === 1) {
+          ctx.fillRect((currentCol + cIdx) * BLOCK_SIZE, (currentRow + rIdx) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+          ctx.strokeRect((currentCol + cIdx) * BLOCK_SIZE, (currentRow + rIdx) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        }
+      });
     });
-  });
-}
-drawShape(shapeMatrix, currentRow, currentCol);
-updateNextShapePreview(nextShape);
-let fallInterval = setInterval(moveDown, 400);
+  }
 
+  function moveDown() {
+    if (paused) return;
 
-function moveDown() {
-  if (canMoveDown()) {
+    if (!canMove(0, 1)) {
+      lockShape();
+      return;
+    }
+
     currentRow++;
-    updateShapePosition();
-  } else {
-    lockShape();
+    drawGrid();
   }
-}
-function canMoveDown() {
-  for (let i = 0; i < shapeMatrix.length; i++) {
-    for (let j = 0; j < shapeMatrix[i].length; j++) {
-      if (shapeMatrix[i][j] === 1) {
-        const newRow = currentRow + i + 1;
-        const newCol = currentCol + j;
 
-        // Prevent going beyond the bottom of the grid
-        if (newRow >= ROWS) {
-          return false;
-        }
+  function moveLeft() {
+    if (paused) return;
+    if (canMove(-1, 0)) currentCol--;
+    drawGrid();
+  }
 
-        // Prevent going into filled cells
-        if (filledCells[newRow][newCol] === 1) {
-          return false;
+  function moveRight() {
+    if (paused) return;
+    if (canMove(1, 0)) currentCol++;
+    drawGrid();
+  }
+
+  function canMove(dx, dy) {
+    for (let r = 0; r < currentShape.length; r++) {
+      for (let c = 0; c < currentShape[r].length; c++) {
+        if (currentShape[r][c]) {
+          const newR = currentRow + r + dy;
+          const newC = currentCol + c + dx;
+          if (newR >= ROWS || newC < 0 || newC >= COLS || (newR >= 0 && filledCells[newR][newC])) {
+            return false;
+          }
         }
       }
     }
+    return true;
   }
-  return true;
-}
 
-
-
-  function updateShapePosition() {
-    // Just move each block down by +1 row
-    fallingBlocks.forEach(block => {
-      const currentRow = parseInt(block.style.gridRowStart);
-      block.style.gridRowStart = currentRow + 1;
+  function lockShape() {
+    currentShape.forEach((row, rIdx) => {
+      row.forEach((cell, cIdx) => {
+        if (cell) {
+          filledCells[currentRow + rIdx][currentCol + cIdx] = 1;
+        }
+      });
     });
+
+    currentRow = 0;
+    currentCol = 4;
+    currentShape = getRandomShape();
+    drawGrid();
   }
 
-function lockShape() {
-  fallingBlocks.forEach(block => {
-    const row = parseInt(block.style.gridRowStart);
-    const col = parseInt(block.style.gridColumnStart);
-
-    if (row < ROWS) {
-      filledCells[row][col] = 1;
-      block.classList.remove("falling-shape");
-    } else {
-      block.remove(); 
-    }
-  });
-
-  // Reset for next shape
-  currentRow = 1;
-  currentCol = 4;
-  shapeMatrix = nextShape;
-  nextShape = getRandomShape();
-  fallingBlocks.length = 0;
-  drawShape(shapeMatrix, currentRow, currentCol);
-  updateNextShapePreview(nextShape);
-}
-
-
-
-function moveShape(dx, dy) {
-  currentRow += dy;
-  currentCol += dx;
-  fallingBlocks.forEach(block => {
-    const currentRowPos = parseInt(block.style.gridRowStart);
-    const currentColPos = parseInt(block.style.gridColumnStart);
-    block.style.gridRowStart = currentRowPos + dy;
-    block.style.gridColumnStart = currentColPos + dx;
-  });
-}
-document.querySelector('img[src*="arrow_circle_left"]').addEventListener("click", () => {
-  moveShape(-1, 0);
-});
-
-document.querySelector('img[src*="arrow_circle_right"]').addEventListener("click", () => {
-  moveShape(1, 0);
-});
-
-document.querySelector('img[src*="arrow_circle_down"]').addEventListener("click", () => {
-  moveDown(); 
-});
-
-  function rotateMatrix(matrix) {
-  const rows = matrix.length;
-  const cols = matrix[0].length;
-  const rotated = [];
-
-  for (let c = 0; c < cols; c++) {
-    rotated[c] = [];
-    for (let r = rows - 1; r >= 0; r--) {
-      rotated[c][rows - 1 - r] = matrix[r][c];
-    }
+  function togglePause() {
+    paused = !paused;
   }
 
-  return rotated;
-}
-document.getElementById("rotate").addEventListener("click", () => {
-  // Remove current blocks from the grid
-  fallingBlocks.forEach(block => block.remove());
-  fallingBlocks.length = 0;
+  // Button listeners
+  document.getElementById("move-left").addEventListener("click", moveLeft);
+  document.getElementById("move-right").addEventListener("click", moveRight);
+  document.getElementById("move-down").addEventListener("click", moveDown);
+  document.getElementById("rotate").addEventListener("click", () => {
+    if (paused) return;
+    rotateShape();
+    drawGrid();
+  });
+  document.getElementById("pause-btn").addEventListener("click", togglePause);
 
-  // Rotate the shape matrix
-  shapeMatrix = rotateMatrix(shapeMatrix);
+  function rotateShape() {
+    const rows = currentShape.length;
+    const cols = currentShape[0].length;
+    const rotated = [];
 
-  // Re-draw shape at the current position
-  drawShape(shapeMatrix, currentRow, currentCol);
-});
+    for (let c = 0; c < cols; c++) {
+      rotated[c] = [];
+      for (let r = rows - 1; r >= 0; r--) {
+        rotated[c][rows - 1 - r] = currentShape[r][c];
+      }
+    }
+
+    currentShape = rotated;
+  }
+
+  fallInterval = setInterval(moveDown, 500);
+
 
   // Color picker applies only to current falling shape
   document.getElementById("color-picker").addEventListener("input", (e) => {
