@@ -34,32 +34,50 @@ document.addEventListener("DOMContentLoaded", function () {
     return shapeData[randomKey];
   }
 
-  function drawGrid() {
-    ctx.fillStyle = "white";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
+function drawGrid() {
+  ctx.fillStyle = "white";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw placed blocks
-    for (let r = 0; r < ROWS; r++) {
-      for (let c = 0; c < COLS; c++) {
-        if (filledCells[r][c]) {
-          ctx.fillStyle = filledCells[r][c];
-          ctx.fillRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-          ctx.strokeRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-        }
+  // ✨ Draw faint grid lines first
+  ctx.strokeStyle = "#cccccc"; // light gray
+  for (let x = 0; x <= COLS; x++) {
+    ctx.beginPath();
+    ctx.moveTo(x * BLOCK_SIZE, 0);
+    ctx.lineTo(x * BLOCK_SIZE, canvas.height);
+    ctx.stroke();
+  }
+  for (let y = 0; y <= ROWS; y++) {
+    ctx.beginPath();
+    ctx.moveTo(0, y * BLOCK_SIZE);
+    ctx.lineTo(canvas.width, y * BLOCK_SIZE);
+    ctx.stroke();
+  }
+
+  // Draw placed blocks
+  for (let r = 0; r < ROWS; r++) {
+    for (let c = 0; c < COLS; c++) {
+      if (filledCells[r][c]) {
+        ctx.fillStyle = filledCells[r][c];
+        ctx.fillRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        ctx.strokeStyle = "black"; // block outlines
+        ctx.strokeRect(c * BLOCK_SIZE, r * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
       }
     }
-
-    // Draw falling shape
-    ctx.fillStyle = currentColor;
-    currentShape.forEach((row, rIdx) => {
-      row.forEach((cell, cIdx) => {
-        if (cell === 1) {
-          ctx.fillRect((currentCol + cIdx) * BLOCK_SIZE, (currentRow + rIdx) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-          ctx.strokeRect((currentCol + cIdx) * BLOCK_SIZE, (currentRow + rIdx) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-        }
-      });
-    });
   }
+
+  // Draw falling shape
+  ctx.fillStyle = currentColor;
+  currentShape.forEach((row, rIdx) => {
+    row.forEach((cell, cIdx) => {
+      if (cell === 1) {
+        ctx.fillRect((currentCol + cIdx) * BLOCK_SIZE, (currentRow + rIdx) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+        ctx.strokeStyle = "black";
+        ctx.strokeRect((currentCol + cIdx) * BLOCK_SIZE, (currentRow + rIdx) * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+      }
+    });
+  });
+}
+
 
   function moveDown() {
     if (paused) return;
