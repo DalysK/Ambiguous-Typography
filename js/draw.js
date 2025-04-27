@@ -107,6 +107,57 @@ strokes.forEach(option => {
   }, { passive: false });
 });
 
+  const prompts = [
+  "Make a letter that feels angry",
+  "Use only curves and no straight lines",
+  "Create a shape that breaks symmetry",
+  "Build a letterform from minimal pieces",
+  "Make it feel like it's tipping over",
+  "Use negative space creatively",
+  "Design something that challenges legibility",
+  "Build a soft-looking structure",
+  "Stack parts vertically, like a tower",
+  "Make it feel like it's in motion"
+];
+
+const promptText = document.querySelector(".prompt-text");
+
+function getRandomPrompt() {
+  const index = Math.floor(Math.random() * prompts.length);
+  return prompts[index];
+}
+
+function updatePrompt() {
+  const newPrompt = getRandomPrompt();
+  promptText.textContent = `Prompt: ${newPrompt}`;
+}
+
+// Show a prompt immediately when the game loads
+updatePrompt();
+
+// Change prompt on reset
+const resetBtn = document.getElementById("reset");
+if (resetBtn) {
+  resetBtn.addEventListener("click", updatePrompt);
+}
+
+// Change prompt on save
+const saveBtn = document.getElementById("save");
+if (saveBtn) {
+  saveBtn.addEventListener("click", updatePrompt);
+}
+
+// Change prompt on restart icon click
+const restartBtn = document.querySelector(".restart-btn");
+if (restartBtn) {
+  restartBtn.addEventListener("click", updatePrompt);
+}
+function fixViewportHeight() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('load', fixViewportHeight);
+window.addEventListener('resize', fixViewportHeight);
 
 
   
@@ -116,7 +167,7 @@ strokes.forEach(option => {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   });
 
-  // Save button (optional)
+  // Save button 
   const saveBtn = document.getElementById("save");
   saveBtn.addEventListener("click", () => {
     const dataURL = canvas.toDataURL("image/png");
