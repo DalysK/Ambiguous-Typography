@@ -306,4 +306,15 @@ function fixViewportHeight() {
 window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
+    document.getElementById("save").addEventListener("click", function() {
+  const target = document.querySelector(".playarea-large"); 
+  
+  html2canvas(target, { backgroundColor: "white" }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "my_creation.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+});
+
 });
