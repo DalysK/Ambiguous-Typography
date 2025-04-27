@@ -308,7 +308,7 @@ window.addEventListener('resize', fixViewportHeight);
 
     
 document.getElementById("save").addEventListener("click", () => {
-  const playArea = document.querySelector(".playarea-large");
+  const playArea = document.querySelector(".popup-window");
 
   // 1. Clone the play area
   const clone = playArea.cloneNode(true);
