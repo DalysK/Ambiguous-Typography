@@ -48,31 +48,48 @@ document.addEventListener("DOMContentLoaded", function () {
 
     shapeElements.forEach(shape => {
         shape.addEventListener("click", function (event) {
-            console.log("Shape clicked:", event.target); 
+            console.log("Shape clicked:", event.target); // Debugging check
             addShapeToPlayArea(this);
         });
     });
 
 
-function addShapeToPlayArea(originalShape) {
-  const playArea = document.querySelector(".playarea-large");
+    function addShapeToPlayArea(originalShape) {
+        const playArea = document.querySelector(".playarea-large");
 
-  const newShape = originalShape.cloneNode(true);
-  newShape.classList.add("placed-shape");
-  newShape.style.position = "absolute";
-  newShape.style.cursor = "grab";
+        // Clone the clicked shape
+        let newShape = originalShape.cloneNode(true);
+        newShape.classList.add("placed-shape");
+        newShape.style.position = "absolute";
+        newShape.style.width = originalShape.clientWidth + "px"; 
+        newShape.style.height = "auto"; 
+        newShape.style.cursor = "grab"; // Indicate it's draggable
 
-  newShape.style.width = originalShape.clientWidth + "px";
-  newShape.style.height = "auto";
+        // Get play area size
+        const playAreaRect = playArea.getBoundingClientRect();
 
-  const playAreaRect = playArea.getBoundingClientRect();
-  newShape.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
-  newShape.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
+        // Correct position relative to the play area
+        newShape.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
+        newShape.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
 
-  playArea.appendChild(newShape);
+        // Add the shape to the play area
+        playArea.appendChild(newShape);
 
-  return newShape;
+        // Make the shape draggable
+        newShape.addEventListener("mousedown", startDrag);
+        newShape.addEventListener("touchstart", startDrag);
+
+        function selectShape(e) {
+  e.preventDefault();
+  e.stopPropagation();
+  selectedShape = this;
+  console.log("Shape selected (touch/click):", selectedShape);
 }
+
+newShape.addEventListener("click", selectShape);
+newShape.addEventListener("touchstart", selectShape, { passive: false });
+
+    }
 
     function startDrag(event) {
         event.preventDefault();
@@ -331,45 +348,6 @@ document.getElementById("save").addEventListener("click", () => {
 });
 
 
-document.getElementById("save").addEventListener("click", async () => {
-  const playArea = document.querySelector(".playarea-large");
-  const svgs = playArea.querySelectorAll(".placed-shape");
-
-  const clones = [];
-
-  // Convert each SVG to IMG
-  for (const svg of svgs) {
-    const svgString = new XMLSerializer().serializeToString(svg);
-    const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
-    const img = document.createElement("img");
-    img.src = `data:image/svg+xml;base64,${encodedData}`;
-    img.style.position = "absolute";
-    img.style.left = svg.style.left;
-    img.style.top = svg.style.top;
-    img.style.width = svg.style.width;
-    img.style.height = svg.style.height;
-    img.style.transform = svg.style.transform;
-    img.classList.add("temp-screenshot-img");
-
-    playArea.appendChild(img);
-    clones.push(img);
-  }
-
-  // Take snapshot
-  await html2canvas(playArea, {
-    backgroundColor: "white",
-    useCORS: true,
-    foreignObjectRendering: true
-  }).then(canvas => {
-    const link = document.createElement("a");
-    link.download = "my_creation.png";
-    link.href = canvas.toDataURL();
-    link.click();
-  });
-
-  // Remove temp imgs after saving
-  clones.forEach(img => img.remove());
-});
 
 
 });
