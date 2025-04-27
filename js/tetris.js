@@ -84,11 +84,11 @@ function moveDown() {
 
   if (canMove(0, 1)) {
     currentRow++;
-    drawGrid();
   } else {
     lockShape(); 
-    drawGrid(); 
+    return;
   }
+    drawGrid(); 
 }
 
 
