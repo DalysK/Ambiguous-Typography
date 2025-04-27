@@ -142,6 +142,9 @@ body {
     padding: 0.5rem;
 }
 
+.close-btn{
+    margin-right: 10em;
+}
 
 
 #reset, #save{
