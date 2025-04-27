@@ -135,14 +135,11 @@ body {
 }
 
 .close-btn-icon{
-    border: 3px solid black; 
-    border-radius: 4px;
-    background-color: RGB(144,144,144);
+    
     cursor: pointer;
     width: fit-content;
     height: fit-content;
     padding: 0.5rem;
-    margin-right: 1rem;
 }
 
 
