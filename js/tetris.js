@@ -169,7 +169,7 @@ document.addEventListener("DOMContentLoaded", function () {
     rotateShape();
     drawGrid();
   });
-  document.getElementById("pause-btn").addEventListener("click", togglePause);
+  document.getElementById("pause").addEventListener("click", togglePause);
   document.getElementById("reset").addEventListener("click", resetGame);
   document.getElementById("save").addEventListener("click", saveCanvas);
 
