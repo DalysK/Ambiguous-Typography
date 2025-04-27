@@ -54,60 +54,25 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
- function addShapeToPlayArea(originalShape) {
-  const newShape = placeSvgShapeAsImage(originalShape); 
-
-  // Make it draggable
-  newShape.addEventListener("mousedown", startDrag);
-  newShape.addEventListener("touchstart", startDrag);
-
-  // Make it selectable
-  function selectShape(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    selectedShape = this;
-    console.log("Shape selected (click/touch):", selectedShape);
-  }
-
-  newShape.addEventListener("click", selectShape);
-  newShape.addEventListener("touchstart", selectShape, { passive: false });
-}
-
-function placeSvgShapeAsImage(originalShape) {
+function addShapeToPlayArea(originalShape) {
   const playArea = document.querySelector(".playarea-large");
 
-  const svgClone = originalShape.cloneNode(true);
+  const newShape = originalShape.cloneNode(true);
+  newShape.classList.add("placed-shape");
+  newShape.style.position = "absolute";
+  newShape.style.cursor = "grab";
 
-  // Serialize SVG
-  const svgString = new XMLSerializer().serializeToString(svgClone);
-
-  // Convert SVG string to base64
-  const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
-  const dataUrl = `data:image/svg+xml;base64,${encodedData}`;
-
-  // Create <img>
-  const img = document.createElement("img");
-  img.src = dataUrl; // Not blob anymore
-  img.classList.add("placed-shape");
-  img.style.position = "absolute";
-  img.style.cursor = "grab";
-
-  img.onload = function () {
-    img.style.width = originalShape.clientWidth + "px";
-    img.style.height = "auto";
-  };
+  newShape.style.width = originalShape.clientWidth + "px";
+  newShape.style.height = "auto";
 
   const playAreaRect = playArea.getBoundingClientRect();
-  img.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
-  img.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
+  newShape.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
+  newShape.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
 
-  playArea.appendChild(img);
+  playArea.appendChild(newShape);
 
-  return img;
+  return newShape;
 }
-
-
-
 
     function startDrag(event) {
         event.preventDefault();
@@ -366,6 +331,45 @@ document.getElementById("save").addEventListener("click", () => {
 });
 
 
+document.getElementById("save").addEventListener("click", async () => {
+  const playArea = document.querySelector(".playarea-large");
+  const svgs = playArea.querySelectorAll(".placed-shape");
+
+  const clones = [];
+
+  // Convert each SVG to IMG
+  for (const svg of svgs) {
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
+    const img = document.createElement("img");
+    img.src = `data:image/svg+xml;base64,${encodedData}`;
+    img.style.position = "absolute";
+    img.style.left = svg.style.left;
+    img.style.top = svg.style.top;
+    img.style.width = svg.style.width;
+    img.style.height = svg.style.height;
+    img.style.transform = svg.style.transform;
+    img.classList.add("temp-screenshot-img");
+
+    playArea.appendChild(img);
+    clones.push(img);
+  }
+
+  // Take snapshot
+  await html2canvas(playArea, {
+    backgroundColor: "white",
+    useCORS: true,
+    foreignObjectRendering: true
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "my_creation.png";
+    link.href = canvas.toDataURL();
+    link.click();
+  });
+
+  // Remove temp imgs after saving
+  clones.forEach(img => img.remove());
+});
 
 
 });
