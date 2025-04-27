@@ -159,6 +159,21 @@ function fixViewportHeight() {
 window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
+  function saveCanvas() {
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext("2d");
+
+    tempCtx.fillStyle = "white";
+    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+    tempCtx.drawImage(canvas, 0, 0);
+
+    const link = document.createElement("a");
+    link.download = "ambiguous_typography.png";
+    link.href = tempCanvas.toDataURL();
+    link.click();
+  }
   
   // Reset button
   const resetBtn = document.getElementById("reset");
