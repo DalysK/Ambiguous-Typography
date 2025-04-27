@@ -175,7 +175,7 @@ function moveDown() {
     tempCtx.drawImage(canvas, 0, 0);
 
     const link = document.createElement("a");
-    link.download = "my_tetris_creation.png";
+    link.download = "ambiguous_typography.png";
     link.href = tempCanvas.toDataURL();
     link.click();
   }
