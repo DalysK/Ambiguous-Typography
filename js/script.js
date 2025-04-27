@@ -307,21 +307,39 @@ window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
 document.getElementById("save").addEventListener("click", () => {
-  const svgs = document.querySelectorAll(".grid-container svg");
-  const originalAttributes = [];
+  const playArea = document.querySelector(".playarea-large");
 
-  // Temporarily add width and height
-  svgs.forEach(svg => {
-    originalAttributes.push({
-      svg: svg,
-      width: svg.getAttribute("width"),
-      height: svg.getAttribute("height")
-    });
-    svg.setAttribute("width", svg.getBoundingClientRect().width);
-    svg.setAttribute("height", svg.getBoundingClientRect().height);
+  // 1. Clone the play area
+  const clone = playArea.cloneNode(true);
+
+  // 2. Inside the clone, replace SVGs with images
+  clone.querySelectorAll("svg").forEach(svg => {
+    const svgString = new XMLSerializer().serializeToString(svg);
+    const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
+    const dataUrl = `data:image/svg+xml;base64,${encodedData}`;
+
+    const img = document.createElement("img");
+    img.src = dataUrl;
+    img.className = svg.className; // keep class if needed
+    img.style.position = "absolute";
+    img.style.left = svg.style.left;
+    img.style.top = svg.style.top;
+    img.style.width = svg.style.width;
+    img.style.height = svg.style.height;
+    img.style.transform = svg.style.transform;
+
+    svg.replaceWith(img);
   });
 
-  html2canvas(document.querySelector(".grid-container"), {
+  // 3. Temporary wrapper to hide it
+  const tempWrapper = document.createElement("div");
+  tempWrapper.style.position = "fixed";
+  tempWrapper.style.left = "-9999px";
+  tempWrapper.appendChild(clone);
+  document.body.appendChild(tempWrapper);
+
+  // 4. Snapshot the clone
+  html2canvas(clone, {
     backgroundColor: "white",
     useCORS: true,
     foreignObjectRendering: true
@@ -331,21 +349,10 @@ document.getElementById("save").addEventListener("click", () => {
     link.href = canvas.toDataURL();
     link.click();
 
-    // Restore original width and height
-    originalAttributes.forEach(({ svg, width, height }) => {
-      if (width !== null) {
-        svg.setAttribute("width", width);
-      } else {
-        svg.removeAttribute("width");
-      }
-      if (height !== null) {
-        svg.setAttribute("height", height);
-      } else {
-        svg.removeAttribute("height");
-      }
-    });
+    document.body.removeChild(tempWrapper);
   });
 });
+
 
 
 
