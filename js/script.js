@@ -80,12 +80,14 @@ function placeSvgShapeAsImage(originalShape) {
 
   // Serialize SVG
   const svgString = new XMLSerializer().serializeToString(svgClone);
-  const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
-  const url = URL.createObjectURL(svgBlob);
+
+  // Convert SVG string to base64
+  const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
+  const dataUrl = `data:image/svg+xml;base64,${encodedData}`;
 
   // Create <img>
   const img = document.createElement("img");
-  img.src = url;
+  img.src = dataUrl; // Not blob anymore
   img.classList.add("placed-shape");
   img.style.position = "absolute";
   img.style.cursor = "grab";
@@ -95,15 +97,15 @@ function placeSvgShapeAsImage(originalShape) {
     img.style.height = "auto";
   };
 
-  // Center it
   const playAreaRect = playArea.getBoundingClientRect();
   img.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
   img.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
 
   playArea.appendChild(img);
 
-  return img; //  return it!
+  return img;
 }
+
 
 
 
