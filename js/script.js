@@ -307,11 +307,10 @@ window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
 document.getElementById("save").addEventListener("click", () => {
-  html2canvas(document.querySelector(".playarea-large"), {
+  html2canvas(document.querySelector(".grid-container"), {
     backgroundColor: "white",
     useCORS: true,
-    foreignObjectRendering: true,
-    logging: true
+    foreignObjectRendering: true
   }).then(canvas => {
     const link = document.createElement("a");
     link.download = "my_creation.png";
@@ -319,6 +318,7 @@ document.getElementById("save").addEventListener("click", () => {
     link.click();
   });
 });
+
 
 
 });
