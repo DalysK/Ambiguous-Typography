@@ -105,7 +105,7 @@ strokes.forEach(option => {
     e.preventDefault(); // prevent double-tap zoom and simulate click
     selectStroke();
   }, { passive: false });
-});
+}what);
 
      const prompts = [
   "Make a letter that feels angry",
