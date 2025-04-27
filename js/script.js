@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function addShapeToPlayArea(originalShape) {
-        const playArea = document.querySelector(".save-target");
+        const playArea = document.querySelector(".playarea-large");
 
         // Clone the clicked shape
         let newShape = originalShape.cloneNode(true);
@@ -98,7 +98,7 @@ newShape.addEventListener("touchstart", selectShape, { passive: false });
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playArea = document.querySelector(".save-target");
+        const playArea = document.querySelector(".playarea-large");
         const playAreaRect = playArea.getBoundingClientRect();
         const shapeRect = activeShape.getBoundingClientRect();
         
@@ -128,7 +128,7 @@ newShape.addEventListener("touchstart", selectShape, { passive: false });
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playArea = document.querySelector(".save-target");
+        const playArea = document.querySelector(".playarea-large");
         const playAreaRect = playArea.getBoundingClientRect();    
         const shapeRect = activeShape.getBoundingClientRect();
 
@@ -166,7 +166,7 @@ newShape.addEventListener("touchstart", selectShape, { passive: false });
 let selectedShape = null;
 
 // Select shape when clicked
-document.querySelector(".save-target").addEventListener("click", function (event) {
+document.querySelector(".playarea-large").addEventListener("click", function (event) {
     if (event.target.classList.contains("placed-shape")) {
         selectedShape = event.target;
         console.log("Selected shape:", selectedShape);
@@ -240,7 +240,7 @@ colorPicker.addEventListener("input", function (event) {
 
     /*** RESET BUTTON ***/
     document.getElementById("reset").addEventListener("click", function () {
-        document.querySelectorAll(".save-target .placed-shape").forEach(shape => shape.remove());
+        document.querySelectorAll(".playarea-large .placed-shape").forEach(shape => shape.remove());
         selectedShape = null;
     });
 
@@ -306,69 +306,46 @@ function fixViewportHeight() {
 window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
-    
 document.getElementById("save").addEventListener("click", () => {
-  const playArea = document.querySelector(".save-target");
+  const svgs = document.querySelectorAll(".grid-container svg");
+  const originalAttributes = [];
 
-  // 1. Clone the play area
-  const clone = playArea.cloneNode(true);
-
-  // 2. Replace SVG with IMG
-  clone.querySelectorAll("svg").forEach(svg => {
-    const svgString = new XMLSerializer().serializeToString(svg);
-    const encodedData = window.btoa(unescape(encodeURIComponent(svgString)));
-    const dataUrl = `data:image/svg+xml;base64,${encodedData}`;
-
-    const img = document.createElement("img");
-    img.src = dataUrl;
-    img.style.position = "absolute";
-    img.style.left = svg.style.left;
-    img.style.top = svg.style.top;
-    img.style.width = svg.style.width;
-    img.style.height = svg.style.height;
-    img.style.transform = svg.style.transform;
-
-    svg.replaceWith(img);
+  // Temporarily add width and height
+  svgs.forEach(svg => {
+    originalAttributes.push({
+      svg: svg,
+      width: svg.getAttribute("width"),
+      height: svg.getAttribute("height")
+    });
+    svg.setAttribute("width", svg.getBoundingClientRect().width);
+    svg.setAttribute("height", svg.getBoundingClientRect().height);
   });
 
-  // 3. Temporary wrapper
-  const tempWrapper = document.createElement("div");
-  tempWrapper.style.position = "fixed";
-  tempWrapper.style.left = "-9999px"; 
-  tempWrapper.appendChild(clone);
-  document.body.appendChild(tempWrapper);
+  html2canvas(document.querySelector(".grid-container"), {
+    backgroundColor: "white",
+    useCORS: true,
+    foreignObjectRendering: true
+  }).then(canvas => {
+    const link = document.createElement("a");
+    link.download = "my_creation.png";
+    link.href = canvas.toDataURL();
+    link.click();
 
-  // 4. WAIT for all images to load first
-  const allImages = clone.querySelectorAll("img");
-  const promises = [];
-
-  allImages.forEach(img => {
-    if (!img.complete) {
-      promises.push(new Promise(resolve => {
-        img.onload = img.onerror = resolve;
-      }));
-    }
-  });
-
-  Promise.all(promises).then(() => {
-    // 5. Now safe to snapshot
-    html2canvas(clone, {
-      backgroundColor: "white",
-      useCORS: true,
-      foreignObjectRendering: true
-    }).then(canvas => {
-      const link = document.createElement("a");
-      link.download = "my_creation.png";
-      link.href = canvas.toDataURL();
-      link.click();
-
-      // 6. Clean up
-      document.body.removeChild(tempWrapper);
+    // Restore original width and height
+    originalAttributes.forEach(({ svg, width, height }) => {
+      if (width !== null) {
+        svg.setAttribute("width", width);
+      } else {
+        svg.removeAttribute("width");
+      }
+      if (height !== null) {
+        svg.setAttribute("height", height);
+      } else {
+        svg.removeAttribute("height");
+      }
     });
   });
 });
-
-
 
 
 
