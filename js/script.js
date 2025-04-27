@@ -307,6 +307,20 @@ window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
 document.getElementById("save").addEventListener("click", () => {
+  const svgs = document.querySelectorAll(".grid-container svg");
+  const originalAttributes = [];
+
+  // Temporarily add width and height
+  svgs.forEach(svg => {
+    originalAttributes.push({
+      svg: svg,
+      width: svg.getAttribute("width"),
+      height: svg.getAttribute("height")
+    });
+    svg.setAttribute("width", svg.getBoundingClientRect().width);
+    svg.setAttribute("height", svg.getBoundingClientRect().height);
+  });
+
   html2canvas(document.querySelector(".grid-container"), {
     backgroundColor: "white",
     useCORS: true,
@@ -316,8 +330,23 @@ document.getElementById("save").addEventListener("click", () => {
     link.download = "my_creation.png";
     link.href = canvas.toDataURL();
     link.click();
+
+    // Restore original width and height
+    originalAttributes.forEach(({ svg, width, height }) => {
+      if (width !== null) {
+        svg.setAttribute("width", width);
+      } else {
+        svg.removeAttribute("width");
+      }
+      if (height !== null) {
+        svg.setAttribute("height", height);
+      } else {
+        svg.removeAttribute("height");
+      }
+    });
   });
 });
+
 
 
 
