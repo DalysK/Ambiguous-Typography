@@ -79,17 +79,18 @@ function drawGrid() {
 }
 
 
-  function moveDown() {
-    if (paused) return;
+ function moveDown() {
+  if (paused) return;
 
-    if (!canMove(0, 1)) {
-      lockShape();
-      return;
-    }
-
+  if (canMove(0, 1)) {
     currentRow++;
-    drawGrid();
+  } else {
+    lockShape();
   }
+  
+  drawGrid();
+}
+
 
   function moveLeft() {
     if (paused) return;
