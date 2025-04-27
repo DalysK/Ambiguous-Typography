@@ -38,7 +38,7 @@ function drawGrid() {
   ctx.fillStyle = "white";
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-  // ✨ Draw faint grid lines first
+  // Draw faint grid lines first
   ctx.strokeStyle = "#cccccc"; // light gray
   for (let x = 0; x <= COLS; x++) {
     ctx.beginPath();
