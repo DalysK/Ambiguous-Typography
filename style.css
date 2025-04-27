@@ -142,9 +142,6 @@ body {
     padding: 0.5rem;
 }
 
-.close-btn img{
-    margin-right: 10em;
-}
 
 
 #reset, #save{
@@ -323,11 +320,11 @@ body {
 }
 .popup-header{
     display: flex;
-    justify-content: space-between;
+    justify-content: end;
     align-items: center;
     background: #D5D5D5;
     border-bottom: 3px solid black;
-    padding-right: 0px;
+    padding-right: 0.5em;
     border-radius: 4px 4px 0px 0px;
 }
 
