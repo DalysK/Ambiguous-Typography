@@ -306,18 +306,16 @@ function fixViewportHeight() {
 window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
 
-document.getElementById("save").addEventListener("click", function() {
-  const playarea = document.querySelector(".playarea-large");
-
-  html2canvas(playarea, {
-    backgroundColor: "#ffffff",
-    allowTaint: true,
+document.getElementById("save").addEventListener("click", () => {
+  html2canvas(document.querySelector(".playarea-large"), {
+    backgroundColor: "white",
     useCORS: true,
-    scale: 2 // Make higher resolution if you want
+    foreignObjectRendering: true,
+    logging: true
   }).then(canvas => {
-    const link = document.createElement('a');
-    link.download = 'geometric_creation.png';
-    link.href = canvas.toDataURL('image/png');
+    const link = document.createElement("a");
+    link.download = "my_creation.png";
+    link.href = canvas.toDataURL();
     link.click();
   });
 });
