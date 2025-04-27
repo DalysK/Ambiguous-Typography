@@ -48,48 +48,64 @@ document.addEventListener("DOMContentLoaded", function () {
 
     shapeElements.forEach(shape => {
         shape.addEventListener("click", function (event) {
-            console.log("Shape clicked:", event.target); // Debugging check
+            console.log("Shape clicked:", event.target); 
             addShapeToPlayArea(this);
         });
     });
 
 
-    function addShapeToPlayArea(originalShape) {
-        const playArea = document.querySelector(".playarea-large");
+ function addShapeToPlayArea(originalShape) {
+  const newShape = placeSvgShapeAsImage(originalShape); 
 
-        // Clone the clicked shape
-        let newShape = originalShape.cloneNode(true);
-        newShape.classList.add("placed-shape");
-        newShape.style.position = "absolute";
-        newShape.style.width = originalShape.clientWidth + "px"; 
-        newShape.style.height = "auto"; 
-        newShape.style.cursor = "grab"; // Indicate it's draggable
+  // Make it draggable
+  newShape.addEventListener("mousedown", startDrag);
+  newShape.addEventListener("touchstart", startDrag);
 
-        // Get play area size
-        const playAreaRect = playArea.getBoundingClientRect();
+  // Make it selectable
+  function selectShape(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    selectedShape = this;
+    console.log("Shape selected (click/touch):", selectedShape);
+  }
 
-        // Correct position relative to the play area
-        newShape.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
-        newShape.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
-
-        // Add the shape to the play area
-        playArea.appendChild(newShape);
-
-        // Make the shape draggable
-        newShape.addEventListener("mousedown", startDrag);
-        newShape.addEventListener("touchstart", startDrag);
-
-        function selectShape(e) {
-  e.preventDefault();
-  e.stopPropagation();
-  selectedShape = this;
-  console.log("Shape selected (touch/click):", selectedShape);
+  newShape.addEventListener("click", selectShape);
+  newShape.addEventListener("touchstart", selectShape, { passive: false });
 }
 
-newShape.addEventListener("click", selectShape);
-newShape.addEventListener("touchstart", selectShape, { passive: false });
+function placeSvgShapeAsImage(originalShape) {
+  const playArea = document.querySelector(".playarea-large");
 
-    }
+  const svgClone = originalShape.cloneNode(true);
+
+  // Serialize SVG
+  const svgString = new XMLSerializer().serializeToString(svgClone);
+  const svgBlob = new Blob([svgString], { type: "image/svg+xml;charset=utf-8" });
+  const url = URL.createObjectURL(svgBlob);
+
+  // Create <img>
+  const img = document.createElement("img");
+  img.src = url;
+  img.classList.add("placed-shape");
+  img.style.position = "absolute";
+  img.style.cursor = "grab";
+
+  img.onload = function () {
+    img.style.width = originalShape.clientWidth + "px";
+    img.style.height = "auto";
+  };
+
+  // Center it
+  const playAreaRect = playArea.getBoundingClientRect();
+  img.style.left = `${playArea.clientWidth / 2 - originalShape.clientWidth / 2}px`;
+  img.style.top = `${playArea.clientHeight / 2 - originalShape.clientHeight / 2}px`;
+
+  playArea.appendChild(img);
+
+  return img; //  return it!
+}
+
+
 
     function startDrag(event) {
         event.preventDefault();
