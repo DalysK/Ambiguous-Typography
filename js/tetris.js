@@ -151,6 +151,47 @@ document.addEventListener("DOMContentLoaded", function () {
       block.style.backgroundColor = color;
     });
   });
+
+const promptText = document.querySelector(".prompt-text");
+
+function getRandomPrompt() {
+  const index = Math.floor(Math.random() * prompts.length);
+  return prompts[index];
+}
+
+function updatePrompt() {
+  const newPrompt = getRandomPrompt();
+  promptText.textContent = `Prompt: ${newPrompt}`;
+}
+
+// Show a prompt immediately when the game loads
+updatePrompt();
+
+// Change prompt on reset
+const resetBtn = document.getElementById("reset");
+if (resetBtn) {
+  resetBtn.addEventListener("click", updatePrompt);
+}
+
+// Change prompt on save
+const saveBtn = document.getElementById("save");
+if (saveBtn) {
+  saveBtn.addEventListener("click", updatePrompt);
+}
+
+// Change prompt on restart icon click
+const restartBtn = document.querySelector(".restart-btn");
+if (restartBtn) {
+  restartBtn.addEventListener("click", updatePrompt);
+}
+function fixViewportHeight() {
+  let vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+window.addEventListener('load', fixViewportHeight);
+window.addEventListener('resize', fixViewportHeight);
+
+  
 });
 
 
