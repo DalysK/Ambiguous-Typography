@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
     function addShapeToPlayArea(originalShape) {
-        const playArea = document.querySelector(".playarea-large");
+        const playArea = document.querySelector(".save-target");
 
         // Clone the clicked shape
         let newShape = originalShape.cloneNode(true);
@@ -98,7 +98,7 @@ newShape.addEventListener("touchstart", selectShape, { passive: false });
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playArea = document.querySelector(".playarea-large");
+        const playArea = document.querySelector(".save-target");
         const playAreaRect = playArea.getBoundingClientRect();
         const shapeRect = activeShape.getBoundingClientRect();
         
@@ -128,7 +128,7 @@ newShape.addEventListener("touchstart", selectShape, { passive: false });
         const isTouch = event.type.startsWith("touch");
         const touch = isTouch ? event.touches[0] : event;
 
-        const playArea = document.querySelector(".playarea-large");
+        const playArea = document.querySelector(".save-target");
         const playAreaRect = playArea.getBoundingClientRect();    
         const shapeRect = activeShape.getBoundingClientRect();
 
@@ -166,7 +166,7 @@ newShape.addEventListener("touchstart", selectShape, { passive: false });
 let selectedShape = null;
 
 // Select shape when clicked
-document.querySelector(".playarea-large").addEventListener("click", function (event) {
+document.querySelector(".save-target").addEventListener("click", function (event) {
     if (event.target.classList.contains("placed-shape")) {
         selectedShape = event.target;
         console.log("Selected shape:", selectedShape);
@@ -240,7 +240,7 @@ colorPicker.addEventListener("input", function (event) {
 
     /*** RESET BUTTON ***/
     document.getElementById("reset").addEventListener("click", function () {
-        document.querySelectorAll(".playarea-large .placed-shape").forEach(shape => shape.remove());
+        document.querySelectorAll(".save-target .placed-shape").forEach(shape => shape.remove());
         selectedShape = null;
     });
 
@@ -308,7 +308,7 @@ window.addEventListener('resize', fixViewportHeight);
 
     
 document.getElementById("save").addEventListener("click", () => {
-  const playArea = document.querySelector(".popup-window");
+  const playArea = document.querySelector(".save-target");
 
   // 1. Clone the play area
   const clone = playArea.cloneNode(true);
