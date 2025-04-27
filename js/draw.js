@@ -107,7 +107,7 @@ strokes.forEach(option => {
   }, { passive: false });
 });
 
-  const prompts = [
+     const prompts = [
   "Make a letter that feels angry",
   "Use only curves and no straight lines",
   "Create a shape that breaks symmetry",
@@ -158,7 +158,6 @@ function fixViewportHeight() {
 }
 window.addEventListener('load', fixViewportHeight);
 window.addEventListener('resize', fixViewportHeight);
-
 
   
   // Reset button
