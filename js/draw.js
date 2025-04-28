@@ -105,7 +105,7 @@ strokes.forEach(option => {
     e.preventDefault(); // prevent double-tap zoom and simulate click
     selectStroke();
   }, { passive: false });
-}what);
+});
 
      const prompts = [
   "Make a letter that feels angry",
@@ -182,12 +182,19 @@ window.addEventListener('resize', fixViewportHeight);
   });
 
   // Save button 
-  const saveBtn = document.getElementById("save");
-  saveBtn.addEventListener("click", () => {
-    const dataURL = canvas.toDataURL("image/png");
-    const a = document.createElement("a");
-    a.href = dataURL;
-    a.download = "drawing.png";
-    a.click();
-  });
+function saveCanvas() {
+    const tempCanvas = document.createElement("canvas");
+    tempCanvas.width = canvas.width;
+    tempCanvas.height = canvas.height;
+    const tempCtx = tempCanvas.getContext("2d");
+
+    tempCtx.fillStyle = "white";
+    tempCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+    tempCtx.drawImage(canvas, 0, 0);
+
+    const link = document.createElement("a");
+    link.download = "ambiguous_typography.png";
+    link.href = tempCanvas.toDataURL();
+    link.click();
+  }
 });
