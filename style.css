@@ -331,6 +331,7 @@ body {
 #prompt{
     display: grid;
     grid-template-columns: 2fr auto;
+    width: 90%
 }
 
 .prompt-box{
