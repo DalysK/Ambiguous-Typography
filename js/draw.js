@@ -98,15 +98,18 @@ document.addEventListener("DOMContentLoaded", function () {
   // Prompts
   const prompts = [
     "Make a letter that feels angry",
-    "Use only curves and no straight lines",
-    "Create a shape that breaks symmetry",
-    "Build a letterform from minimal pieces",
-    "Make it feel like it's tipping over",
-    "Use negative space creatively",
-    "Design something that challenges legibility",
-    "Build a soft-looking structure",
-    "Stack parts vertically, like a tower",
-    "Make it feel like it's in motion"
+   "Write your name using shapes.",
+    "Create your favorite letter.",
+    "Design a word you love.",
+    "Draw a letterform without using straight lines.",
+    "Rebuild your initials using only curves.",
+    "Make the ugliest letter you can.",
+    "Invent a new symbol for the alphabet.",
+    "Create the word 'chaos' using forms.",
+    "Make a letter that looks broken.",
+    "Design a typeface you would never use.",
+    "Write your least favorite word.",
+    "Create a hidden message using shapes."
   ];
 
   const promptText = document.querySelector(".prompt-text");
